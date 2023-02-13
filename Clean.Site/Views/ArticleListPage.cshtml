@@ -4,3 +4,21 @@
 @{
 	Layout = "Master.cshtml";
 }
+
+
+@{
+	var selection = Umbraco.Content(Guid.Parse("c606cba8-dfeb-4db5-99be-e297710fe601"))
+	.Children()
+	.Where(x => x.IsVisible());
+}
+<ul>
+	@foreach (var item in selection)
+	{
+		<article class="special">
+			<div class="articledate"> @item.CreateDate </div>
+			<div class="articletitle"><a href="@item.Url()">@item.Name()</a></div>
+			<div class="articlepreview">@Html.Truncate(item.Value("title").ToString(), 20, true)<a href="@item.Url()">Read More..</a></div>
+		</article>
+	}
+</ul>
+
