@@ -1,0 +1,78 @@
+﻿@inherits UmbracoViewPage
+
+@{
+    var homePage = Model.AncestorOrSelf<HomePage>();
+
+    var selection = Umbraco.Content(Guid.Parse("c606cba8-dfeb-4db5-99be-e297710fe601"))
+        .Children()
+        .Where(x => x.IsVisible())
+        .Take(5);
+}
+
+<div class="nk-news-box">
+    <div class="nk-news-box-list">
+        <div class="nano">
+            <div class="nano-content">
+                @foreach (var item in selection)
+                {
+                    var mainImage = item.Value<IPublishedContent>("mainImage");
+
+                    <div class="nk-news-box-item nk-news-box-item-active">
+                        <div class="nk-news-box-item-img">
+                            @{
+                                if (mainImage != null)
+                                {
+                                    <img src="@mainImage.Url()" alt="@item.Name()" />
+                                }
+                            }
+                        </div>
+                        @{
+                            if (mainImage != null)
+                            {
+                                <img src="@mainImage.Url()" alt="@item.Name()" class="nk-news-box-item-full-img"/>
+                            }
+                        }
+                        <h3 class="nk-news-box-item-title">@item.Name()</h3>
+
+                        <span class="nk-news-box-item-categories">
+                            <span class="bg-main-4">MMO</span>
+                        </span>
+
+                        <div class="nk-news-box-item-text">
+                            <p>@Html.Truncate(item.Value("title").ToString(), 20, true)</p>
+                        </div>
+
+                        <a href="@item.Url()" class="nk-news-box-item-url">Read More</a>
+
+                        <div class="nk-news-box-item-date">
+                            <span class="fa fa-calendar"></span> 
+                            @item.CreateDate
+                        </div>
+                    </div>
+                }
+
+            </div>
+        </div>
+    </div>
+    <div class="nk-news-box-each-info">
+        <div class="nano">
+            <div class="nano-content">
+                <!-- There will be inserted info about selected news-->
+                <div class="nk-news-box-item-image">
+                    <img src="assets/img/post-1.jpg" alt="">
+                    <span class="nk-news-box-item-categories">
+                        <span class="bg-main-4">MMO</span>
+                    </span>
+                </div>
+                <h3 class="nk-news-box-item-title">Smell magic in the air. Or maybe barbecue</h3>
+                <div class="nk-news-box-item-text">
+                    <p>With what mingled joy and sorrow do I take up the pen to write to my dearest friend! Oh, what a change between to-day and yesterday! Now I am friendless and alone...</p>
+                </div>
+                <a href="blog-article.html" class="nk-news-box-item-more">Read More</a>
+                <div class="nk-news-box-item-date">
+                    <span class="fa fa-calendar"></span> Sep 18, 2018
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

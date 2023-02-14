@@ -1,3 +1,5 @@
+using Clean.Site.GoogleAuthentication;
+
 namespace Clean.Site
 {
     public class Startup
@@ -33,7 +35,8 @@ namespace Clean.Site
                 .AddBackOffice()
                 .AddWebsite()
                 .AddComposers()
-                .Build();
+                .AddGoogleAuthentication()
+				.Build();
         }
 
         /// <summary>
