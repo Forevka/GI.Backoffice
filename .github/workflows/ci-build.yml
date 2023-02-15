@@ -31,7 +31,7 @@ jobs:
     - name: Build
       run: dotnet build ./Clean.Site/Clean.Site.csproj --no-restore --output ./artifacts
 
-    - name: Publish Nuget Artifacts to Action Run
+    - name: Publish Artifacts
       uses: actions/upload-artifact@v2
       with:
         name: Nuget Package
