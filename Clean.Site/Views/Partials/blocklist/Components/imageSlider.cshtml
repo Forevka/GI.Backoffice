@@ -1,4 +1,5 @@
-﻿@inherits UmbracoViewPage
+﻿@using Umbraco.Cms.Core.Models
+@inherits UmbracoViewPage
 
 @{
     var homePage = Model.AncestorOrSelf<HomePage>();
@@ -15,22 +16,21 @@
     
     @foreach (var item in selection)
     {
-        var mainImage = item.Value<IPublishedContent>("mainImage");
+        var mainImage = item.Value<MediaWithCrops<Image>>("mainImage");
 
         <div class="nk-image-slider-item">
             @{
                 if (mainImage != null)
                 {
-                    <img src="@mainImage.Url()" alt="@item.Name()"/>
-                    <img src="@mainImage.Url()" alt="@item.Name()" class="nk-image-slider-img" data-thumb="@mainImage.Url()">
+                    <img src="@mainImage.Url()" alt="@item.Name()" class="nk-image-slider-img" data-thumb="@mainImage.GetCropUrl("thumb")">
                 }
             }
 
             <div class="nk-image-slider-content">
 
                 <h3 class="h4">@Html.Truncate(item.Value("title").ToString(), 20, true)</h3>
-                <p class="text-white">@Html.Truncate(item.Value("title").ToString(), 20, true)</p>
-                <a href="#" class="nk-btn nk-btn-rounded nk-btn-color-white nk-btn-hover-color-main-1">Read More</a>
+                <p class="text-white">@Html.Truncate(item.Value("subtitle").ToString(), 260, true)</p>
+                <a href="@item.Url()" class="nk-btn nk-btn-rounded nk-btn-color-white nk-btn-hover-color-main-1">Read More</a>
 
             </div>
 

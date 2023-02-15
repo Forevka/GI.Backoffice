@@ -40,7 +40,7 @@
                         </span>
 
                         <div class="nk-news-box-item-text">
-                            <p>@Html.Truncate(item.Value("title").ToString(), 20, true)</p>
+                            <p>@Html.Truncate(item.Value("subtitle").ToString(), 200, true)</p>
                         </div>
 
                         <a href="@item.Url()" class="nk-news-box-item-url">Read More</a>

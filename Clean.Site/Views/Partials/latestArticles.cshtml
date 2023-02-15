@@ -1,13 +1,20 @@
+@using Umbraco.Cms.Core.Models
 @inherits UmbracoViewPage
 
 <!-- Main Content-->
 <div class="nk-gap-2"></div>
 <div class="container">
-    <img class="nk-page-background-top" src="assets/img/bg-top.png" alt="">
-    <img class="nk-page-background-bottom" src="assets/img/bg-bottom.png" alt="">
+
+    @{
+        var mainImage = Model.Value<MediaWithCrops<Image>>("mainImage");
+        var bottomImage = Model.Value<MediaWithCrops<Image>>("bottomImage");
+
+        <img class="nk-page-background-top" src="@mainImage.Url()" alt="">
+        <img class="nk-page-background-bottom" src="@bottomImage.Url()" alt="">
+    }
 
     @await Html.PartialAsync("~/Views/Partials/blocklist/Components/imageSlider.cshtml")
-    
+
     <!-- START: Categories -->
     <div class="nk-gap-2"></div>
     <div class="row vertical-gap">
@@ -51,7 +58,7 @@
     <div class="nk-gap-2"></div>
     <h3 class="nk-decorated-h-2"><span><span class="text-main-1">Latest</span> News</span></h3>
     <div class="nk-gap"></div>
-    
+
 
     @await Html.PartialAsync("~/Views/Partials/newsGallery.cshtml")
 
