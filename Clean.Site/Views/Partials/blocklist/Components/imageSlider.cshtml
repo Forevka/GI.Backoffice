@@ -1,1 +1,41 @@
-﻿
+﻿@inherits UmbracoViewPage
+
+@{
+    var homePage = Model.AncestorOrSelf<HomePage>();
+
+    var selection = Umbraco.Content(Guid.Parse("c606cba8-dfeb-4db5-99be-e297710fe601"))
+        .Children()
+        .Where(x => x.IsVisible() && x.Value<bool>("isFeatured"))
+        .OrderByDescending(x => x.CreateDate)
+        .Take(5);
+}
+
+<!-- START: Image Slider -->
+<div class="nk-image-slider" data-autoplay="8000">
+    
+    @foreach (var item in selection)
+    {
+        var mainImage = item.Value<IPublishedContent>("mainImage");
+
+        <div class="nk-image-slider-item">
+            @{
+                if (mainImage != null)
+                {
+                    <img src="@mainImage.Url()" alt="@item.Name()"/>
+                    <img src="@mainImage.Url()" alt="@item.Name()" class="nk-image-slider-img" data-thumb="@mainImage.Url()">
+                }
+            }
+
+            <div class="nk-image-slider-content">
+
+                <h3 class="h4">@Html.Truncate(item.Value("title").ToString(), 20, true)</h3>
+                <p class="text-white">@Html.Truncate(item.Value("title").ToString(), 20, true)</p>
+                <a href="#" class="nk-btn nk-btn-rounded nk-btn-color-white nk-btn-hover-color-main-1">Read More</a>
+
+            </div>
+
+        </div>
+    }
+
+</div>
+<!-- END: Image Slider -->

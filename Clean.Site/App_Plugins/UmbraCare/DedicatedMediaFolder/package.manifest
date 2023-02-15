@@ -1,9 +1,0 @@
-{
-  "javascript": [
-    "~/App_Plugins/UmbraCare/DedicatedMediaFolder/mediapicker.controller.js",
-    "~/App_Plugins/UmbraCare/DedicatedMediaFolder/mediapicker.interceptor.js"
-  ],
-  "css": [
-    "~/App_Plugins/UmbraCare/DedicatedMediaFolder/styles.css"
-  ]
-}
