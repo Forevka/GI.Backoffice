@@ -1,13 +1,64 @@
-﻿@using Umbraco.Cms.Web.Common.PublishedModels;
-@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.ContentPage>
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.ContentPage>
 @using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@using Umbraco.Cms.Core.Services;
+
+@using Umbraco.Cms.Core.Models;
+@inject IUserService UserService;
+
 @{
 	Layout = "Master.cshtml";
 }
 
+@{
+    var homePage = Model.Ancestor<HomePage>();
+
+    var author = Model.Value<int>("author");
+    var user = UserService.GetUserById(author);
+    var topImage = homePage.Value<MediaWithCrops<Image>>("topImage");
+    var bottomImage = homePage.Value<MediaWithCrops<Image>>("bottomImage");
+
+    <img class="nk-page-background-top" src="@topImage?.Url()" alt="">
+    <img class="nk-page-background-bottom" src="@bottomImage?.Url()" alt="">
+}
+
+<div class="nk-gap-1"></div>
+<div class="container">
+    <ul class="nk-breadcrumbs">
+        <li><span>@Model.Value("title")?.ToString()</span></li>
+    </ul>
+</div>
 <!-- Main Content-->
-<main class="mb-4">
-	<div class="container px-4 px-lg-5">
-		@Html.GetBlockListHtml(Model.MainContent)
-	</div>
-</main>
+<div class="nk-gap-1"></div>
+<div class="container">
+    <div class="row vertical-gap">
+        <div class="col-lg-8">
+
+            <div class="nk-blog-post nk-blog-post-single">
+                <!-- START: Post Text -->
+                <div class="nk-post-text mt-0">
+                    <div class="nk-post-img">
+                        @{
+                            var postImage = Model.Value<MediaWithCrops<Image>>("mainImage");
+
+                            <img src="@postImage?.Url()" alt="@Model.Value("title")?.ToString()">
+                        }
+                    </div>
+                    <div class="nk-gap-1"></div>
+                    <h1 class="nk-post-title h4">@Model.Value("title")?.ToString()</h1>
+                    <div class="nk-post-by">
+                        <img src="/media/@user?.Avatar" alt="@user?.Name" class="rounded-circle" width="35"> by <a href="#">@user?.Name</a> in @Model.CreateDate
+                        <div class="nk-post-categories">
+                        @foreach (var tag in Model.Value<IEnumerable<string>>("tags"))
+                        {
+                            <span class="bg-main-1">@tag</span>
+                        }
+                        </div>
+                    </div>
+
+                    @await Html.GetBlockListHtmlAsync(Model.MainContent)
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

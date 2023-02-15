@@ -5,15 +5,7 @@
 <div class="nk-gap-2"></div>
 <div class="container">
 
-    @{
-        var mainImage = Model.Value<MediaWithCrops<Image>>("mainImage");
-        var bottomImage = Model.Value<MediaWithCrops<Image>>("bottomImage");
-
-        <img class="nk-page-background-top" src="@mainImage.Url()" alt="">
-        <img class="nk-page-background-bottom" src="@bottomImage.Url()" alt="">
-    }
-
-    @await Html.PartialAsync("~/Views/Partials/blocklist/Components/imageSlider.cshtml")
+    @await Html.PartialAsync("~/Views/Partials/blocklist/Components/featuredArticlesSlider.cshtml")
 
     <!-- START: Categories -->
     <div class="nk-gap-2"></div>

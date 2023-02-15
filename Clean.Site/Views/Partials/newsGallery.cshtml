@@ -33,7 +33,7 @@
                                 <img src="@mainImage.Url()" alt="@item.Name()" class="nk-news-box-item-full-img"/>
                             }
                         }
-                        <h3 class="nk-news-box-item-title">@item.Name()</h3>
+                        <h3 class="nk-news-box-item-title">@Html.Truncate(item.Value("title").ToString(), 26, true)</h3>
 
                         <span class="nk-news-box-item-categories">
                             <span class="bg-main-4">MMO</span>

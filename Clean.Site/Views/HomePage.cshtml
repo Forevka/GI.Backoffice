@@ -1,8 +1,16 @@
-﻿@using Umbraco.Cms.Web.Common.PublishedModels;
-@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.HomePage>
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.HomePage>
 @using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@using Umbraco.Cms.Core.Models
 @{
 	Layout = "Master.cshtml";
+}
+
+@{
+    var topImage = Model.Value<MediaWithCrops<Image>>("topImage");
+    var bottomImage = Model.Value<MediaWithCrops<Image>>("bottomImage");
+
+    <img class="nk-page-background-top" src="@topImage?.Url()" alt="">
+    <img class="nk-page-background-bottom" src="@bottomImage?.Url()" alt="">
 }
 
 @await Html.PartialAsync("~/Views/Partials/latestArticles.cshtml")
