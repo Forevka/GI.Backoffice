@@ -1,0 +1,102 @@
+# This workflow will build a .NET project
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
+
+name: Manual Release
+
+on:
+  workflow_dispatch:
+    inputs:
+        versionnumber:
+            description: 'The version number to release (eg: 2.1.0)'
+            required: true
+            default: ''
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+
+    - name: Display Version Number set 
+      run: |
+          echo "Log level: $VERSIONNUMBER"
+      env:
+        VERSIONNUMBER: ${{ inputs.versionnumber }}
+    
+    - name: Install NerdBank.GitVersioning dotnet global tool
+      id: gitversion
+      uses: dotnet/nbgv@v0.4.0
+    
+    - name: Run nbgv set-version
+      run: nbgv set-version ${{ inputs.versionnumber }}
+
+    - name: Tag Commit with Version
+      run: |
+        set -e
+          echo "Tag latest commit to ${{ inputs.versionnumber }}"
+          # Configure git
+          git config --global user.email github-actions@github.com
+          git config --global user.name github-actions
+          # Add tag commit
+          git tag -a v${{ inputs.versionnumber }} -m "Releasing v${{ inputs.versionnumber }} from GitHub Actions"
+          # Push
+          git push origin v${{ inputs.versionnumber }} 
+
+    - name: Tag Commit with Version ${{ inputs.versionnumber }}
+      run: |
+        set -e
+          echo "Bump/Update version.json to ${{ inputs.versionnumber }}"
+          # Git Add
+          git add version.json
+          git commit -m "Bump version to v${{ inputs.versionnumber }} [skip ci]"
+          git push origin        
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 7.0.x
+        
+    - name: Restore dependencies
+      run: dotnet restore
+      
+    - name: Build
+      run: dotnet build --no-restore
+      
+    - name: Pack
+      run: dotnet pack --configuration Release --output ./artifacts
+
+    - name: Publish Artifacts to Action Run
+      uses: actions/upload-artifact@v2
+      with:
+        name: Nuget Package
+        path: ./artifacts/
+
+    - name: Push to Nuget Feed
+      run: dotnet nuget push ./artifacts/*.nupkg --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NUGET_API_KEY }}
+
+    - name: Create GitHub Release
+      uses: softprops/action-gh-release@v1
+      with:
+        tag_name: v${{ inputs.versionnumber }}
+        draft: false
+        generate_release_notes: true
+        files: |
+          ./artifacts/*.nupkg
+          ./artifacts/*.snupkg
+
+    - name: Run nbgv set-version to append beta
+      run: nbgv set-version ${{ inputs.versionnumber }}-beta
+
+    - name: Tag Commit with Version ${{ inputs.versionnumber }}-beta
+      run: |
+        set -e
+          echo "Bump/Update version.json to ${{ inputs.versionnumber }}-beta"
+          # Git Add
+          git add version.json
+          git commit -m "Bump version to v${{ inputs.versionnumber }}-beta [skip ci]"
+          git push origin
+
+    
