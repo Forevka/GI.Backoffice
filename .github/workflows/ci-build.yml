@@ -29,10 +29,7 @@ jobs:
       run: dotnet restore
       
     - name: Build
-      run: dotnet build --no-restore
-      
-    - name: Pack
-      run: dotnet pack --configuration Release --output ./artifacts
+      run: dotnet build --no-restore --output ./artifacts
 
     - name: Publish Nuget Artifacts to Action Run
       uses: actions/upload-artifact@v2
