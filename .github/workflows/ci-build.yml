@@ -20,19 +20,13 @@ jobs:
       with:
           fetch-depth: 0
     
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v3
-      with:
-        dotnet-version: 7.0.x
-        
-    - name: Restore dependencies
-      run: dotnet restore
+    - name: Docker Login
+      run: |
+        docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_PASSWORD}}
+    
+    - name: Build the Docker image
+      run: docker build . --tag ${{env.dockerRepositoryName}}:${{ secrets.ENV_NAME }}
       
-    - name: Build
-      run: dotnet build ./Clean.Site/Clean.Site.csproj --no-restore --output ./artifacts
-
-    - name: Publish Artifacts
-      uses: actions/upload-artifact@v2
-      with:
-        name: Nuget Package
-        path: ./artifacts/
+    - name: Docker Push
+      run: docker push ${{env.dockerRepositoryName}}:${{ secrets.ENV_NAME }}
+      
