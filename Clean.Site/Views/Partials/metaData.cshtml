@@ -1,7 +1,11 @@
-@inherits UmbracoViewPage<IHeaderProperties>
+@inherits UmbracoViewPage;
 
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <meta name="description" content="" />
 <meta name="author" content="" />
-<title>@Model.Title | GI</title>
+@{
+    var homeSiteTitle = Model.Value("siteTitle")?.ToString();
+    var title = string.IsNullOrEmpty(Model.Value<string>("title")) ? homeSiteTitle : Model.Value<string>("title");
+    <title>@title | GI</title>
+}

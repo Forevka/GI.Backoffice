@@ -34,10 +34,12 @@
                             }
                         }
                         <h3 class="nk-news-box-item-title">@Html.Truncate(item.Value("title").ToString(), 26, true)</h3>
-
+                        
+                        <!--
                         <span class="nk-news-box-item-categories">
                             <span class="bg-main-4">MMO</span>
                         </span>
+                        -->
 
                         <div class="nk-news-box-item-text">
                             <p>@Html.Truncate(item.Value("subtitle").ToString(), 200, true)</p>
@@ -59,20 +61,28 @@
         <div class="nano">
             <div class="nano-content">
                 <!-- There will be inserted info about selected news-->
-                <div class="nk-news-box-item-image">
-                    <img src="assets/img/post-1.jpg" alt="">
-                    <span class="nk-news-box-item-categories">
-                        <span class="bg-main-4">MMO</span>
-                    </span>
-                </div>
-                <h3 class="nk-news-box-item-title">Smell magic in the air. Or maybe barbecue</h3>
-                <div class="nk-news-box-item-text">
-                    <p>With what mingled joy and sorrow do I take up the pen to write to my dearest friend! Oh, what a change between to-day and yesterday! Now I am friendless and alone...</p>
-                </div>
-                <a href="blog-article.html" class="nk-news-box-item-more">Read More</a>
-                <div class="nk-news-box-item-date">
-                    <span class="fa fa-calendar"></span> Sep 18, 2018
-                </div>
+                @{
+                    var firstItem = selection.LastOrDefault();
+                    var firstItemMainImage = firstItem.Value<IPublishedContent>("mainImage");
+                    
+                    <div class="nk-news-box-item-image">
+                        <img src="@firstItemMainImage.Url()" alt="@firstItem.Name()">
+                        <!--
+                        <span class="nk-news-box-item-categories">
+                            <span class="bg-main-4">MMO</span>
+                        </span>
+                        -->
+                    </div>
+                    <h3 class="nk-news-box-item-title">@Html.Truncate(firstItem.Value("title").ToString(), 26, true)</h3>
+                    <div class="nk-news-box-item-text">
+                        <p>@Html.Truncate(firstItem.Value("subtitle").ToString(), 200, true)</p>
+                    </div>
+                    <a href="@firstItem.Url()" class="nk-news-box-item-more">Read More</a>
+                    <div class="nk-news-box-item-date">
+                        <span class="fa fa-calendar"></span>
+                        @firstItem.CreateDate
+                    </div>
+                }
             </div>
         </div>
     </div>
