@@ -17,4 +17,4 @@ RUN dotnet publish "Clean.Site.csproj" -c Release -o /app/publish
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "Clean.Site.dll"]
+ENTRYPOINT ["dotnet", "Clean.Site/Clean.Site.dll"]
