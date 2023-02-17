@@ -1,0 +1,24 @@
+version: '3.6'
+services:
+
+  mssql:
+    restart: always
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    user: root
+    ports:
+      - 1433:1433
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=werdwerd2012_
+    volumes:
+      - /home/sqlserver19/data:/var/opt/mssql/data
+      - /home/sqlserver19/log:/var/opt/mssql/log
+      - /home/sqlserver19/secrets:/var/opt/mssql/secrets
+
+  backoffice:
+    restart: always
+    image: forevka/gi-backoffice:latest
+    user: root
+    ports:
+      - 80:1450
+      - 443:1451
