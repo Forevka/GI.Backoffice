@@ -3,6 +3,11 @@ WORKDIR /app
 EXPOSE 80
 EXPOSE 443
 
+
+ENV ASPNETCORE_HTTPS_PORT https://+:443
+ENV ASPNETCORE_ENVIRONMENT Development
+ENV ASPNETCORE_URLS http://+:80
+
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
 COPY ["Clean.Site/Clean.Site.csproj", "Clean.Site/"]
@@ -17,4 +22,4 @@ RUN dotnet publish "Clean.Site.csproj" -c Release -o /app/publish
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "Clean.Site/Clean.Site.dll"]
+ENTRYPOINT ["dotnet", "Clean.Site.dll"]
