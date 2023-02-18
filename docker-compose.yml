@@ -22,8 +22,8 @@ services:
     image: forevka/gi-backoffice:latest
     user: root
     ports:
-      - 80:1450
-      - 443:1451
+      - 1450:80
+      - 1451:443
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
       - SA_PASSWORD=werdwerd2012_
