@@ -22,3 +22,6 @@ services:
     ports:
       - 80:1450
       - 443:1451
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - SA_PASSWORD=werdwerd2012_

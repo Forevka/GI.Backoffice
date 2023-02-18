@@ -28,6 +28,11 @@
   <ItemGroup>
     <ProjectReference Include="..\GI.BackOffice\GI.BackOffice.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Update="appsettings - Copy.Development.json">
+      <DependentUpon>appsettings.json</DependentUpon>
+    </Content>
+  </ItemGroup>
 
 
   <PropertyGroup>

@@ -3,9 +3,7 @@ WORKDIR /app
 EXPOSE 80
 EXPOSE 443
 
-
 ENV ASPNETCORE_HTTPS_PORT https://+:443
-ENV ASPNETCORE_ENVIRONMENT Development
 ENV ASPNETCORE_URLS http://+:80
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
