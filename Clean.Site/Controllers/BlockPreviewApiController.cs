@@ -22,6 +22,11 @@ using Umbraco.Cms.Core.Routing;
 using Umbraco.Cms.Core.Web;
 using Umbraco.Extensions;
 using Umbraco.Cms.Web.BackOffice.Controllers;
+using Polly;
+using Umbraco.Cms.Core;
+using Umbraco.Cms.Infrastructure.PublishedCache;
+using static Umbraco.Cms.Core.Constants.HttpContext;
+using System.Reflection;
 
 namespace Clean.Site.Controllers
 {
@@ -61,6 +66,12 @@ namespace Clean.Site.Controllers
             _publishedValueFallback = publishedValueFallback;
         }
 
+        public class DataSettings
+        {
+            public BlockItemData Data { get; set; }
+            public BlockItemData Settings { get; set; }
+        }
+
         /// <summary>
         /// Renders a preview for a block using the associated razor view.
         /// </summary>
@@ -69,7 +80,7 @@ namespace Clean.Site.Controllers
         /// <param name="culture">The culture</param>
         /// <returns>The markup to render in the preview.</returns>
         [HttpPost]
-        public async Task<IActionResult> PreviewMarkup([FromBody] BlockItemData data, [FromQuery] int pageId = 0, [FromQuery] string culture = "")
+        public async Task<IActionResult> PreviewMarkup([FromBody] DataSettings dataSet, [FromQuery] int pageId = 0, [FromQuery] string culture = "")
         {
             string markup;
 
@@ -91,7 +102,7 @@ namespace Clean.Site.Controllers
 
                 await this.SetupPublishedRequest(culture, page);
                 
-                markup = await this.GetMarkupForBlock(data);
+                markup = await this.GetMarkupForBlock(dataSet.Data, dataSet.Settings);
             }
             catch (Exception ex)
             {
@@ -102,37 +113,46 @@ namespace Clean.Site.Controllers
             return Ok(this.CleanUpMarkup(markup));
         }
 
-        private async Task<string> GetMarkupForBlock(BlockItemData blockData)
+        private async Task<string> GetMarkupForBlock(BlockItemData blockData, BlockItemData? settingsData)
         {
-           
             // convert the json data to a IPublishedElement (using the built-in conversion)
-            var element = this._blockEditorConverter.ConvertToElement(blockData, PropertyCacheLevel.None, true);
+            var element = _blockEditorConverter.ConvertToElement(blockData, PropertyCacheLevel.None, true);
+            var settings = settingsData != null ? _blockEditorConverter.ConvertToElement(settingsData, PropertyCacheLevel.None, true) : null;
 
             // get the models builder type based on content type alias
-            var blockType = _typeFinder.FindClassesWithAttribute<PublishedModelAttribute>().FirstOrDefault(x =>
-                x.GetCustomAttribute<PublishedModelAttribute>(false).ContentTypeAlias == element.ContentType.Alias);
+            var publishedModels = _typeFinder.FindClassesWithAttribute<PublishedModelAttribute>();
+            var blockType = publishedModels.FirstOrDefault(x => x.GetCustomAttribute<PublishedModelAttribute>(false).ContentTypeAlias == element.ContentType.Alias);
+
+            var settingsType = settingsData != null
+                ? publishedModels.FirstOrDefault(x => x.GetCustomAttribute<PublishedModelAttribute>(false).ContentTypeAlias == settings.ContentType.Alias)
+                : null;
 
             // create instance of the models builder type based from the element
             var blockInstance = Activator.CreateInstance(blockType, element, _publishedValueFallback);
+            var settingsInstance = settingsData != null
+                ? Activator.CreateInstance(settingsType, settings, _publishedValueFallback)
+                : null;
 
             // get a generic block list item type based on the models builder type
-            var blockListItemType = typeof(BlockListItem<>).MakeGenericType(blockType);
+            var blockListItemType = settingsData == null
+                ? typeof(BlockListItem).MakeGenericType(blockType)
+                : typeof(BlockListItem<,>).MakeGenericType(blockType, settingsType);
 
             // create instance of the block list item
             // if you want to use settings this will need to be changed.
-            var blockListItem = (BlockListItem)Activator.CreateInstance(blockListItemType, blockData.Udi, blockInstance, null, null);
+            var blockListItem = (BlockListItem)Activator.CreateInstance(blockListItemType, blockData.Udi, blockInstance, settingsData?.Udi, settingsInstance);
 
             // render the partial view for the block.
             var partialName = $"/Views/Partials/blocklist/Components/{element.ContentType.Alias}.cshtml";
 
             var viewData = new ViewDataDictionary(new EmptyModelMetadataProvider(), new ModelStateDictionary());
             viewData.Model = blockListItem;
-            
+
             var actionContext = new ActionContext(this.HttpContext, new RouteData(), new ActionDescriptor());
 
             await using var sw = new StringWriter();
             var viewResult = _razorViewEngine.GetView(partialName, partialName, false);
-            
+
             if (viewResult?.View != null)
             {
                 var viewContext = new ViewContext(actionContext, viewResult.View, viewData, new TempDataDictionary(actionContext.HttpContext, _tempDataProvider), sw, new HtmlHelperOptions());

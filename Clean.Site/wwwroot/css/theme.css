@@ -6153,6 +6153,7 @@ img.rounded {
         }
 
             .nk-gallery-item-group .nk-gallery-item-description .nk-gallery-item-description-title {
+                margin-top: 0;
                 float: left;
                 margin-bottom: 0;
                 line-height: 1.1

@@ -6,19 +6,23 @@
     if(settings?.Hide ?? false) { return; }
 }
 
-<div class="row gx-4 gx-lg-5 my-5 justify-content-center bg-light text-end">	
-	<figure class="@(settings?.TextAlignment ?? "text-start")">
-		<blockquote cite="@(row.CiteLink != null ? row.CiteLink.Url : null)">
-			@row.QuoteText
-		</blockquote>
-		@if(!string.IsNullOrWhiteSpace(row.QuoteAuthor))
-		{
-			<figcaption>
-				@if(!string.IsNullOrWhiteSpace(row.AuthorJobTitle))
-				{
-					@:—@(row.QuoteAuthor), <cite>@row.AuthorJobTitle</cite>				
-				}
-			</figcaption>
-		}
-	</figure>
-</div>
+<!-- START: Blockquote -->
+<blockquote class="nk-blockquote" cite="@row.CiteLink?.Url">
+    <div class="nk-blockquote-icon"><span>"</span></div>
+    <div class="nk-blockquote-content @(settings?.TextAlignment ?? "text-start")">
+        @row.QuoteText
+    </div>
+    @if(!string.IsNullOrWhiteSpace(row.QuoteAuthor))
+    {
+        <div class="nk-blockquote-author">
+            <span>
+                @row.QuoteAuthor
+                @if (!string.IsNullOrWhiteSpace(row.AuthorJobTitle))
+                {
+                    <cite>@row.AuthorJobTitle</cite>
+                }
+            </span>
+        </div>
+    }
+</blockquote>
+<!-- END: Blockquote -->

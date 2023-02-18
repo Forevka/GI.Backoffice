@@ -5,19 +5,15 @@
     var settings = (ImageRowSettings)Model.Settings;
     if(settings?.Hide ?? false) { return; }
     if(row.Image == null) return;
+
+    var imgLink = string.IsNullOrEmpty(row.Link?.Url) ? "#" : row.Link?.Url;
 }
 
-<div class="row gx-4 gx-lg-5 justify-content-center">
-    <div class="col-md-10 col-lg-8 col-xl-7">
-        @if(row.Link != null)
-        {
-            @:<a href="@row.Link.Url" target="@row.Link.Target" title="@row.Link.Name">
-        }
-        <img class="img-fluid" src="@row.Image.Url()" alt="@row.Caption">
-        <span class="caption text-muted">@row.Caption</span>
-        @if(row.Link != null)
-        {
-            @:</a>
-        }
+<div class="nk-gallery-item-group">
+    <a href="@imgLink" class="nk-gallery-item">
+        <img src="@row.Image.Url()" alt="">
+    </a>
+    <div class="nk-gallery-item-description">
+        <h4 class="nk-gallery-item-description-title h5">@row.Caption</h4>
     </div>
 </div>

@@ -11,10 +11,16 @@
 
     return resource;
 
-    function getPreview(data, pageId, culture) {
+    function getPreview(data, settings, pageId, culture) {
+        var dataSet = {
+            data : data,
+            settings : settings
+        };
+
+        console.log(dataSet)
 
       return umbRequestHelper.resourcePromise(
-        $http.post(apiUrl + '?pageId=' + pageId + '&culture=' + culture, data),
+        $http.post(apiUrl + '?pageId=' + pageId + '&culture=' + culture, dataSet),
         'Failed getting preview markup'
       );
     };

@@ -1,0 +1,26 @@
+@inherits UmbracoViewPage<BlockListItem>
+
+@{
+    var row = (SummaryTextRow)Model.Content;
+    var settings = (SummaryTextRowSettings)Model.Settings;
+    //if(settings?.Hide ?? false) { return; }
+}
+
+
+<!-- START: Decorated Headings -->
+@switch (string.IsNullOrEmpty(settings?.Style) ? "Style 1" : settings?.Style)
+{
+    case "Style 1":
+        <h3 class="nk-decorated-h"><span><span class="text-main-1">@row.Description</span></span></h3>
+        break;
+
+    case "Style 2":
+        <h3 class="nk-decorated-h-2"><span>@row.Description</span></h3>
+        break;
+
+    case "Style 3":
+        <h3 class="nk-decorated-h-3"><span>@row.Description</span></h3>
+        break;
+
+}
+<!-- END: Decorated Headings -->
