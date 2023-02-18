@@ -48,9 +48,13 @@
     </head>
     <body>
         @await Html.PartialAsync("~/Views/Partials/header.cshtml")
+
         <div class="nk-main">
             @RenderBody()
         </div>
+
+        <div class="nk-gap-2"></div>
+
         @await Html.PartialAsync("~/Views/Partials/footer.cshtml")
 
         <!-- START: Scripts -->

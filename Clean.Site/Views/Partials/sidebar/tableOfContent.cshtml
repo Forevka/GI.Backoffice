@@ -1,0 +1,58 @@
+﻿@inherits UmbracoViewPage<List<BlockListItem>>
+
+<div class="nk-widget nk-widget-highlighted">
+    <h4 class="nk-widget-title"><span><span class="text-main-1">Table of</span> Content</span></h4>
+    <div class="nk-widget-content">
+        <!-- role=list necessary because WebKit removes list semantic when list-style-type: none -->
+        <ol class="toc-list" role="list">
+
+            @foreach (var item in Model)
+            {
+                var tItem = item.Content as SummaryTextRow;
+                var settings = item.Settings as SummaryTextRowSettings;
+
+                var subPart = settings?.AsPartOfSummaryAsSubPart == true ? "sub-part" : "";
+                
+                <li>
+
+                    <a href="#@tItem?.Description" class="@subPart">
+                        <span class="title">
+                            @tItem?.Description
+                            <span class="leaders" aria-hidden="true">
+                            </span>
+                        </span>
+                        <span data-href="#@tItem?.Description" class="page">
+                            <span class="visually-hidden">Page&nbsp;</span>
+                        </span>
+                    </a>
+
+                </li>
+            }
+        </ol>
+    </div>
+</div>
+
+<script>
+window.addEventListener('DOMContentLoaded', () => {
+    console.log('initialized ToC')
+
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            const id = entry.target.getAttribute('id');
+            console.log(id);
+            if (entry.intersectionRatio > 0) {
+                document.querySelector(`.nk-sidebar-sticky-parent > aside > div > div > div > ol > li > a[href="#${id}"]`).parentElement.classList.add('active');
+            } else {
+                document.querySelector(`.nk-sidebar-sticky-parent > aside > div > div > div > ol > li > a[href="#${id}"]`).parentElement.classList.remove('active');
+            }
+        });
+    });
+
+    // Track all sections that have an `id` applied
+    document.querySelectorAll('span.toc-part[id]').forEach((section) => {
+        observer.observe(section);
+    });
+  
+});
+
+</script>

@@ -147,6 +147,7 @@ namespace Clean.Site.Controllers
 
             var viewData = new ViewDataDictionary(new EmptyModelMetadataProvider(), new ModelStateDictionary());
             viewData.Model = blockListItem;
+            viewData["isFromBackoffice"] = true;
 
             var actionContext = new ActionContext(this.HttpContext, new RouteData(), new ActionDescriptor());
 

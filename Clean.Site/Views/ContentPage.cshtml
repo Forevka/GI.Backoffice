@@ -19,6 +19,13 @@
 
     <img class="nk-page-background-top" src="@topImage?.Url()" alt="">
     <img class="nk-page-background-bottom" src="@bottomImage?.Url()" alt="">
+
+    var summary = Model.MainContent
+        ?.Where(x => x?.ContentUdi != null 
+                    && x.Content.ContentType.Alias == "summaryTextRow" 
+                    && (x.Settings as SummaryTextRowSettings)?.AsPartOfSummary == true)
+        .ToList();
+        
 }
 
 <div class="nk-gap-1"></div>
@@ -31,6 +38,8 @@
 <div class="nk-gap-1"></div>
 <div class="container">
     <div class="row vertical-gap">
+
+
         <div class="col-lg-8">
 
             <div class="nk-blog-post nk-blog-post-single">
@@ -48,10 +57,10 @@
                     <div class="nk-post-by">
                         <img src="/media/@user?.Avatar" alt="@user?.Name" class="rounded-circle" width="35"> by <a href="#">@user?.Name</a> in @Model.CreateDate
                         <div class="nk-post-categories">
-                        @foreach (var tag in Model.Value<IEnumerable<string>>("tags"))
-                        {
-                            <span class="bg-main-1">@tag</span>
-                        }
+                            @foreach (var tag in Model.Value<IEnumerable<string>>("tags"))
+                            {
+                                <span class="bg-main-1">@tag</span>
+                            }
                         </div>
                     </div>
 
@@ -59,6 +68,33 @@
 
                 </div>
             </div>
+        </div>
+        
+        <div class="col-lg-4 nk-sidebar-sticky-parent">
+            <!--
+            START: Sidebar
+
+            Additional Classes:
+            .nk-sidebar-left
+            .nk-sidebar-right
+            .nk-sidebar-sticky
+            -->
+            <aside class="nk-sidebar nk-sidebar-left nk-sidebar-sticky">
+
+            @* ReSharper disable once Mvc.PartialViewNotResolved *@
+            @await Html.PartialAsync("sidebar/tableOfContent", summary)
+            
+            @if (Model.ListOfContent != null && Model.ListOfContent.Any())
+            {
+                
+                @* ReSharper disable once Mvc.PartialViewNotResolved *@
+                @await Html.PartialAsync("sidebar/readAlso", Model.ListOfContent)
+
+            }
+
+            </aside>
+            <!-- END: Sidebar -->
+
         </div>
     </div>
 </div>

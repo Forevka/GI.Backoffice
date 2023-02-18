@@ -3,10 +3,15 @@
 @{
     var row = (QuoteRow)Model.Content;
     var settings = (QuoteRowSettings)Model.Settings;
+    bool isFromBackoffice = (bool?)ViewData["isFromBackoffice"] ?? false;
     if(settings?.Hide ?? false) { return; }
 }
 
 <!-- START: Blockquote -->
+@if (isFromBackoffice == true)
+{
+    <div class="nk-gap-1"></div>
+}
 <blockquote class="nk-blockquote" cite="@row.CiteLink?.Url">
     <div class="nk-blockquote-icon"><span>"</span></div>
     <div class="nk-blockquote-content @(settings?.TextAlignment ?? "text-start")">
@@ -25,4 +30,8 @@
         </div>
     }
 </blockquote>
+@if (isFromBackoffice == true)
+{
+    <div class="nk-gap-1"></div>
+}
 <!-- END: Blockquote -->

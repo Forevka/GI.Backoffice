@@ -3,6 +3,7 @@
 @{
     var row = (RichTextRow)Model.Content;
     var settings = (RichTextRowSettings)Model.Settings;
+    bool isFromBackoffice = (bool?)ViewData["isFromBackoffice"] ?? false;
     if(settings?.Hide ?? false) { return; }
 }
 

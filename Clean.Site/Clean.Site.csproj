@@ -17,7 +17,11 @@
     <RuntimeHostConfigurationOption Include="System.Globalization.AppLocalIcu" Value="68.2.0.9" Condition="$(RuntimeIdentifier.StartsWith('linux')) or $(RuntimeIdentifier.StartsWith('win')) or ('$(RuntimeIdentifier)' == '' and !$([MSBuild]::IsOSPlatform('osx')))" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Views\Partials\NewFolder\" />
     <Folder Include="wwwroot\vendor\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GI.BackOffice\GI.BackOffice.csproj" />
   </ItemGroup>
 
 

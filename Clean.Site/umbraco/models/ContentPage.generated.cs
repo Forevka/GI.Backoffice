@@ -20,7 +20,7 @@ namespace Umbraco.Cms.Web.Common.PublishedModels
 {
 	/// <summary>Content Page</summary>
 	[PublishedModel("contentPage")]
-	public partial class ContentPage : PublishedContentModel, IContentProperties, IMetaProperties, IVisibilityProperties
+	public partial class ContentPage : PublishedContentModel, IContentProperties, IMetaProperties, IReadAlsoProperties, IVisibilityProperties
 	{
 		// helpers
 #pragma warning disable 0109 // new is redundant
@@ -103,6 +103,14 @@ namespace Umbraco.Cms.Web.Common.PublishedModels
 		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
 		[ImplementPropertyType("title")]
 		public virtual string Title => global::Umbraco.Cms.Web.Common.PublishedModels.MetaProperties.GetTitle(this, _publishedValueFallback);
+
+		///<summary>
+		/// List of content: List of articles to show in "read also" part
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "11.1.0+bad9148")]
+		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		[ImplementPropertyType("listOfContent")]
+		public virtual global::System.Collections.Generic.IEnumerable<global::Umbraco.Cms.Core.Models.PublishedContent.IPublishedContent> ListOfContent => global::Umbraco.Cms.Web.Common.PublishedModels.ReadAlsoProperties.GetListOfContent(this, _publishedValueFallback);
 
 		///<summary>
 		/// Hide: Set this to true if you want to hide this page from the main navigation and from search results. sitemaps and general list pages.
