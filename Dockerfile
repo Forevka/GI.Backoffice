@@ -4,7 +4,7 @@ EXPOSE 80
 EXPOSE 443
 
 ENV ASPNETCORE_HTTPS_PORT https://+:443
-ENV ASPNETCORE_URLS https://+:443;http://+:80
+ENV ASPNETCORE_URLS http://+:80
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
