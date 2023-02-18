@@ -1,0 +1,3 @@
+[myprofilename]
+aws_access_key_id=AKIAWOZOW4UIBN5CKQEG
+aws_secret_access_key=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

@@ -1,4 +1,5 @@
 using Clean.Site.GoogleAuthentication;
+using Our.Umbraco.StorageProviders.AWSS3.DependencyInjection;
 
 namespace Clean.Site
 {
@@ -35,6 +36,7 @@ namespace Clean.Site
                 .AddBackOffice()
                 .AddWebsite()
                 .AddComposers()
+                .AddAWSS3MediaFileSystem()
                 .AddGoogleAuthentication()
 				.Build();
         }
@@ -56,6 +58,7 @@ namespace Clean.Site
                 {
                     u.UseBackOffice();
                     u.UseWebsite();
+                    u.UseAWSS3MediaFileSystem();
                 })
                 .WithEndpoints(u =>
                 {
