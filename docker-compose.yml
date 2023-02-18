@@ -3,6 +3,7 @@ services:
 
   mssql:
     restart: always
+    container_name: sql_server2019
     image: mcr.microsoft.com/mssql/server:2019-latest
     user: root
     ports:
@@ -17,6 +18,7 @@ services:
 
   backoffice:
     restart: always
+    container_name: backoffice
     image: forevka/gi-backoffice:latest
     user: root
     ports:
