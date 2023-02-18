@@ -26,4 +26,3 @@ services:
       - 1451:443
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
-      - SA_PASSWORD=werdwerd2012_
