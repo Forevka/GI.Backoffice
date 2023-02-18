@@ -32,7 +32,7 @@
                                             <img src="@post.MainImage?.GetCropUrl("thumb")" alt="@post.Title">
                                         </a>
                                         <div class="nk-post-title">
-                                            <a href="blog-article.html">@post.Title</a>
+                                            <a href="@post.Url()">@post.Title</a>
                                         </div>
                                         <div class="nk-post-date">
                                             <span class="fa fa-calendar"></span> @post.CreateDate.ToShortDateString() @post.CreateDate.ToShortTimeString()
