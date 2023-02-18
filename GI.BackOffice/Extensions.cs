@@ -1,4 +1,6 @@
-﻿using Umbraco.Cms.Core.Models.PublishedContent;
+﻿using Umbraco.Cms.Core.Models;
+using Umbraco.Cms.Core.Models.PublishedContent;
+using Umbraco.Extensions;
 
 namespace GI.BackOffice
 {
@@ -9,5 +11,16 @@ namespace GI.BackOffice
             Random rnd = new();
             return source.OrderBy(item => rnd.Next());
         }
+
+        public static string? GetCropUrlWebp(this MediaWithCrops mediaWithCrops, string cropAlias)
+        {
+            return mediaWithCrops.GetCropUrl(cropAlias: cropAlias, furtherOptions: "&format=WebP");
+        }
+
+        public static string? GetUrlWebp(this MediaWithCrops mediaWithCrops)
+        {
+            return mediaWithCrops.Url() + "?format=WebP";
+        }
     }
+
 }

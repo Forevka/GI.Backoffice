@@ -1,4 +1,5 @@
 ﻿@using Umbraco.Cms.Core.Models
+@using GI.BackOffice
 @inherits UmbracoViewPage
 
 @{
@@ -20,7 +21,7 @@
             @{
                 if (mainImage != null)
                 {
-                    <img src="@mainImage.Url()" alt="@item.Name()" class="nk-image-slider-img" data-thumb="@mainImage.GetCropUrl("thumb")">
+                    <img src="@mainImage.GetUrlWebp()" alt="@item.Name()" class="nk-image-slider-img" data-thumb="@mainImage.GetCropUrlWebp("thumb")">
                 }
             }
 
