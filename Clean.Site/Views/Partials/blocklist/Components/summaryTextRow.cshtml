@@ -16,11 +16,16 @@
 @switch (string.IsNullOrEmpty(settings?.Style) ? "Style 1" : settings?.Style)
 {
     case "Style 1":
-        <h3 class="nk-decorated-h">
-            <span>
-                <span class="toc-part text-main-1" id="@row.Description">@row.Description</span>
-            </span>
-        </h3>
+        <div class="anchor-with-link">
+            <a class="anchor" name="forwardmessage" href="#forwardmessage" id="forwardmessage">
+                <i class="anchor-icon"></i>
+            </a>
+            <h3 class="nk-decorated-h">
+                <span>
+                    <span class="toc-part text-main-1" id="@row.Description">@row.Description</span>
+                </span>
+            </h3>
+        </div>
         break;
 
     case "Style 2":

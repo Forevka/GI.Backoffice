@@ -6688,3 +6688,40 @@ div.nk-error {
     margin-right: 10px;
     background: #333;
 }
+
+/*
+    anchors
+*/
+a.anchor i.anchor-icon {
+    display: inline-block;
+    width: 18px;
+    height: 20px;
+    margin-top: 2px;
+    line-height: 14px;
+    vertical-align: text-top;
+    background: url(/assets/link-icon-red.png) 0 0 no-repeat;
+    background-size: 17px 18px;
+    opacity: 0;
+    cursor: pointer;
+    padding: 0;
+    position: relative;
+    z-index: 10;
+    -webkit-transition: opacity .15s ease-in-out;
+    -moz-transition: opacity .15s ease-in-out;
+    -ms-transition: opacity .15s ease-in-out;
+    -o-transition: opacity .15s ease-in-out;
+    transition: opacity .15s ease-in-out;
+}
+
+a.anchor {
+    position: absolute;
+    transform: translateX(-25px);
+}
+
+i.anchor-icon:hover {
+    opacity: 1 !important;
+}
+
+.anchor-with-link:hover a.anchor i.anchor-icon, .anchor-with-link:hover a.anchor i.anchor-icon, .anchor-with-link:hover a.anchor i.anchor-icon, .anchor-with-link:hover a.anchor i.anchor-icon, .anchor-with-link:hover a.anchor i.anchor-icon, .anchor-with-link:hover a.anchor i.anchor-icon {
+    opacity: 0.6;
+}
