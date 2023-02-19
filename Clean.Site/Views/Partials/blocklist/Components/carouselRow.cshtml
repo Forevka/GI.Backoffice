@@ -1,52 +1,86 @@
-@using Umbraco.Cms.Core.Models
 @using GI.BackOffice
 @inherits UmbracoViewPage<BlockListItem>
 
 @{
-    var row = (CarouselRow)Model.Content;
-    var settings = (CarouselRowSettings)Model.Settings;
-    if(settings?.Hide ?? false) { return; }
+    var row = (CarouselRow) Model.Content;
+    var settings = (CarouselRowSettings) Model.Settings;
+    if (settings?.Hide ?? false)
+    {
+        return;
+    }
     if (row.CarouselItems == null || !row.CarouselItems.Any()) return;
+    var isFromBackoffice = (bool?) ViewData["isFromBackoffice"] ?? false;
 
     var carouselId = $"carousel_{row.Key:N}";
 }
 
 
 <!-- START: Image Slider -->
-<div class="image-carousel" data-flickity='{ "lazyLoad": true, "lazyLoad": 1, "draggable": false}' id="@carouselId">
+@if (isFromBackoffice)
+{
+    <div class="nk-widget nk-widget-highlighted">
+        <h4 class="nk-widget-title">
+            <span><span class="text-main-1">Gallery with</span> @row.CarouselItems.Count images </span>
+        </h4>
+        <div class="nk-widget-content" style="
+                                              display: grid;
+                                              grid-template-columns: repeat(2, 1fr);
+                                              grid-gap: 15px;">
 
-    @foreach (var item in row.CarouselItems.Select(x => x as BlockListItem<CarouselItem, CarouselItemSettings>))
-    {
-        var mainImage = item.Content.Image;
-        
-        <div class="carousel-cell">
-            @{
-                if (mainImage != null)
-                {
-                    <a href="@mainImage.GetUrlWebp()" 
-                       data-pswp-width="@mainImage.GetProperty("umbracoWidth")?.GetValue()" 
-                       data-pswp-height="@mainImage.GetProperty("umbracoHeight")?.GetValue()">
-                        <img src="@mainImage.GetUrlWebp()" data-flickity-lazyload="@mainImage.GetUrlWebp()" alt="test" class="carousel-cell-image">
-                    </a>
-                }
+            @foreach (var item in row.CarouselItems.Select(x => x as BlockListItem<CarouselItem, CarouselItemSettings>))
+            {
+                var mainImage = item.Content.Image;
+
+                <div class="col-sm-6">
+                    <div class="nk-gallery-item-box">
+                        <a href="@mainImage.GetUrlWebp()">
+                            <img src="@mainImage.GetUrlWebp()" alt="">
+                        </a>
+                    </div>
+                </div>
             }
 
         </div>
-    }
+    </div>
+}
+else
+{
+    <div class="image-carousel" data-flickity='{ "lazyLoad": true, "lazyLoad": 1, "draggable": false}' id="@carouselId">
 
-</div>
+        @foreach (var item in row.CarouselItems.Select(x => x as BlockListItem<CarouselItem, CarouselItemSettings>))
+        {
+            var mainImage = item.Content.Image;
 
-<script>
-    window.addEventListener('DOMContentLoaded', () => {
-        const lightbox = new PhotoSwipeLightbox({
-            gallery: '#@carouselId',
-            children: 'div > a',
-            pswpModule: () => PhotoSwipe,
-            showHideAnimationType: 'fade',
-        });
+            <div class="carousel-cell">
+                @{
+                    if (mainImage != null)
+                    {
+                        <a href="@mainImage.GetUrlWebp()"
+                           data-pswp-width="@mainImage.GetProperty("umbracoWidth")?.GetValue()"
+                           data-pswp-height="@mainImage.GetProperty("umbracoHeight")?.GetValue()">
+                            <img src="@mainImage.GetUrlWebp()" data-flickity-lazyload="@mainImage.GetUrlWebp()" alt="test" class="carousel-cell-image">
+                        </a>
+                    }
+                }
 
-        lightbox.init();
-    })
-</script>
+            </div>
+        }
+
+    </div>
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            console.log(@isFromBackoffice)
+            const lightbox = new PhotoSwipeLightbox({
+                gallery: '#@carouselId',
+                children: 'div > a',
+                pswpModule: () => PhotoSwipe,
+                showHideAnimationType: 'fade',
+            });
+
+            lightbox.init();
+        })
+    </script>
+}
+
 
 <!-- END: Image Slider -->
