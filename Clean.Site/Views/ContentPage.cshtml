@@ -3,6 +3,7 @@
 @using Umbraco.Cms.Core.Services;
 
 @using Umbraco.Cms.Core.Models;
+@using GI.BackOffice
 @inject IUserService UserService;
 
 @{
@@ -17,8 +18,8 @@
     var topImage = homePage.Value<MediaWithCrops<Image>>("topImage");
     var bottomImage = homePage.Value<MediaWithCrops<Image>>("bottomImage");
 
-    <img class="nk-page-background-top" src="@topImage?.Url()" alt="">
-    <img class="nk-page-background-bottom" src="@bottomImage?.Url()" alt="">
+    <img class="nk-page-background-top" src="@topImage?.GetUrlWebp()" alt="">
+    <img class="nk-page-background-bottom" src="@bottomImage?.GetUrlWebp()" alt="">
 
     var summary = Model.MainContent
         ?.Where(x => x?.ContentUdi != null 
@@ -49,7 +50,7 @@
                         @{
                             var postImage = Model.Value<MediaWithCrops<Image>>("mainImage");
 
-                            <img src="@postImage?.Url()" alt="@Model.Value("title")?.ToString()">
+                            <img src="@postImage?.GetUrlWebp()" alt="@Model.Value("title")?.ToString()">
                         }
                     </div>
                     <div class="nk-gap-1"></div>
