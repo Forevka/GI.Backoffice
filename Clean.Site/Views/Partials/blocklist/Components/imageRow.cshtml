@@ -1,3 +1,4 @@
+@using GI.BackOffice
 @inherits UmbracoViewPage<BlockListItem>
 
 @{
@@ -6,14 +7,31 @@
     if(settings?.Hide ?? false) { return; }
     if(row.Image == null) return;
 
+    var imageId = $"imageRow_{row.Key:N}";
+
     var imgLink = string.IsNullOrEmpty(row.Link?.Url) ? "#" : row.Link?.Url;
 }
 
-<div class="nk-gallery-item-group">
-    <a href="@imgLink" class="nk-gallery-item">
-        <img src="@row.Image.Url()" alt="">
+<div class="nk-gallery-item-group" id="@imageId">
+    <a href="@row.Image.GetUrlWebp()" class="nk-gallery-item" data-pswp-width="@row.Image.GetProperty("umbracoWidth")?.GetValue()" data-pswp-height="@row.Image.GetProperty("umbracoHeight")?.GetValue()">
+        <img src="@row.Image.GetUrlWebp()" alt="">
     </a>
-    <div class="nk-gallery-item-description">
-        <h4 class="nk-gallery-item-description-title h5">@row.Caption</h4>
-    </div>
+    @if (!string.IsNullOrEmpty(@row.Caption))
+    {
+        <div class="nk-gallery-item-description">
+            <h4 class="nk-gallery-item-description-title h5">@row.Caption</h4>
+        </div>
+    }
 </div>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        const lightbox = new PhotoSwipeLightbox({
+            gallery: '#@imageId',
+            children: 'a',
+            pswpModule: () => PhotoSwipe,
+        });
+
+        lightbox.init();
+    })
+</script>
