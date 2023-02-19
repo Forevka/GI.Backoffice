@@ -14,12 +14,12 @@ namespace GI.BackOffice
 
         public static string? GetCropUrlWebp(this MediaWithCrops mediaWithCrops, string cropAlias)
         {
-            return mediaWithCrops.GetCropUrl(cropAlias) + "&format=WebP";
+            return mediaWithCrops.GetCropUrl(cropAlias);
         }
 
         public static string? GetUrlWebp(this MediaWithCrops mediaWithCrops)
         {
-            return mediaWithCrops.Url() + "?format=WebP";
+            return mediaWithCrops.Url();
         }
     }
 
