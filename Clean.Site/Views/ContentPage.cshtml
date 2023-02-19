@@ -18,7 +18,7 @@
     var topImage = homePage.Value<MediaWithCrops<Image>>("topImage");
     var bottomImage = homePage.Value<MediaWithCrops<Image>>("bottomImage");
 
-    <img class="nk-page-background-top" src="@topImage?.Url()" alt="">
+    <img class="nk-page-background-top" src="@topImage?.GetUrlWebp()" alt="">
     <img class="nk-page-background-bottom" src="@bottomImage?.GetUrlWebp()" alt="">
 
     var summary = Model.MainContent
