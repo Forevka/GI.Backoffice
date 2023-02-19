@@ -6644,4 +6644,47 @@ div.nk-error {
     .row.vertical-gap {
         flex-direction: column-reverse;
     }
+
+    .on-fullscreen {
+        display: none;
+    }
+
+    .nk-blog-post.nk-blog-post-single {
+        margin-top: 30px;
+    }
+}
+
+@media (min-width: 991px) {
+    .on-phonescreen {
+        display: none;
+    }
+}
+
+/* fade in lazy loaded image */
+.carousel-cell-image.flickity-lazyloaded,
+.carousel-cell-image.flickity-lazyerror {
+    opacity: 1;
+}
+
+.carousel-cell-image {
+    display: block;
+    max-height: 100%;
+    max-width: 100%;
+    opacity: 0;
+    -webkit-transition: opacity 0.4s;
+    transition: opacity 0.4s;
+
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+.carousel-cell {
+    width: 90%;
+    height: 400px;
+    margin-right: 10px;
+    background: #333;
 }

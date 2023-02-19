@@ -26,7 +26,19 @@
                     && x.Content.ContentType.Alias == "summaryTextRow" 
                     && (x.Settings as SummaryTextRowSettings)?.AsPartOfSummary == true)
         .ToList();
-        
+
+    // ReSharper disable once Mvc.PartialViewNotResolved
+    var toc = await Html.PartialAsync("sidebar/tableOfContent", summary);
+    var tocRendered = new HtmlString(toc.ToHtmlString());
+
+    var readAlsoRendered = new HtmlString("");
+    @if (Model.ListOfContent != null && Model.ListOfContent.Any())
+    {
+        @* ReSharper disable once Mvc.PartialViewNotResolved *@
+        var readAlso = await Html.PartialAsync("sidebar/readAlso", Model.ListOfContent);
+        readAlsoRendered = new HtmlString(readAlso.ToHtmlString());
+    }
+    
 }
 
 <div class="nk-gap-1"></div>
@@ -38,6 +50,29 @@
 <!-- Main Content-->
 <div class="nk-gap-1"></div>
 <div class="container">
+
+    <div class="row vertical-gap on-phonescreen">
+        <div class="col-lg-4 nk-sidebar-sticky-parent">
+            <!--
+            START: Sidebar
+            this thing will showed only on phone screen at top
+
+            Additional Classes:
+            .nk-sidebar-left
+            .nk-sidebar-right
+            .nk-sidebar-sticky
+            -->
+            <aside class="nk-sidebar nk-sidebar-left nk-sidebar-sticky">
+
+                @tocRendered
+
+            </aside>
+            <!-- END: Sidebar -->
+
+        </div>
+
+    </div>
+
     <div class="row vertical-gap">
 
 
@@ -70,10 +105,11 @@
                 </div>
             </div>
         </div>
-        
-        <div class="col-lg-4 nk-sidebar-sticky-parent">
+
+        <div class="col-lg-4 nk-sidebar-sticky-parent on-fullscreen">
             <!--
             START: Sidebar
+            ToC and read also must be in sidebar for fullscreen divices
 
             Additional Classes:
             .nk-sidebar-left
@@ -82,19 +118,24 @@
             -->
             <aside class="nk-sidebar nk-sidebar-left nk-sidebar-sticky">
 
-            @* ReSharper disable once Mvc.PartialViewNotResolved *@
-            @await Html.PartialAsync("sidebar/tableOfContent", summary)
-            
-            @if (Model.ListOfContent != null && Model.ListOfContent.Any())
-            {
+                @tocRendered
                 
-                @* ReSharper disable once Mvc.PartialViewNotResolved *@
-                @await Html.PartialAsync("sidebar/readAlso", Model.ListOfContent)
-
-            }
+                @readAlsoRendered
 
             </aside>
             <!-- END: Sidebar -->
+
+        </div>
+
+
+
+    </div>
+    <div class="row vertical-gap">
+        <div class="col-lg-4 on-phonescreen">
+            <!--
+                Read also rendered on bottom for mobile screens
+            -->
+            @readAlsoRendered
 
         </div>
     </div>

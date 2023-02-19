@@ -14,7 +14,7 @@ namespace GI.BackOffice
 
         public static string? GetCropUrlWebp(this MediaWithCrops mediaWithCrops, string cropAlias)
         {
-            return mediaWithCrops.GetCropUrl(cropAlias: cropAlias, furtherOptions: "&format=WebP");
+            return mediaWithCrops.GetCropUrl(cropAlias) + "&format=WebP";
         }
 
         public static string? GetUrlWebp(this MediaWithCrops mediaWithCrops)
