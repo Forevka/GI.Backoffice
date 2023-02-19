@@ -1,48 +1,52 @@
 @inherits UmbracoViewPage<BlockListItem>
 
 @{
-    var row = (SummaryTextRow)Model.Content;
-    var settings = (SummaryTextRowSettings)Model.Settings;
-    bool isFromBackoffice = (bool?)ViewData["isFromBackoffice"] ?? false;
+    var row = (SummaryTextRow) Model.Content;
+    var settings = (SummaryTextRowSettings) Model.Settings;
+    var isFromBackoffice = (bool?) ViewData["isFromBackoffice"] ?? false;
     //if(settings?.Hide ?? false) { return; }
+
+    var normalizedId = row.Description?.Replace(' ', '-').ToLower();
 }
 
-@if (isFromBackoffice == true)
+@if (isFromBackoffice)
 {
     <div class="nk-gap-1"></div>
 }
 
-<!-- START: Decorated Headings -->
-@switch (string.IsNullOrEmpty(settings?.Style) ? "Style 1" : settings?.Style)
-{
-    case "Style 1":
-        <div class="anchor-with-link">
-            <a class="anchor" name="forwardmessage" href="#forwardmessage" id="forwardmessage">
-                <i class="anchor-icon"></i>
-            </a>
+<div class="anchor-with-link">
+    @if (!string.IsNullOrEmpty(normalizedId))
+    {
+        <a class="anchor" href="#@normalizedId">
+            <i class="anchor-icon"></i>
+        </a>
+    }
+    <!-- START: Decorated Headings -->
+    @switch (string.IsNullOrEmpty(settings?.Style) ? "Style 1" : settings?.Style)
+    {
+        case "Style 1":
             <h3 class="nk-decorated-h">
                 <span>
-                    <span class="toc-part text-main-1" id="@row.Description">@row.Description</span>
+                    <span class="toc-part text-main-1" id="@normalizedId">@row.Description</span>
                 </span>
             </h3>
-        </div>
-        break;
+            break;
 
-    case "Style 2":
-        <h3 class="nk-decorated-h-2">
-            <span class="toc-part" id="@row.Description">@row.Description</span>
-        </h3>
-        break;
+        case "Style 2":
+            <h3 class="nk-decorated-h-2">
+                <span class="toc-part" id="@normalizedId">@row.Description</span>
+            </h3>
+            break;
 
-    case "Style 3":
-        <h3 class="nk-decorated-h-3">
-            <span class="toc-part" id="@row.Description">@row.Description</span>
-        </h3>
-        break;
-
-}
+        case "Style 3":
+            <h3 class="nk-decorated-h-3">
+                <span class="toc-part" id="@normalizedId">@row.Description</span>
+            </h3>
+            break;
+    }
+</div>
 <!-- END: Decorated Headings -->
-@if (isFromBackoffice == true)
+@if (isFromBackoffice)
 {
     <div class="nk-gap-1"></div>
 }
