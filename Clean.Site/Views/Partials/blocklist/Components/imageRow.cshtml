@@ -13,7 +13,10 @@
     <a href="@imgLink" class="nk-gallery-item">
         <img src="@row.Image.Url()" alt="">
     </a>
-    <div class="nk-gallery-item-description">
-        <h4 class="nk-gallery-item-description-title h5">@row.Caption</h4>
-    </div>
+    @if (!string.IsNullOrEmpty(@row.Caption))
+    {
+        <div class="nk-gallery-item-description">
+            <h4 class="nk-gallery-item-description-title h5">@row.Caption</h4>
+        </div>
+    }
 </div>
