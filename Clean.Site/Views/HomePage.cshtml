@@ -112,7 +112,10 @@
                 window.addEventListener('DOMContentLoaded', () => {
 
                     var infScroll = new InfiniteScroll('.nk-blog-grid .row', {
-                        path: getArticlePagePath,
+                        path: function() {
+                            let pageNumber = this.loadCount + 1;
+                            return '@Url.Action("Index", "Article")' + `?page=${pageNumber}&pageSize=6;
+                        }',
                         append: 'div.col-md-6', //what to append
                         button: '#view-more-button',
                         // using button, disable loading on scroll

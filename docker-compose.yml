@@ -16,6 +16,21 @@ services:
       - /home/sqlserver19/log:/var/opt/mssql/log
       - /home/sqlserver19/secrets:/var/opt/mssql/secrets
 
+  mssql-dev:
+    restart: always
+    container_name: sql_server2019dev
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    user: root
+    ports:
+      - 1433:1434
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=werdwerd2012_
+    volumes:
+      - /home/sqlserver19dev/data:/var/opt/mssql/data
+      - /home/sqlserver19dev/log:/var/opt/mssql/log
+      - /home/sqlserver19dev/secrets:/var/opt/mssql/secrets
+
   backoffice:
     restart: always
     container_name: backoffice
