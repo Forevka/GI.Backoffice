@@ -5,7 +5,8 @@
     var row = (ImageRow)Model.Content;
     var settings = (ImageRowSettings)Model.Settings;
     if(settings?.Hide ?? false) { return; }
-    if(row.Image == null) return;
+    if (row.Image == null) return;
+    var isFromBackoffice = (bool?)ViewData["isFromBackoffice"] ?? false;
 
     var imageId = $"imageRow_{row.Key:N}";
 
@@ -24,14 +25,17 @@
     }
 </div>
 
-<script>
-    window.addEventListener('DOMContentLoaded', () => {
-        const lightbox = new PhotoSwipeLightbox({
-            gallery: '#@imageId',
-            children: 'a',
-            pswpModule: () => PhotoSwipe,
-        });
+@if (!isFromBackoffice)
+{
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            const lightbox = new PhotoSwipeLightbox({
+                gallery: '#@imageId',
+                children: 'a',
+                pswpModule: () => PhotoSwipe,
+            });
 
-        lightbox.init();
-    })
-</script>
+            lightbox.init();
+        })
+    </script>
+}
