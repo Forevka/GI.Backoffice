@@ -29,16 +29,16 @@ namespace GI.BackOffice
                 return mediaWithCrops.GetUrlWebp(quality);
 
             var cropConfig = mediaWithCrops.LocalCrops.Crops?.FirstOrDefault(x => x.Alias == cropName);
-            var viewPort = cropConfig.Coordinates;
-
-            var width = mediaWithCrops.GetProperty("umbracoWidth")?.GetValue();
-            var height = mediaWithCrops.GetProperty("umbracoHeight")?.GetValue();
+            var viewPort = cropConfig?.Coordinates;
 
             ///0x0:769x774//filters:quality(80)/filters:format(webp)/fit-in/300x300
             var query = $"/filters:quality({quality})/filters:format(webp)/";
 
             if (viewPort != null)
             {
+                var width = mediaWithCrops.GetProperty("umbracoWidth")?.GetValue();
+                var height = mediaWithCrops.GetProperty("umbracoHeight")?.GetValue();
+
                 var startX = (int)Math.Round(Convert.ToDouble(width).Percent((int)Math.Round(viewPort.X1 * 100, 0)));
                 var startY = (int)Math.Round(Convert.ToDouble(height).Percent((int)Math.Round(viewPort.Y1 * 100, 0)));
 

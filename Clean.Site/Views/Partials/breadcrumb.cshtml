@@ -1,0 +1,38 @@
+﻿@using GI.BackOffice.Models.ViewModelsData
+@model GI.BackOffice.Models.ViewModelsData.BreadcrumbViewData
+
+@{
+    LinkedListNode<BreadcrumbJumpViewData>? first = null;
+    var last = Model.History.Last;
+
+    Model.History.RemoveLast();
+    if (Model.History.Any())
+    {
+        first = Model.History.First;
+        Model.History.RemoveFirst();
+    }
+}
+<!-- START: Breadcrumbs -->
+<div class="nk-gap-1"></div>
+<div class="container">
+    <ul class="nk-breadcrumbs">
+        @if (first != null)
+        {
+            <li>
+                <a href="@first?.Value.Url">@first?.Value.Title</a>
+            </li>
+            <li>
+                <span class="fa fa-angle-right"></span>
+            </li>
+        }
+        @foreach (var nav in Model.History)
+        {
+            <li><a href="@nav.Url">@nav.Title</a></li>
+            <li><span class="fa fa-angle-right"></span></li>
+        }
+        <li><span>@last?.Value.Title</span></li>
+    </ul>
+</div>
+
+<div class="nk-gap-1"></div>
+<!-- END: Breadcrumbs -->

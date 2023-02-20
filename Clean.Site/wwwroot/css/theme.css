@@ -6730,3 +6730,16 @@ i.anchor-icon:hover {
 .nk-blog-grid .nk-blog-post > a.nk-post-img {
     max-height: 300px;
 }
+
+div.nk-blog-grid > div.row > div.col-md-6 > div.nk-blog-post > .nk-post-text {
+    line-height: 1.5em;
+    min-height: 3em;
+    max-height: 3em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    /* ReSharper disable once CssNotResolved */
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+}

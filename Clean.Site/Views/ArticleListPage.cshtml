@@ -1,24 +1,109 @@
-﻿@using Umbraco.Cms.Web.Common.PublishedModels;
-@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.ArticleListPage>
+﻿@inherits UmbracoViewPage<ArticleListPage>
 @using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@using GI.BackOffice.Models.ViewModelsData
+@using Umbraco.Cms.Core.Models
+@using GI.BackOffice
 @{
-	Layout = "Master.cshtml";
+    Layout = "Master.cshtml";
 }
 
 
 @{
-	var selection = Umbraco.Content(Guid.Parse("c606cba8-dfeb-4db5-99be-e297710fe601"))
-	.Children()
-	.Where(x => x.IsVisible());
+    var articlePage = Umbraco.Content(Guid.Parse("c606cba8-dfeb-4db5-99be-e297710fe601"))
+        .Children()
+        .Skip(5).Take(6).ToList();
+        
+    var homePage = Model.Ancestor<HomePage>();
+
+    var topImage = homePage?.Value<MediaWithCrops<Image>>("topImage");
+    var bottomImage = homePage?.Value<MediaWithCrops<Image>>("bottomImage");
+
+    <img class="nk-page-background-top" src="@topImage?.GetUrlWebp()" alt="">
+    <img class="nk-page-background-bottom" src="@bottomImage?.GetUrlWebp()" alt="">
+
+    var history = new BreadcrumbViewData
+    {
+        History = new LinkedList<BreadcrumbJumpViewData>(new List<BreadcrumbJumpViewData>
+        {
+            new()
+            {
+                Title = "Home",
+                Url = "/"
+            },
+            new()
+            {
+                Title = "Articles",
+                Url = "/",
+            }
+        })
+    };
 }
-<ul>
-	@foreach (var item in selection)
-	{
-		<article class="special">
-			<div class="articledate"> @item.CreateDate </div>
-			<div class="articletitle"><a href="@item.Url()">@item.Name()</a></div>
-			<div class="articlepreview">@Html.Truncate(item.Value("title").ToString(), 20, true)<a href="@item.Url()">Read More..</a></div>
-		</article>
-	}
-</ul>
+
+@await Html.PartialAsync("~/Views/Partials/breadcrumb.cshtml", history)
+
+<!-- Main Content-->
+<div class="nk-gap-1"></div>
+
+<div class="container">
+    <div class="nk-blog-grid">
+        <div class="row are-images-unloaded">
+
+            @await Html.PartialAsync("~/Views/Partials/articles/grid/default.cshtml", articlePage)
+
+        </div>
+
+        <div class="nk-gap-2"></div>
+
+        <div class="nk-pagination-center">
+            <a href="/articles?page=1" class="nk-btn nk-btn-lg nk-btn-rounded nk-btn-color-white" id="view-more-button">
+                View More
+            </a>
+        </div>
+
+        <script>
+        /*let grid = document.querySelector('.nk-blog-grid .row');
+         *
+        window.addEventListener('DOMContentLoaded', () => {
+            let msnry = new Masonry( grid, {
+                itemSelector: 'none', // select none at first
+                columnWidth: '.col-md-6',
+                percentPosition: true,
+                stagger: 30,
+                // nicer reveal transition
+                visibleStyle: { transform: 'translateY(0)', opacity: 1 },
+                hiddenStyle: { transform: 'translateY(100px)', opacity: 0 },
+            });
+
+            imagesLoaded(grid, function () {
+                grid.classList.remove('are-images-unloaded');
+                msnry.options.itemSelector = 'div.col-md-6';
+                let items = grid.querySelectorAll('div.col-md-6');
+                msnry.appended(items);
+            });
+
+            var infScroll = new InfiniteScroll(grid, {
+                path: function() {
+                    let pageNumber = this.loadCount + 1;
+                    return '@Url.Action("Index", "Article")' + `?page=${pageNumber}&pageSize=6`;
+                },
+                append: 'div.col-md-6', //what to append
+                button: '#view-more-button',
+                // using button, disable loading on scroll
+                scrollThreshold: false,
+                outlayer: msnry,
+                status: '.page-load-status',
+            });
+
+        });*/
+
+
+    </script>
+        @*await Html.PartialAsync("~/Views/Partials/articles/pagination.cshtml", new PaginationViewData
+    {
+    PageSize = 6,
+    TotalCount = articles.Count(),
+    })*@
+
+    </div>
+</div>
 

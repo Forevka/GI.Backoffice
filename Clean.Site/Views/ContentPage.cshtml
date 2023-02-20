@@ -4,6 +4,7 @@
 
 @using Umbraco.Cms.Core.Models;
 @using GI.BackOffice
+@using GI.BackOffice.Models.ViewModelsData
 @inject IUserService UserService;
 
 @{
@@ -38,15 +39,27 @@
         var readAlso = await Html.PartialAsync("sidebar/readAlso", Model.ListOfContent);
         readAlsoRendered = new HtmlString(readAlso.ToHtmlString());
     }
-    
+
+    var history = new BreadcrumbViewData
+    {
+        History = new LinkedList<BreadcrumbJumpViewData>(new List<BreadcrumbJumpViewData>
+        {
+            new()
+            {
+                Title = "Home",
+                Url = "/"
+            },
+            new()
+            {
+                Title = Model.Value("title")?.ToString(),
+                Url = Model.Url(),
+            }
+        })
+    };
 }
 
-<div class="nk-gap-1"></div>
-<div class="container">
-    <ul class="nk-breadcrumbs">
-        <li><span>@Model.Value("title")?.ToString()</span></li>
-    </ul>
-</div>
+@await Html.PartialAsync("~/Views/Partials/breadcrumb.cshtml", history)
+
 <!-- Main Content-->
 <div class="nk-gap-1"></div>
 <div class="container">

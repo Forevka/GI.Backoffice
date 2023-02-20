@@ -1,8 +1,8 @@
-﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.HomePage>
+﻿@inherits UmbracoViewPage<HomePage>
 @using ContentModels = Umbraco.Cms.Web.Common.PublishedModels
-@using Umbraco.Cms.Core.Models
 @using GI.BackOffice
 @using GI.BackOffice.Models.ViewModelsData
+@using Umbraco.Cms.Core.Models
 
 @{
     Layout = "Master.cshtml";
@@ -21,9 +21,23 @@
     var topImage = Model.Value<MediaWithCrops<Image>>("topImage");
     var bottomImage = Model.Value<MediaWithCrops<Image>>("bottomImage");
 
+    var history = new BreadcrumbViewData
+    {
+        History = new LinkedList<BreadcrumbJumpViewData>(new List<BreadcrumbJumpViewData>
+        {
+            new()
+            {
+                Title = "Home",
+                Url = "/"
+            }
+        })
+    };
+
     <img class="nk-page-background-top" src="@topImage?.GetUrlWebp()" alt="">
     <img class="nk-page-background-bottom" src="@bottomImage?.GetUrlWebp()" alt="">
 }
+
+@await Html.PartialAsync("~/Views/Partials/breadcrumb.cshtml", history)
 
 <!-- Main Content-->
 <div class="nk-gap-2"></div>
@@ -40,8 +54,12 @@
                     <img src="assets/img/icon-mouse.png" alt="">
                 </div>
                 <div class="nk-feature-cont">
-                    <h3 class="nk-feature-title"><a href="#">PC</a></h3>
-                    <h4 class="nk-feature-title text-main-1"><a href="#">View Games</a></h4>
+                    <h3 class="nk-feature-title">
+                        <a href="#">PC</a>
+                    </h3>
+                    <h4 class="nk-feature-title text-main-1">
+                        <a href="#">View Games</a>
+                    </h4>
                 </div>
             </div>
         </div>
@@ -51,8 +69,12 @@
                     <img src="assets/img/icon-gamepad.png" alt="">
                 </div>
                 <div class="nk-feature-cont">
-                    <h3 class="nk-feature-title"><a href="#">PS4</a></h3>
-                    <h4 class="nk-feature-title text-main-1"><a href="#">View Games</a></h4>
+                    <h3 class="nk-feature-title">
+                        <a href="#">PS4</a>
+                    </h3>
+                    <h4 class="nk-feature-title text-main-1">
+                        <a href="#">View Games</a>
+                    </h4>
                 </div>
             </div>
         </div>
@@ -62,8 +84,12 @@
                     <img src="assets/img/icon-gamepad-2.png" alt="">
                 </div>
                 <div class="nk-feature-cont">
-                    <h3 class="nk-feature-title"><a href="#">Xbox</a></h3>
-                    <h4 class="nk-feature-title text-main-1"><a href="#">View Games</a></h4>
+                    <h3 class="nk-feature-title">
+                        <a href="#">Xbox</a>
+                    </h3>
+                    <h4 class="nk-feature-title text-main-1">
+                        <a href="#">View Games</a>
+                    </h4>
                 </div>
             </div>
         </div>
@@ -75,7 +101,9 @@
     @if (articles != null && articles.Any())
     {
         <div class="nk-gap-2"></div>
-        <h3 class="nk-decorated-h-2"><span><span class="text-main-1">Latest</span> News</span></h3>
+        <h3 class="nk-decorated-h-2">
+            <span><span class="text-main-1">Latest</span> News</span>
+        </h3>
         <div class="nk-gap"></div>
 
         var gallery = articles.Take(5);
@@ -84,46 +112,58 @@
         <div class="nk-gap-2"></div>
 
         var articlePage = articles.Skip(5).Take(6).ToList();
-        
+
         <!-- START: Posts Grid -->
         <div class="nk-blog-grid">
-            <div class="row">
-                
+            <div class="row are-images-unloaded">
+
                 @await Html.PartialAsync("~/Views/Partials/articles/grid/default.cshtml", articlePage)
 
             </div>
-            
+
             <div class="nk-gap-2"></div>
 
             <div class="nk-pagination-center">
-                <a href="#" class="nk-btn nk-btn-lg nk-btn-rounded nk-btn-color-white" id="view-more-button">
+                <a href="/articles?page=1" class="nk-btn nk-btn-lg nk-btn-rounded nk-btn-color-white" id="view-more-button">
                     View More
                 </a>
             </div>
-            
+
             <script>
-                var page = 1;
-
-                function getArticlePagePath() {
-                  page += 1
-                  return '@Url.Action("Index", "Article")' + `?page=${page}&pageSize=6`;
-                }
-
+                /*let grid = document.querySelector('.nk-blog-grid .row');
+                 * 
                 window.addEventListener('DOMContentLoaded', () => {
+                    let msnry = new Masonry( grid, {
+                        itemSelector: 'none', // select none at first
+                        columnWidth: '.col-md-6',
+                        percentPosition: true,
+                        stagger: 30,
+                        // nicer reveal transition
+                        visibleStyle: { transform: 'translateY(0)', opacity: 1 },
+                        hiddenStyle: { transform: 'translateY(100px)', opacity: 0 },
+                    });
 
-                    var infScroll = new InfiniteScroll('.nk-blog-grid .row', {
+                    imagesLoaded(grid, function () {
+                        grid.classList.remove('are-images-unloaded');
+                        msnry.options.itemSelector = 'div.col-md-6';
+                        let items = grid.querySelectorAll('div.col-md-6');
+                        msnry.appended(items);
+                    });
+
+                    var infScroll = new InfiniteScroll(grid, {
                         path: function() {
                             let pageNumber = this.loadCount + 1;
-                            return '@Url.Action("Index", "Article")' + `?page=${pageNumber}&pageSize=6;
-                        }',
+                            return '@Url.Action("Index", "Article")' + `?page=${pageNumber}&pageSize=6`;
+                        },
                         append: 'div.col-md-6', //what to append
                         button: '#view-more-button',
                         // using button, disable loading on scroll
                         scrollThreshold: false,
+                        outlayer: msnry,
                         status: '.page-load-status',
                     });
 
-                });
+                });*/
 
             
             </script>
@@ -134,7 +174,7 @@
                    })*@
 
         </div>
-        
+
         <div class="page-load-status">
             <div class="loader-ellips infinite-scroll-request">
                 <span class="loader-ellips__dot"></span>
