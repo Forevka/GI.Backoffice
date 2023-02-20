@@ -1,0 +1,51 @@
+﻿@model GI.BackOffice.Models.ViewModelsData.PaginationViewData
+
+@{
+    var page = 1;
+    if (Context.Request.Query.TryGetValue("page", out var rawPageValue))
+    {
+        int.TryParse(rawPageValue, out page);
+    }
+
+    var pageForwardDrawed = 0;
+    var pageBackDrawed = 0;
+
+    var elipsDrawed = false;
+}
+
+<!-- START: Pagination -->
+<div class="nk-pagination nk-pagination-center">
+    @if (page > 1)
+    {
+        <a href="?page=1" class="nk-pagination-prev">
+            <span class="ion-ios-arrow-back"></span>
+        </a>
+    }
+    
+    <nav>
+    @for (var pageId = 1; pageId <= 16 && pageId <= Model.ForwardPageCount; pageId++)
+    {
+        pageForwardDrawed++;
+
+        <a class="@(pageId == page ? "nk-pagination-current" : "")" href="?page=@pageId">@pageId</a>
+
+        if (pageForwardDrawed >= Model.ForwardPageCount)
+        {
+            if (!elipsDrawed)
+            {
+                <span>...</span>
+                elipsDrawed = true;
+            }
+        }
+
+    }
+    </nav>
+
+    @if (page < Model.PageCount)
+    {
+        <a href="#" class="nk-pagination-next">
+            <span class="ion-ios-arrow-forward"></span>
+        </a>
+    }
+</div>
+<!-- END: Pagination -->

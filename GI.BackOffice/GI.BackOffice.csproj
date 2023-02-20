@@ -7,6 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="NewFolder\**" />
+    <EmbeddedResource Remove="NewFolder\**" />
+    <None Remove="NewFolder\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Umbraco.Cms.Core" Version="11.1.0" />
     <PackageReference Include="Umbraco.Cms.Infrastructure" Version="11.1.0" />
     <PackageReference Include="Umbraco.Cms.Web.Common" Version="11.1.0" />

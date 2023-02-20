@@ -16,7 +16,7 @@
 
             <div class="nk-widget-post">
                 <a href="@post.Url()" class="nk-post-image">
-                    <img src="@post.MainImage?.GetCropUrlWebp("thumb")" alt="@post.Title">
+                    <img src="@post.MainImage?.GetCropUrlWebp(ImageCropName.Thumb)" alt="@post.Title">
                 </a>
                 <h3 class="nk-post-title">
                     <a href="@post.Url()">@post.Title</a>

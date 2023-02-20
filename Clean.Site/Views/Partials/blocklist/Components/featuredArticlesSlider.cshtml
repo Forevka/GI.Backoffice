@@ -1,13 +1,13 @@
 ﻿@using Umbraco.Cms.Core.Models
 @using GI.BackOffice
-@inherits UmbracoViewPage
+@inherits UmbracoViewPage<IEnumerable<IPublishedContent>>
 
 @{
-    var selection = Umbraco.Content(Guid.Parse("c606cba8-dfeb-4db5-99be-e297710fe601"))
+    var selection = Model;/*Umbraco.Content(Guid.Parse("c606cba8-dfeb-4db5-99be-e297710fe601"))
         .Children()
         .Where(x => x.IsVisible() && x.Value<bool>("isFeatured"))
         .OrderByDescending(x => x.CreateDate)
-        .Take(5);
+        .Take(5);*/
 }
 
 <!-- START: Image Slider -->
@@ -21,7 +21,7 @@
             @{
                 if (mainImage != null)
                 {
-                    <img src="@mainImage.GetUrlWebp()" alt="@item.Name()" class="nk-image-slider-img" data-thumb="@mainImage.GetCropUrlWebp("thumb")">
+                    <img src="@mainImage.GetUrlWebp()" alt="@item.Name()" class="nk-image-slider-img" data-thumb="@mainImage.GetCropUrlWebp(ImageCropName.Thumb)">
                 }
             }
 

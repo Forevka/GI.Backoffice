@@ -1,12 +1,23 @@
 ﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.HomePage>
-@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels
 @using Umbraco.Cms.Core.Models
 @using GI.BackOffice
-@{
-	Layout = "Master.cshtml";
-}
+@using GI.BackOffice.Models.ViewModelsData
 
 @{
+    Layout = "Master.cshtml";
+
+    var articles = Umbraco.Content(Guid.Parse("c606cba8-dfeb-4db5-99be-e297710fe601"))?
+        .Children()
+        .Where(x => x.IsVisible())
+        .OrderByDescending(x => x.CreateDate);
+
+    var featured = Umbraco.Content(Guid.Parse("c606cba8-dfeb-4db5-99be-e297710fe601"))?
+        .Children()
+        .Where(x => x.IsVisible() && x.Value<bool>("isFeatured"))
+        .OrderByDescending(x => x.CreateDate)
+        .Take(5);
+
     var topImage = Model.Value<MediaWithCrops<Image>>("topImage");
     var bottomImage = Model.Value<MediaWithCrops<Image>>("bottomImage");
 
@@ -14,4 +25,127 @@
     <img class="nk-page-background-bottom" src="@bottomImage?.GetUrlWebp()" alt="">
 }
 
-@await Html.PartialAsync("~/Views/Partials/latestArticles.cshtml")
+<!-- Main Content-->
+<div class="nk-gap-2"></div>
+<div class="container">
+
+    @await Html.PartialAsync("~/Views/Partials/blocklist/Components/featuredArticlesSlider.cshtml", featured)
+
+    <!-- START: Categories -->
+    <div class="nk-gap-2"></div>
+    <div class="row vertical-gap">
+        <div class="col-lg-4">
+            <div class="nk-feature-1">
+                <div class="nk-feature-icon">
+                    <img src="assets/img/icon-mouse.png" alt="">
+                </div>
+                <div class="nk-feature-cont">
+                    <h3 class="nk-feature-title"><a href="#">PC</a></h3>
+                    <h4 class="nk-feature-title text-main-1"><a href="#">View Games</a></h4>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="nk-feature-1">
+                <div class="nk-feature-icon">
+                    <img src="assets/img/icon-gamepad.png" alt="">
+                </div>
+                <div class="nk-feature-cont">
+                    <h3 class="nk-feature-title"><a href="#">PS4</a></h3>
+                    <h4 class="nk-feature-title text-main-1"><a href="#">View Games</a></h4>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="nk-feature-1">
+                <div class="nk-feature-icon">
+                    <img src="assets/img/icon-gamepad-2.png" alt="">
+                </div>
+                <div class="nk-feature-cont">
+                    <h3 class="nk-feature-title"><a href="#">Xbox</a></h3>
+                    <h4 class="nk-feature-title text-main-1"><a href="#">View Games</a></h4>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END: Categories -->
+
+    <!-- START: Latest News -->
+
+    @if (articles != null && articles.Any())
+    {
+        <div class="nk-gap-2"></div>
+        <h3 class="nk-decorated-h-2"><span><span class="text-main-1">Latest</span> News</span></h3>
+        <div class="nk-gap"></div>
+
+        var gallery = articles.Take(5);
+        @await Html.PartialAsync("~/Views/Partials/newsGallery.cshtml", gallery)
+
+        <div class="nk-gap-2"></div>
+
+        var articlePage = articles.Skip(5).Take(6).ToList();
+        
+        <!-- START: Posts Grid -->
+        <div class="nk-blog-grid">
+            <div class="row">
+                
+                @await Html.PartialAsync("~/Views/Partials/articles/grid/default.cshtml", articlePage)
+
+            </div>
+            
+            <div class="nk-gap-2"></div>
+
+            <div class="nk-pagination-center">
+                <a href="#" class="nk-btn nk-btn-lg nk-btn-rounded nk-btn-color-white" id="view-more-button">
+                    View More
+                </a>
+            </div>
+            
+            <script>
+                var page = 1;
+
+                function getArticlePagePath() {
+                  page += 1
+                  return '@Url.Action("Index", "Article")' + `?page=${page}&pageSize=6`;
+                }
+
+                window.addEventListener('DOMContentLoaded', () => {
+
+                    var infScroll = new InfiniteScroll('.nk-blog-grid .row', {
+                        path: getArticlePagePath,
+                        append: 'div.col-md-6', //what to append
+                        button: '#view-more-button',
+                        // using button, disable loading on scroll
+                        scrollThreshold: false,
+                        status: '.page-load-status',
+                    });
+
+                });
+
+            
+            </script>
+            @*await Html.PartialAsync("~/Views/Partials/articles/pagination.cshtml", new PaginationViewData
+                   {
+                       PageSize = 6,
+                       TotalCount = articles.Count(),
+                   })*@
+
+        </div>
+        
+        <div class="page-load-status">
+            <div class="loader-ellips infinite-scroll-request">
+                <span class="loader-ellips__dot"></span>
+                <span class="loader-ellips__dot"></span>
+                <span class="loader-ellips__dot"></span>
+                <span class="loader-ellips__dot"></span>
+            </div>
+            <p class="infinite-scroll-last">End of content</p>
+            <p class="infinite-scroll-error">No more pages to load</p>
+        </div>
+        <!-- END: Posts Grid -->
+    }
+
+    <!-- END: Latest News -->
+
+</div>
+<div class="nk-gap-4"></div>

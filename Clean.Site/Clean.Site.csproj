@@ -4,9 +4,17 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="Pages\Components\**" />
+    <Compile Remove="Views\Partials\articleList\**" />
     <Compile Remove="Views\Partials\NewFolder\**" />
+    <Content Remove="Pages\Components\**" />
+    <Content Remove="Views\Partials\articleList\**" />
     <Content Remove="Views\Partials\NewFolder\**" />
+    <EmbeddedResource Remove="Pages\Components\**" />
+    <EmbeddedResource Remove="Views\Partials\articleList\**" />
     <EmbeddedResource Remove="Views\Partials\NewFolder\**" />
+    <None Remove="Pages\Components\**" />
+    <None Remove="Views\Partials\articleList\**" />
     <None Remove="Views\Partials\NewFolder\**" />
   </ItemGroup>
 
@@ -24,6 +32,8 @@
     <RuntimeHostConfigurationOption Include="System.Globalization.AppLocalIcu" Value="68.2.0.9" Condition="$(RuntimeIdentifier.StartsWith('linux')) or $(RuntimeIdentifier.StartsWith('win')) or ('$(RuntimeIdentifier)' == '' and !$([MSBuild]::IsOSPlatform('osx')))" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Pages\" />
+    <Folder Include="Views\Article\" />
     <Folder Include="wwwroot\vendor\" />
   </ItemGroup>
   <ItemGroup>

@@ -9,6 +9,7 @@
     Copyright 2021.
 -------------------------------------------------------------------*/
 @import "tableOfContent.css";
+@import "infiniteLoading.css";
 
 body {
     background-color: #181c23;
@@ -6724,4 +6725,8 @@ i.anchor-icon:hover {
 
 .anchor-with-link:hover a.anchor i.anchor-icon, .anchor-with-link:hover a.anchor i.anchor-icon, .anchor-with-link:hover a.anchor i.anchor-icon, .anchor-with-link:hover a.anchor i.anchor-icon, .anchor-with-link:hover a.anchor i.anchor-icon, .anchor-with-link:hover a.anchor i.anchor-icon {
     opacity: 0.6;
+}
+
+.nk-blog-grid .nk-blog-post > a.nk-post-img {
+    max-height: 300px;
 }
