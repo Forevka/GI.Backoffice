@@ -1,4 +1,10 @@
+﻿@using Umbraco.Cms.Core.Models
+@using GI.BackOffice
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@using Umbraco.Cms.Core.Services;
+
 @inherits UmbracoViewPage;
+@inject IUserService UserService;
 
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
@@ -8,4 +14,33 @@
     var homeSiteTitle = Model.Value("siteTitle")?.ToString();
     var title = string.IsNullOrEmpty(Model.Value<string>("title")) ? homeSiteTitle : Model.Value<string>("title");
     <title>@title | GI</title>
+    
+    <meta property="og:title" content="@title" />
+    <meta property="og:url" content="@Model.Url(mode: UrlMode.Absolute)" />
+
+    if (Model.ContentType.Alias is "homePage" or "articleListPage")
+    {
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content="assets/img/bg-fixed-1.jpg" />
+        <meta property="og:description" content="Провідник по тейвату" />
+    }
+
+    if (Model.ContentType.Alias is "contentPage")
+    {
+        var postImage = Model.Value<MediaWithCrops<Image>>("mainImage");
+        
+        var author = Model.Value<int>("author");
+        var user = UserService.GetUserById(author);
+
+        <meta property="og:type" content="article" />
+        <meta property="og:image" content="@postImage?.GetUrlWebp()" />
+        <meta property="og:description" content="@Model.Value("subTitle")?.ToString()" />
+
+        <meta property="article:published_time" content="@Model.CreateDate.ToString("O")" />
+        <meta property="article:modified_time" content="@Model.UpdateDate.ToString("O")" />
+        <meta property="article:expiration_time" content="@Model.CreateDate.ToString("O")" />
+        <meta property="article:author" content="@user?.Name" />
+        <meta property="article:section" content="genshin-impact" />
+        <meta property="article:tag" content="notag" />
+    }
 }
