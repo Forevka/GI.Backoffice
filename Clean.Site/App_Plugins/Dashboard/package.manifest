@@ -4,11 +4,7 @@
             "alias": "welcomeDashboard",
             "view":  "/App_Plugins/Dashboard/dashboard.html",
             "sections":  [ "content" ],
-            "weight": -10,
-            "access": [
-                { "deny": "translator" },
-                { "grant": "admin" }
-            ]
+            "weight": -10
         }
     ]
 }
