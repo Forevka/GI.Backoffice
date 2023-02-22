@@ -5317,7 +5317,8 @@ div.nk-error {
 }
 
 .nk-post-by img {
-    height: auto;
+    height: 35px;
+    width: 35px;
     margin-right: 11px
 }
 
@@ -5406,7 +5407,8 @@ div.nk-error {
 
 .nk-blog-fullwidth .nk-post-by img {
     float: right;
-    height: auto;
+    height: 35px;
+    width: 35px;
     margin-left: 20px
 }
 
@@ -6687,7 +6689,7 @@ div.nk-error {
     width: 90%;
     height: 400px;
     margin-right: 10px;
-    background: #333;
+    /*background: #333;*/
 }
 
 /*
