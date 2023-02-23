@@ -21,7 +21,6 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="7.0.2" />
     <PackageReference Include="Our.Umbraco.Community.Contentment" Version="4.4.1" />
-    <PackageReference Include="Our.Umbraco.StorageProviders.AWSS3" Version="1.1.1" />
     <PackageReference Include="Umbraco.Cms" Version="11.1.0" />
     <PackageReference Include="uSync" Version="11.0.1" />
   </ItemGroup>
@@ -36,6 +35,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GI.BackOffice\GI.BackOffice.csproj" />
+    <ProjectReference Include="..\Our.Umbraco.StorageProviders.AWSS3\src\Our.Umbraco.StorageProviders.AWSS3\Our.Umbraco.StorageProviders.AWSS3.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Content Update="appsettings - Copy.Development.json">

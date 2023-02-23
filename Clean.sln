@@ -5,7 +5,9 @@ VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Clean.Site", "Clean.Site\Clean.Site.csproj", "{4AE358C8-C102-4074-844F-0CE87FA5FA37}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GI.BackOffice", "GI.BackOffice\GI.BackOffice.csproj", "{8396CAA9-7379-4196-B268-E757D9A18C81}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GI.BackOffice", "GI.BackOffice\GI.BackOffice.csproj", "{8396CAA9-7379-4196-B268-E757D9A18C81}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Our.Umbraco.StorageProviders.AWSS3", "Our.Umbraco.StorageProviders.AWSS3\src\Our.Umbraco.StorageProviders.AWSS3\Our.Umbraco.StorageProviders.AWSS3.csproj", "{307BCBF9-6818-4200-A622-959E7756BBF3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{8396CAA9-7379-4196-B268-E757D9A18C81}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8396CAA9-7379-4196-B268-E757D9A18C81}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8396CAA9-7379-4196-B268-E757D9A18C81}.Release|Any CPU.Build.0 = Release|Any CPU
+		{307BCBF9-6818-4200-A622-959E7756BBF3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{307BCBF9-6818-4200-A622-959E7756BBF3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{307BCBF9-6818-4200-A622-959E7756BBF3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{307BCBF9-6818-4200-A622-959E7756BBF3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

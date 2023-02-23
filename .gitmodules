@@ -1,0 +1,3 @@
+[submodule "Our.Umbraco.StorageProviders.AWSS3"]
+	path = Our.Umbraco.StorageProviders.AWSS3
+	url = https://github.com/forevka/Our.Umbraco.StorageProviders.AWSS3.git
