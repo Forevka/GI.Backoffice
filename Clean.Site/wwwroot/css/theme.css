@@ -18,7 +18,7 @@ body {
     position: relative;
 }
 
-.nk-main { overflow: hidden }
+.nk-main {  }
 
 body.nk-page-boxed {
     margin: 0 auto;

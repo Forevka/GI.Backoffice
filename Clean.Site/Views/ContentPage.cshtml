@@ -63,11 +63,11 @@
     };
 }
 
-@await Html.PartialAsync("~/Views/Partials/breadcrumb.cshtml", history)
 
 <!-- Main Content-->
-<div class="nk-gap-1"></div>
 <div class="container">
+    <div class="nk-gap-1"></div>
+    @await Html.PartialAsync("~/Views/Partials/breadcrumb.cshtml", history)
 
     <div class="row vertical-gap on-phonescreen">
         <div class="col-lg-4 nk-sidebar-sticky-parent">

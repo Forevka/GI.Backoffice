@@ -37,11 +37,11 @@
     <img class="nk-page-background-bottom" src="@bottomImage?.GetUrlWebp()" alt="">
 }
 
-@await Html.PartialAsync("~/Views/Partials/breadcrumb.cshtml", history)
 
 <!-- Main Content-->
-<div class="nk-gap-2"></div>
+<div class="nk-gap-1"></div>
 <div class="container">
+    @await Html.PartialAsync("~/Views/Partials/breadcrumb.cshtml", history)
 
     @await Html.PartialAsync("~/Views/Partials/blocklist/Components/featuredArticlesSlider.cshtml", featured)
 
