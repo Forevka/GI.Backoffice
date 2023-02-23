@@ -39,12 +39,12 @@
     };
 }
 
-@await Html.PartialAsync("~/Views/Partials/breadcrumb.cshtml", history)
 
 <!-- Main Content-->
 <div class="nk-gap-1"></div>
 
 <div class="container">
+    @await Html.PartialAsync("~/Views/Partials/breadcrumb.cshtml", history)
     <div class="nk-blog-grid">
         <div class="row are-images-unloaded">
 
