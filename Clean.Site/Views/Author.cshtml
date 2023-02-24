@@ -1,0 +1,92 @@
+@using GI.BackOffice
+@using GI.BackOffice.Models.ViewModelsData
+@using Umbraco.Cms.Core.Models
+@using Umbraco.Cms.Core.Models.Membership
+@using Umbraco.Cms.Core.Services;
+@using Umbraco.Cms.Web.Common.PublishedModels;
+@using Umbraco.Cms.Web.Common.Views;
+
+@inject IUserService UserService;
+
+@inherits UmbracoViewPage<IPublishedContent>
+
+@{
+    Layout = "Master.cshtml";
+    
+    var homePage = Model.Ancestor<HomePage>();
+
+    var topImage = homePage?.Value<MediaWithCrops<Image>>("topImage");
+    var bottomImage = homePage?.Value<MediaWithCrops<Image>>("bottomImage");
+
+    <img class="nk-page-background-top" src="@topImage?.GetUrlWebp()" alt="">
+    <img class="nk-page-background-bottom" src="@bottomImage?.GetUrlWebp()" alt="">
+
+    var author = (IUser)ViewBag.Author;
+
+    var authorContent = Model.Children()
+        .Select(x => x as ContentPage)
+        .Where(x => x != null && x.IsVisible() && (int)x.Author == author.Id);
+
+    var history = new BreadcrumbViewData
+    {
+        History = new LinkedList<BreadcrumbJumpViewData>(new List<BreadcrumbJumpViewData>
+        {
+            new()
+            {
+                Title = "Home",
+                Url = "/"
+            },
+            new()
+            {
+                Title = "Author",
+                Url = $"/author/{author.Id}",
+            },
+            new()
+            {
+                Title = author.Name,
+                Url = ""
+            },
+        })
+    };
+}
+
+<div class="container">
+
+    <div class="nk-gap-1"></div>
+    @await Html.PartialAsync("~/Views/Partials/breadcrumb.cshtml", history)
+
+    <div class="row vertical-gap">
+        <div class="col-lg-8">
+            <!-- START: Posts List -->
+            <div class="nk-blog-list">
+                @foreach (var article in authorContent)
+                {
+                    if (article == null) continue;
+
+                    <!-- START: Post -->
+                    <div class="nk-blog-post">
+                        <div class="row vertical-gap">
+                            <div class="col-md-5 col-lg-6">
+                                <a href="@article.Url()" class="nk-post-img">
+                                    <img src="@article.MainImage?.GetCropUrlWebp(ImageCropName.Preview)" alt="He made his passenger captain of one">
+                                </a>
+                            </div>
+                            <div class="col-md-7 col-lg-6">
+                                <h2 class="nk-post-title h4">
+                                    <a href="@article.Url()">@article.Title</a>
+                                </h2>
+                                <div class="nk-post-text">
+                                    <p>@article.SubTitle</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END: Post -->
+                }
+
+
+            </div>
+        </div>
+        <!-- END: Posts List -->
+    </div>
+</div>

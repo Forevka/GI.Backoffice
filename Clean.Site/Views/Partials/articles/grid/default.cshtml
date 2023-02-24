@@ -25,7 +25,10 @@
                 <a href="@article.Url()">@article.Title</a>
             </h2>
             <div class="nk-post-by">
-                <img src="/media/@user?.Avatar" alt="@user?.Name" class="rounded-circle" width="35"> by <a href="#">@user?.Name</a> in @article.CreateDate
+                <img src="/media/@user?.Avatar" alt="@user?.Name" class="rounded-circle" width="35"> by 
+                <a href="/author/@user.Id">
+                    @user?.Name
+                </a> in @article.CreateDate
             </div>
             <div class="nk-gap"></div>
             <div class="nk-post-text">

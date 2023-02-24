@@ -4,16 +4,12 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Remove="Pages\**" />
     <Compile Remove="Views\Partials\articleList\**" />
     <Compile Remove="Views\Partials\NewFolder\**" />
-    <Content Remove="Pages\**" />
     <Content Remove="Views\Partials\articleList\**" />
     <Content Remove="Views\Partials\NewFolder\**" />
-    <EmbeddedResource Remove="Pages\**" />
     <EmbeddedResource Remove="Views\Partials\articleList\**" />
     <EmbeddedResource Remove="Views\Partials\NewFolder\**" />
-    <None Remove="Pages\**" />
     <None Remove="Views\Partials\articleList\**" />
     <None Remove="Views\Partials\NewFolder\**" />
   </ItemGroup>
