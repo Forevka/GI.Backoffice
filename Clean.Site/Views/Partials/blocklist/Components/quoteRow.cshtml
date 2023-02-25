@@ -20,13 +20,13 @@
     @if(!string.IsNullOrWhiteSpace(row.QuoteAuthor))
     {
         <div class="nk-blockquote-author">
-            <span>
+            <div>
                 @row.QuoteAuthor
                 @if (!string.IsNullOrWhiteSpace(row.AuthorJobTitle))
                 {
                     <cite>@row.AuthorJobTitle</cite>
                 }
-            </span>
+            </div>
         </div>
     }
 </blockquote>

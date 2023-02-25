@@ -4164,31 +4164,35 @@ img.rounded { border-radius: 5px }
 
 .nk-blockquote .nk-blockquote-author {
     margin-top: 25px;
-    text-align: right
+    text-align: right;
+        display: flex;
 }
 
-.nk-blockquote .nk-blockquote-author > span {
-    color: #fff;
-    display: table-cell;
-    font-size: .95rem;
-    font-weight: 600;
-    padding-left: 30px;
-    padding-right: 30px;
-    white-space: nowrap
-}
+    .nk-blockquote .nk-blockquote-author > div {
+        color: #fff;
+        display: table-cell;
+        font-size: .95rem;
+        font-weight: 600;
+        padding-left: 30px;
+        padding-right: 30px;
+        white-space: pre-line;
+    }
 
-.nk-blockquote .nk-blockquote-author::after, .nk-blockquote .nk-blockquote-author::before {
-    border-bottom: 2px solid #dd163b;
-    content: "";
-    display: table-cell;
-    transform: translateY(-10px);
-    width: 100%;
-}
+    .nk-blockquote .nk-blockquote-author::after {
+        border-bottom: 2px solid #dd163b;
+        content: "";
+        display: table-cell;
+        transform: translateY(-10px);
+    }
 
-.nk-blockquote .nk-blockquote-author::after {
-    min-width: 50px;
-    width: 50px;
-}
+    .nk-blockquote .nk-blockquote-author::before {
+        border-bottom: 2px solid #dd163b;
+        content: "";
+        display: table-cell;
+        transform: translateY(-10px);
+        flex: auto;
+    }
+
 
 .nk-blockquote > a {
     color: inherit;
@@ -6654,6 +6658,10 @@ div.nk-error {
 
     .nk-blog-post.nk-blog-post-single {
         margin-top: 30px;
+    }
+
+    .nk-blockquote .nk-blockquote-author > div {
+        max-width: 20em;
     }
 }
 
