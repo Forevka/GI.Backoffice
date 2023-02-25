@@ -6774,3 +6774,17 @@ div.nk-blog-grid > div.row > div.col-md-6 > div.nk-blog-post > .nk-post-text {
     text-decoration-thickness: .125em;
     text-underline-offset: 1.5px;
 }
+
+.flickity-page-dots > .dot {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    outline: none;
+    opacity: 1;
+    cursor: pointer;
+    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAALdJREFUeNrE1OsJgzAUBeDkDuEcXUGHqKUjuIOFOkRH8IfdwRmcwyXisaQgkeQeJWDgICTxS8jLOudMziImc6HAqW9a5JUF9NADuTOoEFiNlEjFoMJgt+dnXsOgwmD/egYVFmNROYIxqBzFNHQ7Q4ucvTZ2B2LENz5fZMSIBXE+1z4jMvh/92voGwYNDbAuucu+QxRNYdFzGEM17LeYqecruHpGw1QwQJ2GUeAGNRpGg5e+2IsAAwC33IolUV+c8gAAAABJRU5ErkJggg==) 50% / cover no-repeat;
+}
+
+.flickity-page-dots > .dot.is-selected{
+    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAMhJREFUeNpi/P//PwM1ARMDlQELjHFhWRY+dbVAzAjETbgUGERNQzUQD6gD4nAghoVNE1EuJGCYI5S/j5ChLEQa9goq5kTIUBYiDauHijcSMpSFSMMakOTxGspComENhAxlIcEwogxFTtiMSEkDxicWMGJzYSNS0nCCuuQ/Flc2QNWKQdWuwuVlmKH/kQxtRPMmXsNwxXITmksb0SzEaRi+dIjLULyGEcopMA370bLeKnKzHrqh/wkZRmxp04SDjT39DPoSGyDAAFk9RV0pgtYPAAAAAElFTkSuQmCC) 50% / cover no-repeat;
+}
