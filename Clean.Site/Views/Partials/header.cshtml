@@ -1,4 +1,4 @@
-@inherits UmbracoViewPage
+﻿@inherits UmbracoViewPage
 
 <!-- Page Header-->
 <!--
@@ -7,14 +7,16 @@
 -->
 <header class="nk-header nk-header-opaque">
 
-
-
     <!-- START: Top Contacts -->
     <div class="nk-contacts-top">
-        <div class="container">
+        <div class="container promotional">
             <div class="nk-contacts-left">
                 <ul class="nk-social-links">
-                    <li><a class="nk-social-youtube" href="#"><span class="fab fa-youtube"></span></a></li>
+                    <li>
+                        <a class="nk-social-telegram" href="https://t.me/genshin_backoffice">
+                            <span class="fab fa-telegram"></span>
+                        </a>
+                    </li>
                     <!--
                     <li><a class="nk-social-rss" href="#"><span class="fa fa-rss"></span></a></li>
                     <li><a class="nk-social-twitch" href="#"><span class="fab fa-twitch"></span></a></li>
@@ -47,10 +49,14 @@
                     -->
                 </ul>
             </div>
+            <div id="promo-message">
+                <span class="fa fa-arrow-left"></span>
+                Хочеш приєднатись до нашої команди редакторів і авторів? Звертайсь в 
+                <a class="nk-social-telegram" href="https://t.me/genshin_backoffice">телеграм</a>
+            </div>
             <div class="nk-contacts-right">
-                <!-- <ul class="nk-contacts-icons">
-
-                    <li>
+                <ul class="nk-social-links">
+                    <!--<li>
                         <a href="#" data-toggle="modal" data-target="#modalSearch">
                             <span class="fa fa-search"></span>
                         </a>
@@ -80,7 +86,7 @@
                                     <a href="store-product.html">In all revolutions of</a>
                                 </h3>
                                 <div class="nk-gap-1"></div>
-                                <div class="nk-product-price">� 23.00</div>
+                                <div class="nk-product-price">ˆ 23.00</div>
                             </div>
 
                             <div class="nk-widget-post">
@@ -92,7 +98,7 @@
                                     <a href="store-product.html">With what mingled joy</a>
                                 </h3>
                                 <div class="nk-gap-1"></div>
-                                <div class="nk-product-price">� 14.00</div>
+                                <div class="nk-product-price">ˆ 14.00</div>
                             </div>
 
                             <div class="nk-gap-2"></div>
@@ -100,9 +106,9 @@
                                 <a href="store-checkout.html" class="nk-btn nk-btn-rounded nk-btn-color-main-1 nk-btn-hover-color-white">Proceed to Checkout</a>
                             </div>
                         </div>
-                    </li>
+                    </li>-->
 
-                </ul>-->
+                </ul>
             </div>
         </div>
     </div>
@@ -356,7 +362,7 @@
     <div class="nano">
         <div class="nano-content">
             <a href="index.html" class="nk-nav-logo">
-                <img src="assets/images/logo.png" alt="" width="120">
+                @await Html.PartialAsync("icons/siteHeaderIcon")
             </a>
             <div class="nk-navbar-mobile-content">
                 <ul class="nk-nav">
