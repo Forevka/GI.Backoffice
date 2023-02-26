@@ -46,12 +46,12 @@
         {
             new()
             {
-                Title = "Home",
+                Title = "Головна",
                 Url = "/"
             },
             new()
             {
-                Title = "Articles",
+                Title = "Публікації",
                 Url = "/articles"
             },
             new()
@@ -93,7 +93,6 @@
 
     <div class="row vertical-gap">
 
-
         <div class="col-lg-8">
 
             <div class="nk-blog-post nk-blog-post-single">
@@ -109,9 +108,17 @@
                     <div class="nk-gap-1"></div>
                     <h1 class="nk-post-title h4">@Model.Value("subTitle")?.ToString()</h1>
                     <div class="nk-post-by">
-                        <img src="/media/@user?.Avatar" alt="@user?.Name" class="rounded-circle" width="35"> by <a href="/author/@user.Id">@user?.Name</a> in @Model.CreateDate
+                        <div class="post-author-info" style="display: flex;">
+                            <img src="/media/@user?.Avatar" alt="@user?.Name" class="rounded-circle" width="35">
+                            <div class="post-author-info-meta" href="/author/@user.Id">
+                                <a href="/author/@user.Id">
+                                    @user?.Name
+                                </a>
+                                @Model.CreateDate.ToShortDateString() @Model.CreateDate.ToShortTimeString()
+                            </div>
+                        </div>
                         <div class="nk-post-categories">
-                            @foreach (var tag in Model.Value<IEnumerable<string>>("tags"))
+                            @foreach (var tag in Model.Value<IEnumerable<string>>("tags")?.Take(3))
                             {
                                 <span class="bg-main-1">@tag</span>
                             }

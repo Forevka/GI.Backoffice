@@ -41,11 +41,11 @@
                             <p>@Html.Truncate(item.Value("subtitle").ToString(), 200, true)</p>
                         </div>
 
-                        <a href="@item.Url()" class="nk-news-box-item-url">Read More</a>
+                        <a href="@item.Url()" class="nk-news-box-item-url">Читати далі</a>
 
                         <div class="nk-news-box-item-date">
                             <span class="fa fa-calendar"></span> 
-                            @item.CreateDate
+                            @item.CreateDate.ToShortDateString() @item.CreateDate.ToShortTimeString()
                         </div>
                     </div>
                 }
@@ -73,10 +73,10 @@
                     <div class="nk-news-box-item-text">
                         <p>@Html.Truncate(firstItem.Value("subtitle").ToString(), 200, true)</p>
                     </div>
-                    <a href="@firstItem.Url()" class="nk-news-box-item-more">Read More</a>
+                    <a href="@firstItem.Url()" class="nk-news-box-item-more">Читати далі</a>
                     <div class="nk-news-box-item-date">
                         <span class="fa fa-calendar"></span>
-                        @firstItem.CreateDate
+                        @firstItem.CreateDate.ToShortDateString() @firstItem.CreateDate.ToShortTimeString()
                     </div>
                 }
             </div>

@@ -1,4 +1,4 @@
-@inherits UmbracoViewPage
+﻿@inherits UmbracoViewPage
 @using GI.BackOffice
 
 @{
@@ -19,7 +19,7 @@
         <div class="row vertical-gap">
             <div class="col-md-6">
                 <div class="nk-widget">
-                    <h4 class="nk-widget-title"><span class="text-main-1">Latest</span> Posts</h4>
+                    <h4 class="nk-widget-title"><span class="text-main-1">Варто</span> Згадування</h4>
                     <div class="nk-widget-content">
                         <div class="row vertical-gap sm-gap">
                             @foreach (var post in selection.Select(x => x as ContentPage))
@@ -35,7 +35,8 @@
                                             <a href="@post.Url()">@post.Title</a>
                                         </div>
                                         <div class="nk-post-date">
-                                            <span class="fa fa-calendar"></span> @post.CreateDate.ToShortDateString() @post.CreateDate.ToShortTimeString()
+                                            <span class="fa fa-calendar"></span> 
+                                            @post.CreateDate.ToShortDateString() @post.CreateDate.ToShortTimeString()
                                             <!--<span class="fa fa-comments"></span> <a href="#">4</a>-->
                                         </div>
                                     </div>
@@ -53,7 +54,7 @@
     <div class="nk-copyright">
         <div class="container">
             <div class="nk-copyright-left">
-                <a target="_blank" href="https://blog.forevka.dev">Creator</a>
+                <a target="_blank" href="https://blog.forevka.dev">Творець</a>
             </div>
             <div class="nk-copyright-right">
                 <ul class="nk-social-links-2">

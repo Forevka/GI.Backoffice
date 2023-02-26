@@ -8,6 +8,6 @@
 <!-- Main Content-->
 <main class="mb-4">
 	<div class="container px-4 px-lg-5">
-		@Html.GetBlockListHtml(Model.MainContent)
-	</div>
+        @await Html.GetBlockListHtmlAsync(Model.MainContent)
+    </div>
 </main>

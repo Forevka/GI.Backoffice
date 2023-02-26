@@ -1,4 +1,4 @@
-@using GI.BackOffice
+﻿@using GI.BackOffice
 @using Umbraco.Cms.Core.Services;
 
 @inject IUserService UserService;
@@ -25,10 +25,22 @@
                 <a href="@article.Url()">@article.Title</a>
             </h2>
             <div class="nk-post-by">
-                <img src="/media/@user?.Avatar" alt="@user?.Name" class="rounded-circle" width="35"> by 
-                <a href="/author/@user.Id">
-                    @user?.Name
-                </a> in @article.CreateDate
+                <div class="post-author-info" style="display: flex;">
+                    <img src="/media/@user?.Avatar" alt="@user?.Name" class="rounded-circle" width="35">
+                    <div class="post-author-info-meta" href="/author/@user.Id">
+                        <a href="/author/@user.Id">
+                            @user?.Name
+                        </a>
+                        @article.CreateDate.ToShortDateString() @article.CreateDate.ToShortTimeString()
+
+                    </div>
+                </div>
+                <div class="nk-post-categories">
+                    @foreach (var tag in article.Value<IEnumerable<string>>("tags")?.Take(3))
+                    {
+                        <span class="bg-main-1">@tag</span>
+                    }
+                </div>
             </div>
             <div class="nk-gap"></div>
             <div class="nk-post-text">
@@ -36,7 +48,7 @@
             </div>
             <div class="nk-gap"></div>
             <a href="@article.Url()" class="nk-btn nk-btn-rounded nk-btn-color-dark-3 nk-btn-hover-color-main-1">
-                Read More
+                Читати далі
             </a>
         </div>
         <!-- END: Post -->

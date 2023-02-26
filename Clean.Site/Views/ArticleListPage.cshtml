@@ -41,18 +41,17 @@
         {
             new()
             {
-                Title = "Home",
+                Title = "Головна",
                 Url = "/"
             },
             new()
             {
-                Title = "Articles",
+                Title = "Публікації",
                 Url = "/"
             }
         })
     };
 }
-
 
 <!-- Main Content-->
 <div class="nk-gap-1"></div>
@@ -65,46 +64,6 @@
             @await Html.PartialAsync("~/Views/Partials/articles/grid/default.cshtml", articlePage)
 
         </div>
-
-
-        <script>
-            /*let grid = document.querySelector('.nk-blog-grid .row');
-             *
-            window.addEventListener('DOMContentLoaded', () => {
-                let msnry = new Masonry( grid, {
-                    itemSelector: 'none', // select none at first
-                    columnWidth: '.col-md-6',
-                    percentPosition: true,
-                    stagger: 30,
-                    // nicer reveal transition
-                    visibleStyle: { transform: 'translateY(0)', opacity: 1 },
-                    hiddenStyle: { transform: 'translateY(100px)', opacity: 0 },
-                });
-
-                imagesLoaded(grid, function () {
-                    grid.classList.remove('are-images-unloaded');
-                    msnry.options.itemSelector = 'div.col-md-6';
-                    let items = grid.querySelectorAll('div.col-md-6');
-                    msnry.appended(items);
-                });
-
-                var infScroll = new InfiniteScroll(grid, {
-                    path: function() {
-                        let pageNumber = this.loadCount + 1;
-                        return '@Url.Action("Index", "Article")' + `?page=${pageNumber}&pageSize=6`;
-                    },
-                    append: 'div.col-md-6', //what to append
-                    button: '#view-more-button',
-                    // using button, disable loading on scroll
-                    scrollThreshold: false,
-                    outlayer: msnry,
-                    status: '.page-load-status',
-                });
-
-            });*/
-
-
-        </script>
 
         <div class="nk-gap-2"></div>
 

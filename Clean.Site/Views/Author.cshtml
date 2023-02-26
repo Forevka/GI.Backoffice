@@ -1,10 +1,8 @@
-@using GI.BackOffice
+﻿@using GI.BackOffice
 @using GI.BackOffice.Models.ViewModelsData
 @using Umbraco.Cms.Core.Models
 @using Umbraco.Cms.Core.Models.Membership
 @using Umbraco.Cms.Core.Services;
-@using Umbraco.Cms.Web.Common.PublishedModels;
-@using Umbraco.Cms.Web.Common.Views;
 
 @inject IUserService UserService;
 
@@ -33,12 +31,12 @@
         {
             new()
             {
-                Title = "Home",
+                Title = "Головна",
                 Url = "/"
             },
             new()
             {
-                Title = "Author",
+                Title = "Автор",
                 Url = $"/author/{author.Id}",
             },
             new()
@@ -68,7 +66,7 @@
                         <div class="row vertical-gap">
                             <div class="col-md-5 col-lg-6">
                                 <a href="@article.Url()" class="nk-post-img">
-                                    <img src="@article.MainImage?.GetCropUrlWebp(ImageCropName.Preview)" alt="He made his passenger captain of one">
+                                    <img src="@article.MainImage?.GetCropUrlWebp(ImageCropName.Preview)" alt="@article.Title">
                                 </a>
                             </div>
                             <div class="col-md-7 col-lg-6">

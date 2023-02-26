@@ -1,4 +1,7 @@
+using System.Text.Encodings.Web;
+using System.Text.Unicode;
 using Clean.Site.GoogleAuthentication;
+using Microsoft.Extensions.WebEncoders;
 using Our.Umbraco.StorageProviders.AWSS3.DependencyInjection;
 
 namespace Clean.Site
@@ -32,7 +35,12 @@ namespace Clean.Site
         /// </remarks>
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddUmbraco(_env, _config)
+            services
+                .Configure<WebEncoderOptions>(options =>
+                {
+                    options.TextEncoderSettings = new TextEncoderSettings(UnicodeRanges.All);
+                })
+                .AddUmbraco(_env, _config)
                 .AddBackOffice()
                 .AddWebsite()
                 .AddComposers()

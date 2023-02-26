@@ -18,11 +18,6 @@
         .OrderByDescending(x => x.CreateDate)
         .Take(5);
 
-    var articlesCount = Umbraco
-        .Content(Guid.Parse("c606cba8-dfeb-4db5-99be-e297710fe601"))
-        .Children()
-        .Count(x => x.IsVisible());
-
     var topImage = Model.Value<MediaWithCrops<Image>>("topImage");
     var bottomImage = Model.Value<MediaWithCrops<Image>>("bottomImage");
 
@@ -32,7 +27,7 @@
         {
             new()
             {
-                Title = "Home",
+                Title = "Головна",
                 Url = "/"
             }
         })
@@ -107,7 +102,7 @@
     {
         <div class="nk-gap-2"></div>
         <h3 class="nk-decorated-h-2">
-            <span><span class="text-main-1">Latest</span> News</span>
+            <span><span class="text-main-1">Останні</span> публікації</span>
         </h3>
         <div class="nk-gap"></div>
 
