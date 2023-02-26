@@ -21,8 +21,12 @@
 		progressPath.style.transition = progressPath.style.WebkitTransition = 'stroke-dashoffset 10ms linear';		
 
 		var updateProgress = function () {
-			var scroll = $(window).scrollTop();
-			var height = $(document).height() - $(window).height();
+			var body = document.body,
+				html = document.documentElement;
+
+			var scroll = window.scrollY;
+			var height = Math.max( body.scrollHeight, body.offsetHeight,
+				html.clientHeight, html.scrollHeight, html.offsetHeight) - window.innerHeight;
 			var progress = pathLength - (scroll * pathLength / height);
 			progressPath.style.strokeDashoffset = progress;
 		}
