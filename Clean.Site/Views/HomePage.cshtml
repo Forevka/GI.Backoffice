@@ -18,6 +18,11 @@
         .OrderByDescending(x => x.CreateDate)
         .Take(5);
 
+    var articlesCount = Umbraco
+        .Content(Guid.Parse("c606cba8-dfeb-4db5-99be-e297710fe601"))
+        .Children()
+        .Count(x => x.IsVisible());
+
     var topImage = Model.Value<MediaWithCrops<Image>>("topImage");
     var bottomImage = Model.Value<MediaWithCrops<Image>>("bottomImage");
 
@@ -123,9 +128,9 @@
 
             <div class="nk-gap-2"></div>
 
-            <div class="nk-pagination-center">
+            <div class="nk-pagination-center all-articles">
                 <a href="/articles?page=1" class="nk-btn nk-btn-lg nk-btn-rounded nk-btn-color-white" id="view-more-button">
-                    View More
+                    До всіх публікацій
                 </a>
             </div>
 
@@ -167,11 +172,6 @@
 
             
             </script>
-            @*await Html.PartialAsync("~/Views/Partials/articles/pagination.cshtml", new PaginationViewData
-                   {
-                       PageSize = 6,
-                       TotalCount = articles.Count(),
-                   })*@
 
         </div>
 

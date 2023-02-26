@@ -1,15 +1,9 @@
 ﻿/*!-----------------------------------------------------------------
-    Name: GoodGames - Game Portal / Store and eSports HTML Template
     Version: 1.5.4
-    Author: nK
-    Website: https://nkdev.info/
-    Purchase: https://1.envato.market/goodgames
-    Support: https://nk.ticksy.com/
-    License: You must have a valid license purchased only from ThemeForest (the above link) in order to legally use the theme for your project.
-    Copyright 2021.
 -------------------------------------------------------------------*/
 @import "tableOfContent.css";
 @import "infiniteLoading.css";
+@import "pagination.css";
 
 body {
     background-color: #181c23;
@@ -6787,4 +6781,9 @@ div.nk-blog-grid > div.row > div.col-md-6 > div.nk-blog-post > .nk-post-text {
 
 .flickity-page-dots > .dot.is-selected{
     background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAMhJREFUeNpi/P//PwM1ARMDlQELjHFhWRY+dbVAzAjETbgUGERNQzUQD6gD4nAghoVNE1EuJGCYI5S/j5ChLEQa9goq5kTIUBYiDauHijcSMpSFSMMakOTxGspComENhAxlIcEwogxFTtiMSEkDxicWMGJzYSNS0nCCuuQ/Flc2QNWKQdWuwuVlmKH/kQxtRPMmXsNwxXITmksb0SzEaRi+dIjLULyGEcopMA370bLeKnKzHrqh/wkZRmxp04SDjT39DPoSGyDAAFk9RV0pgtYPAAAAAElFTkSuQmCC) 50% / cover no-repeat;
+}
+
+.nk-pagination-center.all-articles {
+    display: flex;
+    justify-content: center;
 }

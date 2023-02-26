@@ -1,51 +1,102 @@
 ﻿@model GI.BackOffice.Models.ViewModelsData.PaginationViewData
 
 @{
-    var page = 1;
+    var currentPage = 1;
     if (Context.Request.Query.TryGetValue("page", out var rawPageValue))
     {
-        int.TryParse(rawPageValue, out page);
+        int.TryParse(rawPageValue, out currentPage);
     }
 
-    var pageForwardDrawed = 0;
-    var pageBackDrawed = 0;
+    var pagesToShowCount = 5;
 
     var elipsDrawed = false;
+
+    var pagesToBackCount = 3;
+    var pagesToForwardCount = 3;
+
+    var totalPageCount = Convert.ToInt32(Math.Ceiling(Model.TotalCount / (double)Model.PageSize));
 }
 
 <!-- START: Pagination -->
-<div class="nk-pagination nk-pagination-center">
-    @if (page > 1)
-    {
-        <a href="?page=1" class="nk-pagination-prev">
-            <span class="ion-ios-arrow-back"></span>
-        </a>
-    }
-    
+<div class="pagination-wrapper">
     <nav>
-    @for (var pageId = 1; pageId <= 16 && pageId <= Model.ForwardPageCount; pageId++)
-    {
-        pageForwardDrawed++;
-
-        <a class="@(pageId == page ? "nk-pagination-current" : "")" href="?page=@pageId">@pageId</a>
-
-        if (pageForwardDrawed >= Model.ForwardPageCount)
-        {
-            if (!elipsDrawed)
+        <ul class="pager">
+            @if (currentPage > 1)
             {
-                <span>...</span>
-                elipsDrawed = true;
+                <li class="pager__item pager__item--prev">
+                    <a class="pager__link" href="/articles?page=@(currentPage-1)">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="8" height="12" viewbox="0 0 8 12">
+                            <g fill="none" fill-rule="evenodd">
+                                <path fill="#fff" d="M7.41 1.41L6 0 0 6l6 6 1.41-1.41L2.83 6z"></path>
+                            </g>
+                        </svg>
+                    </a>
+                </li>
             }
-        }
 
-    }
+            @if (currentPage > (pagesToBackCount + 1))
+            {
+                <li class="pager__item">
+                    <a class="pager__link">...</a>
+                </li>
+            }
+            <!-- Drawing buttons for backward navigation -->
+            @{
+                var backwardPagesDrew = 1;
+                while (backwardPagesDrew <= pagesToBackCount)
+                {
+                    var newPageId = currentPage - (pagesToBackCount - (backwardPagesDrew - 1));
+                    if (newPageId > 0)
+                    {
+                        <li class="pager__item">
+                            <a class="pager__link" href="/articles?page=@newPageId">@newPageId</a>
+                        </li>
+                    }
+                    @(backwardPagesDrew += 1)
+                }
+            }
+
+            <li class="pager__item active">
+                <a class="pager__link" href="/articles?page=@currentPage">@currentPage</a>
+            </li>
+
+            <!-- Drawing buttons for forward navigation -->
+            @{
+                var forwardPagesDrew = 1;
+                while (forwardPagesDrew <= pagesToForwardCount)
+                {
+                    var newPageId = currentPage + forwardPagesDrew;
+                    if (newPageId <= totalPageCount)
+                    {
+                        <li class="pager__item">
+                            <a class="pager__link" href="/articles?page=@newPageId">@newPageId</a>
+                        </li>
+                    }
+                    @(forwardPagesDrew += 1)
+                }
+
+            }
+
+            @if (currentPage + pagesToForwardCount < totalPageCount)
+            {
+                <li class="pager__item">
+                    <a class="pager__link" href="#">...</a>
+                </li>
+            }
+
+            @if (currentPage < totalPageCount)
+            {
+                <li class="pager__item pager__item--next">
+                    <a class="pager__link" href="/articles?page=@(currentPage+1)">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="8" height="12" viewbox="0 0 8 12">
+                            <g fill="none" fill-rule="evenodd">
+                                <path fill="#fff" d="M7.41 1.41L6 0 0 6l6 6 1.41-1.41L2.83 6z"></path>
+                            </g>
+                        </svg>
+                    </a>
+                </li>
+            }
+        </ul>
     </nav>
-
-    @if (page < Model.PageCount)
-    {
-        <a href="#" class="nk-pagination-next">
-            <span class="ion-ios-arrow-forward"></span>
-        </a>
-    }
 </div>
 <!-- END: Pagination -->
