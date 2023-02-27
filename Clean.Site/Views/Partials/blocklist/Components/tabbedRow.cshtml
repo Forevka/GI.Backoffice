@@ -1,0 +1,134 @@
+﻿@inherits UmbracoViewPage<BlockListItem>
+
+@{
+    var row = (TabbedRow)Model.Content;
+    var settings = (TabbedRowSettings)Model.Settings;
+    var tabbedId = "tabbed-" + row.Key;
+
+    var isFromBackoffice = (bool?)ViewData["isFromBackoffice"] ?? false;
+}
+
+<h3 class="text-main-1">@row.Title</h3>
+<div class="nk-gap"></div>
+@if (isFromBackoffice)
+{
+    <div class="nk-widget nk-widget-highlighted">
+        <h4 class="nk-widget-title">
+            <span><span class="text-main-1">Tabbed </span> @row.TabbedItems.Count items </span>
+        </h4>
+        <div class="nk-widget-content" style="
+                                              display: grid;
+                                              grid-template-columns: repeat(1, 1fr);
+                                              grid-gap: 15px;">
+
+            @foreach (var tabRow in row.TabbedItems.Select(x => x as BlockListItem<TabbedItem, TabbedItemSettings>))
+            {
+                <div class="nk-widget row">
+                    <h4 class="nk-widget-title">
+                        <span>
+                            <span class="text-main-1">Tab
+                            </span>
+                            "@tabRow.Content.Title"
+                        </span>
+                    </h4>
+                    
+                    <div class="nk-widget-content">
+                        @foreach (var block in tabRow.Content.ContentList)
+                        {
+                            if (block?.ContentUdi == null) { continue; }
+                            var data = block.Content;
+
+                            @await Html.PartialAsync("blocklist/Components/" + data.ContentType.Alias, block)
+
+                            <div class="nk-gap"></div>
+                            if (data.ContentType.Alias == "carouselRow")
+                            {
+                                // additional gap for carousel
+                                <div class="nk-gap"></div>
+                            }
+                        }
+                    </div>
+                </div>
+            }
+
+        </div>
+    </div>
+}
+else
+{
+    <!-- START: Tabs  -->
+    <div class="nk-tabs" id="@tabbedId">
+
+        <ul class="nav nav-tabs" role="tablist">
+            @{
+                var indexTabHead = 0;
+                foreach (var tab in row.TabbedItems)
+                {
+                    var rowItem = (TabbedItem)tab.Content;
+                    var rowContent = rowItem.ContentList;
+                    var rowSettings = (TabbedItemSettings)tab.Settings;
+                    if (rowSettings.Hide) continue;
+                
+                    if (string.IsNullOrWhiteSpace(rowItem.Title) 
+                        || rowContent == null
+                        || !rowContent.Any()) continue;
+
+                    var show = indexTabHead == 0;
+                    var tabHeadId = tabbedId + "-tab-" + indexTabHead;
+
+                    <li class="nav-item">
+                        <a class="nav-link @(show ? "active" : "")" href="#@tabHeadId" role="tab" data-toggle="tab">@rowItem.Title</a>
+                    </li>
+                    indexTabHead++;
+                }
+            }
+        </ul>
+        <!--
+        Additional Classes:
+        .nav-tabs-fill
+        -->
+        <div class="tab-content">
+            @{
+                var indexTabBody = 0;
+                foreach (var tab in row.TabbedItems)
+                {
+                    var rowItem = (TabbedItem)tab.Content;
+                    var rowContent = rowItem.ContentList;
+                    var rowSettings = (TabbedItemSettings)tab.Settings;
+                    if (rowSettings.Hide) continue;
+
+                    if (string.IsNullOrWhiteSpace(rowItem.Title)
+                    || rowContent == null
+                    || !rowContent.Any()) continue;
+
+                    var show = indexTabBody == 0;
+                    var tabBodyId = tabbedId + "-tab-" + indexTabBody;
+
+                    <div role="tabpanel" class="tab-pane fade @(show ? "show active" : "")" id="@tabBodyId">
+                        <div class="nk-gap"></div>
+
+                        @foreach (var block in rowContent)
+                        {
+                            if (block?.ContentUdi == null) { continue; }
+                            var data = block.Content;
+
+                            @await Html.PartialAsync("blocklist/Components/" + data.ContentType.Alias, block)
+                        
+                            <div class="nk-gap"></div>
+                            if (data.ContentType.Alias == "carouselRow")
+                            {
+                                // additional gap for carousel
+                                <div class="nk-gap"></div>
+                            }
+                        }
+
+                        <div class="nk-gap"></div>
+                    </div>
+
+                    indexTabBody++;
+                }
+            }
+        </div>
+    </div>
+    <!-- END: Tabs -->
+}

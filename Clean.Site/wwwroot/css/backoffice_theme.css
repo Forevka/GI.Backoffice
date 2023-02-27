@@ -11,3 +11,7 @@
 .nk-blockquote .nk-blockquote-icon > span {
     color: black;
 }
+
+.tab-item {
+    border: black;
+}
