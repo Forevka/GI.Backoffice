@@ -6662,6 +6662,10 @@ div.nk-error {
     .nk-blockquote .nk-blockquote-author > div {
         max-width: 20em;
     }
+
+    .nk-post-by {
+        flex-direction: column;
+    }
 }
 
 @media (min-width: 991px) {

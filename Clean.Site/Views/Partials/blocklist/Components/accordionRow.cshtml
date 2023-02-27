@@ -8,46 +8,62 @@
     var accordionId = "accordion-" + row.Key;
 }
 
-<div class="row gx-4 gx-lg-5 pt-5 justify-content-center">
+<!-- START: Accordion 1 -->
 
-    <header class="text-center">
-        <h2>@row.Title</h2>
-        <p>@row.Description</p>
-    </header>
+<div class="nk-gap"></div>
+<h3 class="text-main-1">@row.Title</h3>
 
-    <div class="accordion" id="@accordionId">
-        @{
-            var index = 0;
-            foreach(var item in row.AccordionItems)
-            {
-                var rowItem = (AccordionItem)item.Content;
-                var rowSettings = (AccordionItemSettings)item.Settings;
-                if(rowSettings.Hide) continue;
+@if (!string.IsNullOrEmpty(@row.Description))
+{
+    <h2>@row.Description</h2>
+}
 
-                if(string.IsNullOrWhiteSpace(rowItem.Title) 
-                    || rowItem.Content == null 
-                    || string.IsNullOrWhiteSpace(rowItem.Content.ToString())) continue;
+<div class="nk-gap"></div>
+<div class="nk-accordion" id="accordion-1" role="tablist" aria-multiselectable="true" id="@accordionId">
+    @{
+        var index = 0;
+        foreach(var item in row.AccordionItems)
+        {
+            var rowItem = (AccordionItem)item.Content;
+            var rowContent = rowItem.ContentList;
+            var rowSettings = (AccordionItemSettings)item.Settings;
+            if (rowSettings.Hide) continue;
+            
+            if (string.IsNullOrWhiteSpace(rowItem.Title) 
+               || rowContent == null
+               || !rowContent.Any()) continue;
 
-                var show = index == 0;
-                var headingId = accordionId + "-heading-" + index;
-                var collapseId = accordionId + "-collapse-" + index;
+            var show = index == 0;
+            var headingId = accordionId + "-heading-" + index;
+            var collapseId = accordionId + "-collapse-" + index;
 
-                <div class="accordion-item">
-                    <h2 class="accordion-header" id="@headingId">
-                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#@collapseId" aria-expanded="@show" aria-controls="@collapseId">
-                        @rowItem.Title
-                    </button>
-                    </h2>
-                    <div id="@collapseId" class="accordion-collapse collapse @(show ? "show" : null)" aria-labelledby="@headingId" data-bs-parent="#@accordionId">
-                    <div class="accordion-body">
-                        @rowItem.Content
-                    </div>
-                    </div>
+            <div class="panel panel-default">
+                <div class="panel-heading" role="tab" id="@headingId">
+                    <a class="collapsed" data-toggle="collapse" data-parent="#@collapseId" href="#@collapseId" aria-expanded="@show" aria-controls="@collapseId">
+                        @rowItem.Title <span class="panel-heading-arrow fa fa-angle-down"></span>
+                    </a>
                 </div>
-                index++;
-            }
+                <div id="@collapseId" class="panel-collapse collapse" role="tabpanel" aria-labelledby="@headingId">
+                    @foreach (var block in rowContent)
+                    {
+                        if (block?.ContentUdi == null) { continue; }
+                        var data = block.Content;
+
+                        @await Html.PartialAsync("blocklist/Components/" + data.ContentType.Alias, block)
+                        
+                        <div class="nk-gap"></div>
+                        if (data.ContentType.Alias == "carouselRow")
+                        {
+                            // additional gap for carousel
+                            <div class="nk-gap"></div>
+                        }
+                    }
+                </div>
+            </div>
+
+            index++;
         }
-        
-    </div>
+    }
 
 </div>
+<!-- END: Accordion 1 -->
