@@ -1,0 +1,44 @@
+﻿@using System.Web
+@inherits UmbracoViewPage<BlockListItem>
+
+@{
+    var row = (EmbedRow)Model.Content;
+    var isFromBackoffice = (bool?) ViewData["isFromBackoffice"] ?? false;
+}
+
+@if (row.EmbedType == "YouTube")
+{
+    var myUri = new Uri(row.Link!);
+
+    var videoId = HttpUtility.ParseQueryString(myUri.Query).Get("v");
+    if (string.IsNullOrEmpty(videoId))
+    {
+        <div>Url you provided is not applicable to display, please check if its correct</div>
+    }
+    else
+    {
+        <div class="youtube-video-container">
+            <iframe
+                width="560"
+                height="315"
+                src="https://www.youtube.com/embed/@videoId"
+                frameborder="0"
+                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>
+        </div>
+    }
+}
+else if (row.EmbedType == "Twitter")
+{
+    //<blockquote class="twitter-tweet"><p lang="in" dir="ltr">BasedAI</p>&mdash; Elon Musk (@elonmusk) <a href="https://twitter.com/elonmusk/status/1630624962225553430?ref_src=twsrc%5Etfw">February 28, 2023</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+    var twitterEmbed = new HtmlString(row.Link);
+
+    if (isFromBackoffice)
+    {
+        <div>Twitter embed</div>
+    }
+
+    <div class="twitter-embed">
+        @twitterEmbed
+    </div>
+}
