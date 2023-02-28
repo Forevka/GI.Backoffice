@@ -1,4 +1,4 @@
-﻿@inherits UmbracoViewPage<ArticleListPage>
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.GuidesSection>
 @using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
 @using GI.BackOffice
 @using GI.BackOffice.Models.ViewModelsData
@@ -18,7 +18,7 @@
         int.TryParse(rawPageValue, out currentPage);
     }
 
-    var articlePage = Umbraco.GetPagedContent(currentPage, pageSize);
+    var articlePage = Umbraco.GetPagedContentForSection("guidesSection", currentPage, pageSize);
 
     var homePage = Model.Ancestor<HomePage>();
 

@@ -1,13 +1,6 @@
-﻿using Lucene.Net.Search;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using System.Numerics;
-using Umbraco.Cms.Core.Models;
+﻿using Umbraco.Cms.Core.Models;
 using Umbraco.Cms.Core.Models.PublishedContent;
-using Umbraco.Cms.Core.PropertyEditors.ValueConverters;
 using Umbraco.Extensions;
-using Umbraco.New.Cms.Core.Models;
-using static Lucene.Net.Store.Lock;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace GI.BackOffice
 {

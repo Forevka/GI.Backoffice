@@ -4,12 +4,14 @@
 
 @using Umbraco.Cms.Core.Models;
 @using GI.BackOffice
-@using GI.BackOffice.Models.ViewModelsData
+@using BreadcrumbViewData = Clean.Site.Models.ViewData.BreadcrumbViewData
+
 @inject IUserService UserService;
 
 @{
 	Layout = "Master.cshtml";
 }
+
 
 @{
     var homePage = Model.Ancestor<HomePage>();
@@ -39,35 +41,13 @@
         var readAlso = await Html.PartialAsync("sidebar/readAlso", Model.ListOfContent);
         readAlsoRendered = new HtmlString(readAlso.ToHtmlString());
     }
-
-    var history = new BreadcrumbViewData
-    {
-        History = new LinkedList<BreadcrumbJumpViewData>(new List<BreadcrumbJumpViewData>
-        {
-            new()
-            {
-                Title = "Головна",
-                Url = "/"
-            },
-            new()
-            {
-                Title = "Публікації",
-                Url = "/articles"
-            },
-            new()
-            {
-                Title = Model.Value("title")?.ToString(),
-                Url = Model.Url(),
-            }
-        })
-    };
 }
 
 
 <!-- Main Content-->
 <div class="container">
     <div class="nk-gap-1"></div>
-    @await Html.PartialAsync("~/Views/Partials/breadcrumb.cshtml", history)
+    @await Html.PartialAsync("~/Views/Partials/breadcrumb.cshtml", BreadcrumbViewData.FormHistory(Model))
 
     <div class="row vertical-gap on-phonescreen">
         <div class="col-lg-4 nk-sidebar-sticky-parent">
