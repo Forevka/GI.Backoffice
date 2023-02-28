@@ -6809,3 +6809,28 @@ div.nk-blog-grid > div.row > div.col-md-6 > div.nk-blog-post > .nk-post-text {
     justify-content: center;
     align-items: flex-start;
 }
+
+.read-also-content {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: 1fr;
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+}
+
+.read-also-content > .nk-widget-post + .nk-widget-post, .nk-widget-post-2 + .nk-widget-post {
+    padding-top: 0px;
+}
+
+.read-also-content > .nk-widget-post, .nk-widget-post-2 + .nk-widget-post {
+    padding-bottom: 10px;
+}
+
+
+@media (max-width: 991px) {
+
+    .read-also-content {
+        grid-template-columns: repeat(1, 1fr);
+    }
+
+}

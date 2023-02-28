@@ -1,6 +1,10 @@
 ﻿@inherits UmbracoViewPage<List<BlockListItem>>
 
-<div class="nk-widget nk-widget-highlighted">
+@{
+    var id = $"toc-{Guid.NewGuid()}";
+}
+
+<div class="nk-widget nk-widget-highlighted" id="@id">
     <h4 class="nk-widget-title"><span><span class="text-main-1">Зміст</span> Публікації</span></h4>
     <div class="nk-widget-content">
         <!-- role=list necessary because WebKit removes list semantic when list-style-type: none -->
@@ -42,9 +46,13 @@ window.addEventListener('DOMContentLoaded', () => {
             const id = entry.target.getAttribute('id');
             
             if (entry.intersectionRatio > 0) {
-                document.querySelector(`.nk-sidebar-sticky-parent > aside > div > div > div > ol > li > a[href="#${id}"]`).parentElement.classList.add('active');
+                document.querySelectorAll(`#@id > div > ol > li > a[href="#${id}"]`).forEach((element) => {
+                    element.parentElement.classList.add('active');
+                })
             } else {
-                document.querySelector(`.nk-sidebar-sticky-parent > aside > div > div > div > ol > li > a[href="#${id}"]`).parentElement.classList.remove('active');
+                document.querySelectorAll(`#@id > div > ol > li > a[href="#${id}"]`).forEach((element) => {
+                    element.parentElement.classList.remove('active');
+                })
             }
         });
     });
