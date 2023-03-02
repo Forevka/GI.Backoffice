@@ -7,16 +7,16 @@
 <!DOCTYPE html>
 <html lang="en" prefix="og: https://ogp.me/ns#">
     <head>
-    
-        <!-- Google Tag Manager -->
+
+        <!-- Google tag (gtag.js) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-NBLX1CDQVS"></script>
         <script>
-            (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-            })(window,document,'script','dataLayer','GTM-M57D8Z9');
+            window.dataLayer = window.dataLayer || [];
+            function gtag() { dataLayer.push(arguments); }
+            gtag('js', new Date());
+
+            gtag('config', 'G-NBLX1CDQVS');
         </script>
-        <!-- End Google Tag Manager -->
 
         @await Html.PartialAsync("~/Views/Partials/metaData.cshtml")
         <link rel="icon" type="image/x-icon" href="/assets/favicon.ico" />
@@ -58,12 +58,6 @@
         <script src="~/vendor/jquery/dist/jquery.min.js"></script>
     </head>
     <body>
-
-        <!-- Google Tag Manager (noscript) -->
-        <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-M57D8Z9"
-        height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-        <!-- End Google Tag Manager (noscript) -->
-
         @await Html.PartialAsync("~/Views/Partials/header.cshtml")
 
         <div class="nk-main">
@@ -118,7 +112,7 @@
         <!-- Hammer.js -->
         <script defer src="~/vendor/hammerjs/hammer.min.js"></script>
 
-        <!-- NanoSroller -->
+        <!-- NanoScroller -->
         <script defer src="~/vendor/nanoscroller/bin/javascripts/jquery.nanoscroller.js"></script>
 
         <!-- SoundManager2 -->
@@ -129,19 +123,16 @@
 
         <!-- Summernote -->
         <script defer src="~/vendor/summernote/dist/summernote-bs4.min.js"></script>
-        
 
         <script defer src="https://unpkg.com/infinite-scroll@3/dist/infinite-scroll.pkgd.js"></script>
         <script defer src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.js"></script>
     
-
-        <!-- nK Share 
-        <script src="~/plugins/nk-share/nk-share.js"></script>-->
-
-        <!-- GoodGames -->
         <script defer src="~/js/scripts.js"></script>
         <script defer src="~/js/scripts-init.js"></script>
         <!-- END: Scripts -->
+        <script>
+            document.querySelectorAll('table').forEach((elem) => { elem.classList.add("nk-table") })
+        </script>
 
     </body>
 </html>
