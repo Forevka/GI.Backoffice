@@ -131,7 +131,15 @@
         <script defer src="~/js/scripts-init.js"></script>
         <!-- END: Scripts -->
         <script>
-            document.querySelectorAll('table').forEach((elem) => { elem.classList.add("nk-table") })
+
+            window.addEventListener('DOMContentLoaded', () => {
+                document.querySelectorAll('table').forEach((elem) => {
+                    elem.classList.add("nk-table") 
+                })
+
+                $('table').stacktable();
+            });
+
         </script>
 
     </body>

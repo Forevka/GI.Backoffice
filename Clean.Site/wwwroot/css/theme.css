@@ -6,6 +6,7 @@
 @import "pagination.css";
 @import "scrollToTop.css";
 @import "embed.css";
+@import "table.css";
 
 body {
     background-color: #181c23;
