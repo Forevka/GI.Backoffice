@@ -1,5 +1,13 @@
 ﻿@inherits UmbracoViewPage
 
+@{
+    var home = (Model is HomePage ? Model : Model.Ancestor<HomePage>()) as HomePage;
+
+    var navigation = home!.MainNavigation;
+
+    var a = 1;
+}
+
 <!-- Page Header-->
 <!--
     Additional Classes:
@@ -130,7 +138,39 @@
                 </a>
 
                 <ul class="nk-nav nk-nav-right d-none d-lg-table-cell" data-nav-mobile="#nk-nav-mobile">
+                    @foreach (var nav in navigation)
+                    {
+                        if (!nav.ChildLinks.Any())
+                        {
+                            <li>
+                                <a href="@nav.Link?.Url">
+                                    @nav.Title
+                                </a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nk-drop-item">
+                                <a href="@nav.Link?.Url">
+                                    @nav.Title
+                                </a>
+                                <ul class="dropdown">
 
+                                    @foreach (var subNav in nav.ChildLinks)
+                                    {
+
+                                        <li>
+                                            <a href="@subNav.Url">
+                                                @subNav.Name
+                                            </a>
+                                        </li>
+
+                                    }
+
+                                </ul>
+                            </li>
+                        }
+                    }
                 <!--
                 <li class=" nk-drop-item">
                     <a href="elements.html">

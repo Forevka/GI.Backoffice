@@ -16,16 +16,16 @@
     }
 }
 
-h2 {
+.stackable h2 {
     text-align: center;
     padding-top: 10px;
 }
 
-table caption {
+table.stackable caption {
     padding: .5em 0;
 }
 
-.p {
+p.stackable {
     text-align: center;
     padding-top: 140px;
     font-size: 14px;
