@@ -1,4 +1,4 @@
-function _0x4793(t, n) {
+﻿function _0x4793(t, n) {
     var e = _0x13db();
     return (_0x4793 = function (t, n) {
         return e[t -= 420]
@@ -109,12 +109,12 @@ function _0x13db() {
         var a = {
             scrollToAnchorSpeed: 700,
             templates: {
-                secondaryNavbarBackItem: "Back",
+                secondaryNavbarBackItem: "Назад",
                 plainVideoIcon: i(937),
                 plainVideoLoadIcon: i(490),
                 audioPlainButton: i(586),
                 instagram: '<div class="col-4">\n                <a href="{{link}}" target="_blank">\n                    <img src="{{image}}" alt="{{caption}}" class="nk-img-stretch">\n                </a>\n            </div>',
-                instagramLoadingText: "Loading...",
+                instagramLoadingText: "Завантаження...",
                 instagramFailText: i(826),
                 instagramApiPath: i(745),
                 twitter: i(581),
