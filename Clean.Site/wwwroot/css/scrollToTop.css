@@ -99,6 +99,9 @@ body {
     transform: translateY(15px);
     -webkit-transition: all 200ms linear;
     transition: all 200ms linear;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .progress-wrap.active-progress {
@@ -149,13 +152,8 @@ body {
 }
 
 #to-top-chevron {
+    transform: rotate(-90deg);
     position: absolute;
-    left: 7px;
-    top: 4px;
-}
-
-#to-top-chevron:hover {
-    fill: red;
 }
 
 .progress-wrap:hover::before {

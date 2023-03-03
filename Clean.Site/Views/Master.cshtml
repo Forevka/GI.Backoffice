@@ -1,16 +1,15 @@
-﻿@using Umbraco.Cms.Web.Common.PublishedModels;
-@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+﻿@inherits UmbracoViewPage
 @{
-	Layout = null;
+    Layout = null;
 }
 
 <!DOCTYPE html>
 <html lang="en" prefix="og: https://ogp.me/ns#">
-    <head>
+<head>
 
-        <!-- Google tag (gtag.js) -->
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-NBLX1CDQVS"></script>
-        <script>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-NBLX1CDQVS"></script>
+    <script>
             window.dataLayer = window.dataLayer || [];
             function gtag() { dataLayer.push(arguments); }
             gtag('js', new Date());
@@ -18,130 +17,129 @@
             gtag('config', 'G-NBLX1CDQVS');
         </script>
 
-        @await Html.PartialAsync("~/Views/Partials/metaData.cshtml")
-        <link rel="icon" type="image/x-icon" href="/assets/favicon.ico" />
-        <!-- Font Awesome icons (free version)-->
-        <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
-        <!-- Google fonts-->
-        <!--<link href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css" />-->
-        <!--<link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css" />-->
-        <!-- Core theme CSS (includes Bootstrap)-->
-        <!--<link href="/css/styles.css" rel="stylesheet" /> -->
+    @await Html.PartialAsync("~/Views/Partials/metaData.cshtml")
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico"/>
+    <!-- Font Awesome icons (free version)-->
+    <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+    <!-- Google fonts-->
+    <!--<link href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css" />-->
+    <!--<link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css" />-->
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <!--<link href="/css/styles.css" rel="stylesheet" /> -->
 
-        <link rel="stylesheet" type="text/css" href="~/vendor/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="~/vendor/bootstrap/dist/css/bootstrap.min.css">
 
-        <!-- IonIcons -->
-        <link rel="stylesheet" type="text/css" href="~/vendor/ionicons/css/ionicons.min.css">
+    <!-- IonIcons -->
+    <link rel="stylesheet" type="text/css" href="~/vendor/ionicons/css/ionicons.min.css">
 
-        <!-- Flickity -->
-        <link rel="stylesheet" type="text/css" href="~/vendor/flickity/dist/flickity.min.css">
+    <!-- Flickity -->
+    <link rel="stylesheet" type="text/css" href="~/vendor/flickity/dist/flickity.min.css">
 
-        <!-- Photoswipe -->
-        <link rel="stylesheet" type="text/css" href="~/vendor/photoswipe/dist/photoswipe.css">
-        <!--<link rel="stylesheet" type="text/css" href="~/vendor/photoswipe/dist/default-skin/default-skin.css">-->
+    <!-- Photoswipe -->
+    <link rel="stylesheet" type="text/css" href="~/vendor/photoswipe/dist/photoswipe.css">
+    <!--<link rel="stylesheet" type="text/css" href="~/vendor/photoswipe/dist/default-skin/default-skin.css">-->
 
-        <!-- Seiyria Bootstrap Slider 
-        <link rel="stylesheet" type="text/css" href="~/vendor/bootstrap-slider/dist/css/bootstrap-slider.min.css">-->
+    <!-- Seiyria Bootstrap Slider 
+    <link rel="stylesheet" type="text/css" href="~/vendor/bootstrap-slider/dist/css/bootstrap-slider.min.css">-->
 
-        <!-- Summernote -->
-        <!--<link rel="stylesheet" type="text/css" href="~/vendor/summernote/dist/summernote-bs4.css"> -->
+    <!-- Summernote -->
+    <!--<link rel="stylesheet" type="text/css" href="~/vendor/summernote/dist/summernote-bs4.css"> -->
 
-        <!-- Custom Styles -->
-        <!-- <link rel="stylesheet" href="css/custom.css"> -->
+    <!-- Custom Styles -->
+    <!-- <link rel="stylesheet" href="css/custom.css"> -->
 
-        <!-- Site specific theme -->
-        <link href="~/css/theme.css" rel="stylesheet" />
-    
-        <!-- END: Styles -->
+    <!-- Site specific theme -->
+    <link href="~/css/theme.css" rel="stylesheet"/>
 
-        <!-- jQuery -->
-        <script src="~/vendor/jquery/dist/jquery.min.js"></script>
-    </head>
-    <body>
-        @await Html.PartialAsync("~/Views/Partials/header.cshtml")
+    <!-- END: Styles -->
 
-        <div class="nk-main">
-            @RenderBody()
-        </div>
+    <!-- jQuery -->
+    <script src="~/vendor/jquery/dist/jquery.min.js"></script>
+</head>
+<body>
+@await Html.PartialAsync("~/Views/Partials/header.cshtml")
 
-        <div class="nk-gap-2"></div>
+<div class="nk-main">
+    @RenderBody()
+</div>
 
-        @await Html.PartialAsync("~/Views/Partials/scrollToTop.cshtml")
+<div class="nk-gap-2"></div>
 
-        @await Html.PartialAsync("~/Views/Partials/footer.cshtml")
+@await Html.PartialAsync("~/Views/Partials/scrollToTop.cshtml")
 
-        <!-- START: Scripts -->
-        <!-- Object Fit Polyfill -->
-        <script defer src="~/vendor/object-fit-images/dist/ofi.min.js"></script>
+@await Html.PartialAsync("~/Views/Partials/footer.cshtml")
 
-        <!-- GSAP -->
-        <script defer src="~/vendor/gsap/src/minified/TweenMax.min.js"></script>
-        <script defer src="~/vendor/gsap/src/minified/plugins/ScrollToPlugin.min.js"></script>
+<!-- START: Scripts -->
+<!-- Object Fit Polyfill -->
+<script defer src="~/vendor/object-fit-images/dist/ofi.min.js"></script>
 
-        <!-- Popper -->
-        <script defer src="~/vendor/popper.js/dist/umd/popper.min.js"></script>
+<!-- GSAP -->
+<script defer src="~/vendor/gsap/src/minified/TweenMax.min.js"></script>
+<script defer src="~/vendor/gsap/src/minified/plugins/ScrollToPlugin.min.js"></script>
 
-        <!-- Bootstrap -->
-        <script defer src="~/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- Popper -->
+<script defer src="~/vendor/popper.js/dist/umd/popper.min.js"></script>
 
-        <!-- Sticky Kit -->
-        <script defer src="~/vendor/sticky-kit/dist/sticky-kit.min.js"></script>
+<!-- Bootstrap -->
+<script defer src="~/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
 
-        <!-- Jarallax -->
-        <script defer src="~/vendor/jarallax/dist/jarallax.min.js"></script>
-        <script defer src="~/vendor/jarallax/dist/jarallax-video.min.js"></script>
+<!-- Sticky Kit -->
+<script defer src="~/vendor/sticky-kit/dist/sticky-kit.min.js"></script>
 
-        <!-- imagesLoaded -->
-        <script defer src="~/vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
+<!-- Jarallax 
+<script defer src="~/vendor/jarallax/dist/jarallax.min.js"></script>
+<script defer src="~/vendor/jarallax/dist/jarallax-video.min.js"></script>
+    -->
+<!-- imagesLoaded
+    <script defer src="~/vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>-->
 
-        <!-- Flickity -->
-        <script defer src="~/vendor/flickity/dist/flickity.pkgd.min.js"></script>
+<!-- Flickity -->
+<script defer src="~/vendor/flickity/dist/flickity.pkgd.min.js"></script>
 
-        <!-- Photoswipe -->
-        <script defer src="~/vendor/photoswipe/dist/photoswipe-lightbox.umd.min.js"></script>
-        <script defer src="~/vendor/photoswipe/dist/photoswipe.umd.min.js"></script>
-        
-        <!-- Jquery Validation -->
-        <script defer src="~/vendor/jquery-validation/dist/jquery.validate.min.js"></script>
+<!-- Photoswipe -->
+<script defer src="~/vendor/photoswipe/dist/photoswipe-lightbox.umd.min.js"></script>
+<script defer src="~/vendor/photoswipe/dist/photoswipe.umd.min.js"></script>
 
-        <!-- Jquery Countdown + Moment -->
-        <script defer src="~/vendor/jquery-countdown/dist/jquery.countdown.min.js"></script>
-        <script defer src="~/vendor/moment/min/moment.min.js"></script>
-        <script defer src="~/vendor/moment-timezone/builds/moment-timezone-with-data.min.js"></script>
+<!-- Jquery Validation
+    <script defer src="~/vendor/jquery-validation/dist/jquery.validate.min.js"></script> -->
 
-        <!-- Hammer.js -->
-        <script defer src="~/vendor/hammerjs/hammer.min.js"></script>
+<!-- Jquery Countdown + Moment -->
+<!--<script defer src="~/vendor/jquery-countdown/dist/jquery.countdown.min.js"></script>-->
+<script defer src="~/vendor/moment/min/moment.min.js"></script>
+<script defer src="~/vendor/moment-timezone/builds/moment-timezone-with-data.min.js"></script>
 
-        <!-- NanoScroller -->
-        <script defer src="~/vendor/nanoscroller/bin/javascripts/jquery.nanoscroller.js"></script>
+<!-- Hammer.js -->
+<script defer src="~/vendor/hammerjs/hammer.min.js"></script>
 
-        <!-- SoundManager2 -->
-        <script defer src="~/vendor/soundmanager2/script/soundmanager2-nodebug-jsmin.js"></script>
+<!-- NanoScroller -->
+<script defer src="~/vendor/nanoscroller/bin/javascripts/jquery.nanoscroller.js"></script>
 
-        <!-- Seiyria Bootstrap Slider -->
-        <script defer src="~/vendor/bootstrap-slider/dist/bootstrap-slider.min.js"></script>
+<!-- SoundManager2
+    <script defer src="~/vendor/soundmanager2/script/soundmanager2-nodebug-jsmin.js"></script>-->
 
-        <!-- Summernote -->
-        <script defer src="~/vendor/summernote/dist/summernote-bs4.min.js"></script>
+<!-- Seiyria Bootstrap Slider -->
+<script defer src="~/vendor/bootstrap-slider/dist/bootstrap-slider.min.js"></script>
 
-        <script defer src="https://unpkg.com/infinite-scroll@3/dist/infinite-scroll.pkgd.js"></script>
-        <script defer src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.js"></script>
-    
-        <script defer src="~/js/scripts.js"></script>
-        <script defer src="~/js/scripts-init.js"></script>
-        <!-- END: Scripts -->
-        <script>
+<!-- Summernote
+    <script defer src="~/vendor/summernote/dist/summernote-bs4.min.js"></script>-->
 
-            window.addEventListener('DOMContentLoaded', () => {
-                document.querySelectorAll('table').forEach((elem) => {
-                    elem.classList.add("nk-table") 
-                })
+<!--<script defer src="https://unpkg.com/infinite-scroll@3/dist/infinite-scroll.pkgd.js"></script>
+    <script defer src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.js"></script>-->
 
-                $('table').stacktable();
-            });
+<script defer src="~/js/scripts.js"></script>
+<script defer src="~/js/scripts-init.js"></script>
+<!-- END: Scripts -->
+<script>
 
-        </script>
+    window.addEventListener('DOMContentLoaded', () => {
+        document.querySelectorAll('table').forEach((elem) => {
+            elem.classList.add("nk-table") 
+        })
 
-    </body>
+        $('table').stacktable();
+    });
+
+</script>
+
+</body>
 </html>
-
