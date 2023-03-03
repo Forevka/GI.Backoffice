@@ -19,7 +19,7 @@ namespace Clean.Site.UmbracoHelpers
                 .Where(x => x.IsVisible())
                 .OrderByDescending(x => x.CreateDate)
                 .Skip((currentPage - 1) * pageSize)
-                .Take(6)
+                .Take(pageSize)
                 .ToList();
 
             var articlesCount = Umbraco.GetContentNode()
@@ -38,7 +38,7 @@ namespace Clean.Site.UmbracoHelpers
                 .Where(x => x.IsVisible())
                 .OrderByDescending(x => x.CreateDate)
                 .Skip((currentPage - 1) * pageSize)
-                .Take(6)
+                .Take(pageSize)
                 .ToList();
 
             var articlesCount = Umbraco.GetContentNode()
