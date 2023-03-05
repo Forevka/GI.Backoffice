@@ -8,8 +8,12 @@
     var isFromBackoffice = (bool?)ViewData["isFromBackoffice"] ?? false;
 }
 
-<h3 class="text-main-1">@row.Title</h3>
-<div class="nk-gap"></div>
+@if (!string.IsNullOrEmpty(row.Title))
+{
+    <h3 class="text-main-1">@row.Title</h3>
+    <div class="nk-gap"></div>
+}
+
 @if (isFromBackoffice)
 {
     <div class="nk-widget nk-widget-highlighted">

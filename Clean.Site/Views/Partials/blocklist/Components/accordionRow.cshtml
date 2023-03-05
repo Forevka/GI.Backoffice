@@ -9,16 +9,18 @@
 }
 
 <!-- START: Accordion 1 -->
-
-<div class="nk-gap"></div>
-<h3 class="text-main-1">@row.Title</h3>
-
-@if (!string.IsNullOrEmpty(@row.Description))
+@if (!string.IsNullOrEmpty(row.Title))
 {
-    <h2>@row.Description</h2>
+    <div class="nk-gap"></div>
+    <h3 class="text-main-1">@row.Title</h3>
 }
 
-<div class="nk-gap"></div>
+@if (!string.IsNullOrEmpty(row.Description))
+{
+    <h2>@row.Description</h2>
+    <div class="nk-gap"></div>
+}
+
 <div class="nk-accordion" role="tablist" aria-multiselectable="true" id="@accordionId">
     @{
         var index = 0;
