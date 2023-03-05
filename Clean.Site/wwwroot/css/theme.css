@@ -3849,7 +3849,10 @@ img.rounded { border-radius: 5px }
 
 .nk-tabs .nav-tabs .nav-item + .nav-item { margin-left: 10px }
 
-.nk-tabs .nav-tabs .nav-item, .nk-tabs .nav-tabs .nav-item.open .nav-link, .nk-tabs .nav-tabs .nav-item.open .nav-link:focus, .nk-tabs .nav-tabs .nav-item.open .nav-link:hover, .nk-tabs .nav-tabs .nav-item:focus, .nk-tabs .nav-tabs .nav-item:hover, .nk-tabs .nav-tabs .nav-link, .nk-tabs .nav-tabs .nav-link.active, .nk-tabs .nav-tabs .nav-link.active:focus, .nk-tabs .nav-tabs .nav-link.active:hover, .nk-tabs .nav-tabs .nav-link:focus, .nk-tabs .nav-tabs .nav-link:hover { color: #fff }
+.nk-tabs .nav-tabs .nav-item, .nk-tabs .nav-tabs .nav-item.open .nav-link, .nk-tabs .nav-tabs .nav-item.open .nav-link:focus, .nk-tabs .nav-tabs .nav-item.open .nav-link:hover, .nk-tabs .nav-tabs .nav-item:focus, .nk-tabs .nav-tabs .nav-item:hover, .nk-tabs .nav-tabs .nav-link, .nk-tabs .nav-tabs .nav-link.active, .nk-tabs .nav-tabs .nav-link.active:focus, .nk-tabs .nav-tabs .nav-link.active:hover, .nk-tabs .nav-tabs .nav-link:focus, .nk-tabs .nav-tabs .nav-link:hover {
+    color: #fff;
+    min-height: 100%;
+}
 
 .nk-tabs .nav-tabs .nav-link {
     background-color: #2f3541;
@@ -3861,12 +3864,17 @@ img.rounded { border-radius: 5px }
     padding: 10px 15px;
     text-align: center;
     text-transform: uppercase;
-    transition: .15s background-color
+    transition: .15s background-color;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .nk-tabs .nav-tabs .nav-link:focus, .nk-tabs .nav-tabs .nav-link:hover { background-color: #363d4a }
 
-.nk-tabs .nav-tabs .nav-link.active, .nk-tabs .nav-tabs .nav-link.active:focus, .nk-tabs .nav-tabs .nav-link.active:hover { background-color: #dd163b }
+.nk-tabs .nav-tabs .nav-link.active, .nk-tabs .nav-tabs .nav-link.active:focus, .nk-tabs .nav-tabs .nav-link.active:hover {
+    background-color: #dd163b;
+}
 
 .nk-tabs .nav-tabs.nav-tabs-fill {
     display: flex;
@@ -3876,7 +3884,7 @@ img.rounded { border-radius: 5px }
 
 .nk-tabs .nav-tabs.nav-tabs-fill .nav-item {
     flex: 1;
-    margin: 10px 5px
+    margin: 10px 5px;
 }
 
 .nk-accordion .panel-heading { margin-bottom: 12px }

@@ -1,0 +1,63 @@
+﻿.tabs {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 700px;
+    margin: -10px;
+}
+
+.input {
+    position: absolute;
+    opacity: 0;
+}
+
+.label {
+    margin: 10px;
+    width: 100%;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    background-color: #2f3541;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 18px;
+    color: #fff;
+    transition: background 0.1s, color 0.1s;
+}
+
+.label:hover {
+    background: #d8d8d8;
+}
+
+.label:active {
+    background: #ccc;
+}
+
+.input:focus + .label {
+    z-index: 1;
+}
+
+.input:checked + .label {
+    background-color: #dd163b;
+    color: #fff;
+}
+
+@media (min-width: 600px) {
+    .label {
+        width: auto;
+    }
+}
+
+.panel {
+    display: none;
+    padding: 10px;
+}
+
+@media (min-width: 600px) {
+    .panel {
+        order: 99;
+    }
+}
+
+.input:checked + .label + .panel {
+    display: block;
+}
