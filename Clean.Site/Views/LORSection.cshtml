@@ -1,0 +1,55 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.LOrsection>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@using GI.BackOffice
+@using GI.BackOffice.Models.ViewModelsData
+@using Umbraco.Cms.Core.Models
+@using BreadcrumbViewData = Clean.Site.Models.ViewData.BreadcrumbViewData
+@using Clean.Site.UmbracoHelpers
+
+@{
+    Layout = "Master.cshtml";
+}
+
+@{
+    var pageSize = 6;
+    var currentPage = 1;
+    if (Context.Request.Query.TryGetValue("page", out var rawPageValue))
+    {
+        int.TryParse(rawPageValue, out currentPage);
+    }
+
+    var articlePage = Umbraco.GetPagedContentForSection("lORSection", currentPage, pageSize);
+
+    var homePage = Model.Ancestor<HomePage>();
+
+    var topImage = homePage?.Value<MediaWithCrops<Image>>("topImage");
+    var bottomImage = homePage?.Value<MediaWithCrops<Image>>("bottomImage");
+
+    <img class="nk-page-background-top" src="@topImage?.GetUrlWebp()" alt="">
+    <img class="nk-page-background-bottom" src="@bottomImage?.GetUrlWebp()" alt="">
+}
+
+<!-- Main Content-->
+<div class="nk-gap-1"></div>
+
+<div class="container">
+    @await Html.PartialAsync("~/Views/Partials/breadcrumb.cshtml", BreadcrumbViewData.FormHistory(Model))
+    <div class="nk-blog-grid">
+        <div class="row are-images-unloaded">
+
+            @await Html.PartialAsync("~/Views/Partials/articles/grid/default.cshtml", articlePage.articlePage)
+
+        </div>
+
+        <div class="nk-gap-2"></div>
+
+        <div class="nk-pagination-center">
+            @await Html.PartialAsync("~/Views/Partials/articles/pagination.cshtml", new PaginationViewData
+                   {
+                       PageSize = pageSize,
+                       TotalCount = articlePage.articlesCount,
+                   })
+        </div>
+
+    </div>
+</div>
