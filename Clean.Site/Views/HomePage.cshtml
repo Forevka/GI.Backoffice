@@ -9,13 +9,11 @@
     Layout = "Master.cshtml";
 
     var articles = Umbraco.GetPagedContent(1, 20).articlePage;
+    var news = Umbraco.GetPagedContentForSection("newsSection", 1, 4).articlePage;
+    var guides = Umbraco.GetPagedContentForSection("guidesSection", 1, 4).articlePage;
+    var lor = Umbraco.GetPagedContentForSection("lORSection", 1, 4).articlePage;
 
-    var featured = (Umbraco.Content(Guid.Parse("c606cba8-dfeb-4db5-99be-e297710fe601")) as ArticleListPage)
-        !.SectionsToShow
-        !.SelectMany(x => x.Children)
-        .Where(x => x.IsVisible() && x.Value<bool>("isFeatured"))
-        .OrderByDescending(x => x.CreateDate)
-        .Take(5);
+    var featured = Model.FeaturedList!.Select(x => x as ContentPage)!;
 
     var topImage = Model.Value<MediaWithCrops<Image>>("topImage");
     var bottomImage = Model.Value<MediaWithCrops<Image>>("bottomImage");
@@ -44,85 +42,28 @@
     {
         <div class="nk-gap-2"></div>
         <h3 class="nk-decorated-h-2">
-            <span><span class="text-main-1">Останні</span> публікації</span>
+            <span><span class="text-main-1">Останні</span> новини</span>
         </h3>
         <div class="nk-gap"></div>
+        @await Html.PartialAsync("~/Views/Partials/articleLent.cshtml", news)
 
-        var gallery = articles.Take(5);
-        @await Html.PartialAsync("~/Views/Partials/newsGallery.cshtml", gallery)
 
         <div class="nk-gap-2"></div>
+        <h3 class="nk-decorated-h-2">
+            <span><span class="text-main-1">Останні</span> гайди</span>
+        </h3>
+        <div class="nk-gap"></div>
+        @await Html.PartialAsync("~/Views/Partials/articleLent.cshtml", guides)
+        <div class="nk-gap-2"></div>
 
-        var articlePage = articles.Skip(5).Take(6).ToList();
+        <div class="nk-gap-2"></div>
+        <h3 class="nk-decorated-h-2">
+            <span><span class="text-main-1">Останні</span> лорні статті</span>
+        </h3>
+        <div class="nk-gap"></div>
+        @await Html.PartialAsync("~/Views/Partials/articleLent.cshtml", lor)
+        <div class="nk-gap-2"></div>
 
-        <!-- START: Posts Grid -->
-        <div class="nk-blog-grid">
-            <div class="row are-images-unloaded">
-
-                @await Html.PartialAsync("~/Views/Partials/articles/grid/default.cshtml", articlePage)
-
-            </div>
-
-            <div class="nk-gap-2"></div>
-
-            <div class="nk-pagination-center all-articles">
-                <a href="/articles?page=1" class="nk-btn nk-btn-lg nk-btn-rounded nk-btn-color-white" id="view-more-button">
-                    До всіх публікацій
-                </a>
-            </div>
-
-            <script>
-                /*let grid = document.querySelector('.nk-blog-grid .row');
-                 * 
-                window.addEventListener('DOMContentLoaded', () => {
-                    let msnry = new Masonry( grid, {
-                        itemSelector: 'none', // select none at first
-                        columnWidth: '.col-md-6',
-                        percentPosition: true,
-                        stagger: 30,
-                        // nicer reveal transition
-                        visibleStyle: { transform: 'translateY(0)', opacity: 1 },
-                        hiddenStyle: { transform: 'translateY(100px)', opacity: 0 },
-                    });
-
-                    imagesLoaded(grid, function () {
-                        grid.classList.remove('are-images-unloaded');
-                        msnry.options.itemSelector = 'div.col-md-6';
-                        let items = grid.querySelectorAll('div.col-md-6');
-                        msnry.appended(items);
-                    });
-
-                    var infScroll = new InfiniteScroll(grid, {
-                        path: function() {
-                            let pageNumber = this.loadCount + 1;
-                            return '@Url.Action("Index", "Article")' + `?page=${pageNumber}&pageSize=6`;
-                        },
-                        append: 'div.col-md-6', //what to append
-                        button: '#view-more-button',
-                        // using button, disable loading on scroll
-                        scrollThreshold: false,
-                        outlayer: msnry,
-                        status: '.page-load-status',
-                    });
-
-                });*/
-
-            
-            </script>
-
-        </div>
-
-        <div class="page-load-status">
-            <div class="loader-ellips infinite-scroll-request">
-                <span class="loader-ellips__dot"></span>
-                <span class="loader-ellips__dot"></span>
-                <span class="loader-ellips__dot"></span>
-                <span class="loader-ellips__dot"></span>
-            </div>
-            <p class="infinite-scroll-last">End of content</p>
-            <p class="infinite-scroll-error">No more pages to load</p>
-        </div>
-        <!-- END: Posts Grid -->
     }
 
     <!-- END: Latest News -->

@@ -1,0 +1,40 @@
+﻿@using Umbraco.Cms.Core.Models
+@using GI.BackOffice
+@inherits UmbracoViewPage<IEnumerable<IPublishedContent>>
+
+@{
+    var selection = Model;
+}
+
+<div class="nk-blog-grid">
+    <div class="row">
+        @foreach (var item in selection.Select(x => x as ContentPage))
+        {
+            if (item == null) continue;
+
+            var mainImage = item.MainImage;
+
+            <div class="col-md-6 col-lg-3">
+                <!-- START: Post -->
+                <div class="nk-blog-post">
+
+                    <a href="@item.Url()" class="nk-post-img">
+                        <img src="@mainImage?.GetCropUrlWebp(ImageCropName.Preview)" alt="@item.Title">
+                    </a>
+
+                    <div class="nk-gap"></div>
+                    <h2 class="nk-post-title h4"><a href="@item.Url()">@item.Title</a></h2>
+                    <div class="nk-gap"></div>
+
+                    <a href="@item.Url()" class="nk-btn nk-btn-rounded nk-btn-color-dark-3 nk-btn-hover-color-main-1">Читати</a>
+
+                    <div class="nk-post-date float-right">
+                        <span class="fa fa-calendar"></span>
+                        @item.CreateDate.ToShortDateString() @item.CreateDate.ToShortTimeString()
+                    </div>
+                </div>
+                <!-- END: Post -->
+            </div>
+        }
+    </div>
+</div>

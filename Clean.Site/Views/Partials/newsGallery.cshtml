@@ -19,29 +19,26 @@
                             @{
                                 if (mainImage != null)
                                 {
-                                    <img src="@mainImage.GetCropUrlWebp(ImageCropName.Quadratic)" alt="@item.Name()" />
+                                    <img src="@mainImage.GetCropUrlWebp(ImageCropName.Thumb)" alt="@item.Name()" />
                                 }
                             }
                         </div>
                         @{
                             if (mainImage != null)
                             {
-                                <img src="@mainImage.GetUrlWebp()" alt="@item.Name()" class="nk-news-box-item-full-img" />
+                                <img src="@mainImage.GetCropUrlWebp(ImageCropName.FeaturedPreview)" alt="@item.Name()" class="nk-news-box-item-full-img" />
                             }
                         }
-                        <h3 class="nk-news-box-item-title">@Html.Truncate(item.Value("title").ToString(), 26, true)</h3>
+                        <h3 class="nk-news-box-item-title">@item.Value("title").ToString()</h3>
                         
+                        <div class="nk-news-box-item-text" style="display: none">
+                            <p>@Html.Truncate(item.Value("subtitle").ToString(), 200, true)</p>
+                        </div>
                         <!--
                         <span class="nk-news-box-item-categories">
                             <span class="bg-main-4">MMO</span>
                         </span>
                         -->
-
-                        <div class="nk-news-box-item-text">
-                            <p>@Html.Truncate(item.Value("subtitle").ToString(), 200, true)</p>
-                        </div>
-
-                        <a href="@item.Url()" class="nk-news-box-item-url">Читати далі</a>
 
                         <div class="nk-news-box-item-date">
                             <span class="fa fa-calendar"></span>
@@ -55,28 +52,34 @@
     </div>
     <div class="nk-news-box-each-info">
         <div class="nano">
-            <div class="nano-content">
+            <div class="">
                 <!-- There will be inserted info about selected news-->
                 @{
                     var firstItem = selection.LastOrDefault();
                     var firstItemMainImage = firstItem.Value<MediaWithCrops<Image>>("mainImage");
                     
                     <div class="nk-news-box-item-image">
-                        <img src="@firstItemMainImage.GetUrlWebp()" alt="@firstItem.Name()">
+                        <img src="@firstItemMainImage.GetCropUrlWebp(ImageCropName.FeaturedPreview)" alt="@firstItem.Name()" />
                         <!--
                         <span class="nk-news-box-item-categories">
                             <span class="bg-main-4">MMO</span>
                         </span>
                         -->
                     </div>
-                    <h3 class="nk-news-box-item-title">@Html.Truncate(firstItem.Value("title").ToString(), 26, true)</h3>
-                    <div class="nk-news-box-item-text">
-                        <p>@Html.Truncate(firstItem.Value("subtitle").ToString(), 200, true)</p>
-                    </div>
-                    <a href="@firstItem.Url()" class="nk-news-box-item-more">Читати далі</a>
-                    <div class="nk-news-box-item-date">
-                        <span class="fa fa-calendar"></span>
-                        @firstItem.CreateDate.ToShortDateString() @firstItem.CreateDate.ToShortTimeString()
+                    <div class="description">
+                        <h3 class="nk-news-box-item-title">@firstItem.Value("title")</h3>
+                        <div class="nk-news-box-item-text">
+                            <p>@firstItem.Value("subtitle")</p>
+                        </div>
+                        <div class="read-more">
+
+                            <a href="@firstItem.Url()" class="nk-news-box-item-more">Читати далі</a>
+                            <div class="nk-news-box-item-date">
+                                <span class="fa fa-calendar"></span>
+                                @firstItem.CreateDate.ToShortDateString() @firstItem.CreateDate.ToShortTimeString()
+                            </div>
+
+                        </div>
                     </div>
                 }
             </div>

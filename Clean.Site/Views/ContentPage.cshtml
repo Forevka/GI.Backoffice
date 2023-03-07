@@ -30,9 +30,14 @@
                     && (x.Settings as SummaryTextRowSettings)?.AsPartOfSummary == true)
         .ToList();
 
-    // ReSharper disable once Mvc.PartialViewNotResolved
-    var toc = await Html.PartialAsync("sidebar/tableOfContent", summary);
-    var tocRendered = new HtmlString(toc.ToHtmlString());
+    HtmlString tocRendered = HtmlString.Empty;
+
+    if (summary.Any())
+    {
+        // ReSharper disable once Mvc.PartialViewNotResolved
+        var toc = await Html.PartialAsync("sidebar/tableOfContent", summary);
+        tocRendered = new HtmlString(toc.ToHtmlString());
+    }
 
     var readAlsoRendered = new HtmlString("");
     @if (Model.ListOfContent != null && Model.ListOfContent.Any())
@@ -48,28 +53,31 @@
 <div class="container">
     <div class="nk-gap-1"></div>
     @await Html.PartialAsync("~/Views/Partials/breadcrumb.cshtml", BreadcrumbViewData.FormHistory(Model))
+    
+    @if (summary.Any())
+    {
+        <div class="row vertical-gap on-phonescreen">
+            <div class="col-lg-4 nk-sidebar-sticky-parent">
+                <!--
+                START: Sidebar
+                this thing will showed only on phone screen at top
 
-    <div class="row vertical-gap on-phonescreen">
-        <div class="col-lg-4 nk-sidebar-sticky-parent">
-            <!--
-            START: Sidebar
-            this thing will showed only on phone screen at top
+                Additional Classes:
+                .nk-sidebar-left
+                .nk-sidebar-right
+                .nk-sidebar-sticky
+                -->
+                <aside class="nk-sidebar nk-sidebar-left nk-sidebar-sticky">
 
-            Additional Classes:
-            .nk-sidebar-left
-            .nk-sidebar-right
-            .nk-sidebar-sticky
-            -->
-            <aside class="nk-sidebar nk-sidebar-left nk-sidebar-sticky">
+                    @tocRendered
 
-                @tocRendered
+                </aside>
+                <!-- END: Sidebar -->
 
-            </aside>
-            <!-- END: Sidebar -->
+            </div>
 
         </div>
-
-    </div>
+    }
 
     <div class="row vertical-gap">
 
@@ -78,15 +86,7 @@
             <div class="nk-blog-post nk-blog-post-single">
                 <!-- START: Post Text -->
                 <div class="nk-post-text mt-0">
-                    <div class="nk-post-img">
-                        @{
-                            var postImage = Model.Value<MediaWithCrops<Image>>("mainImage");
 
-                            <img src="@postImage?.GetUrlWebp()" alt="@Model.Value("title")?.ToString()">
-                        }
-                    </div>
-                    <div class="nk-gap-1"></div>
-                    <h1 class="nk-post-title h4">@Model.Value("subTitle")?.ToString()</h1>
                     <div class="nk-post-by">
                         <div class="post-author-info" style="display: flex;">
                             <img src="/media/@user?.Avatar" alt="@user?.Name" class="rounded-circle" width="35">
@@ -94,16 +94,30 @@
                                 <a href="/author/@user.Id">
                                     @user?.Name
                                 </a>
-                                @Model.CreateDate.ToShortDateString() @Model.CreateDate.ToShortTimeString()
                             </div>
                         </div>
-                        <div class="nk-post-categories">
+                        <div class="post-published-time">
+                            @Model.CreateDate.ToShortDateString() @Model.CreateDate.ToShortTimeString()
+                        </div>
+                        <!--<div class="nk-post-categories">
                             @foreach (var tag in Model.Value<IEnumerable<string>>("tags")?.Take(3))
                             {
                                 <span class="bg-main-1">@tag</span>
                             }
-                        </div>
+                        </div>-->
                     </div>
+                    <div class="nk-gap"></div>
+
+                    <div class="nk-post-img">
+                        @{
+                            var postImage = Model.Value<MediaWithCrops<Image>>("mainImage");
+
+                            <img src="@postImage?.GetUrlWebp()" alt="@Model.Value("title")">
+                        }
+                    </div>
+                    <div class="nk-gap-1"></div>
+                    <h1 class="nk-post-title h4">@Model.Value("subTitle")</h1>
+
 
                     @await Html.GetBlockListHtmlAsync(Model.MainContent)
 
@@ -116,30 +130,42 @@
 
         </div>
 
-        <div class="col-lg-4 nk-sidebar-sticky-parent on-fullscreen">
-            <!--
-            START: Sidebar
-            ToC and read also must be in sidebar for fullscreen divices
+        @if (summary.Any())
+        {
+            <div class="col-lg-4 nk-sidebar-sticky-parent on-fullscreen">
+                <!--
+                START: Sidebar
+                ToC and read also must be in sidebar for fullscreen divices
 
-            Additional Classes:
-            .nk-sidebar-left
-            .nk-sidebar-right
-            .nk-sidebar-sticky
-            -->
-            <aside class="nk-sidebar nk-sidebar-left nk-sidebar-sticky">
+                Additional Classes:
+                .nk-sidebar-left
+                .nk-sidebar-right
+                .nk-sidebar-sticky
+                -->
+                <aside class="nk-sidebar nk-sidebar-left nk-sidebar-sticky">
 
-                @tocRendered
+                    @tocRendered
 
-            </aside>
-            <!-- END: Sidebar -->
+                </aside>
+                <!-- END: Sidebar -->
 
-        </div>
+            </div>
+        }
 
     </div>
 </div>
 
 
 <script>
+
+    function readingTime() {
+        const text = document.getElementById("article").innerText;
+        const wpm = 225;
+        const words = text.trim().split(/\s+/).length;
+        const time = Math.ceil(words / wpm);
+        document.getElementById("time").innerText = time;
+    }
+
     window.addEventListener('DOMContentLoaded', () => {
         let elements = document.querySelectorAll("div.anchor-with-link > a.anchor");
         
@@ -151,6 +177,9 @@
         for (let i = 0; i < elements.length; i++) {
             elements[i].addEventListener('click', myFunction, false);
         }
+        
+        //readingTime();
     });
+
 
 </script>

@@ -15,10 +15,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="7.0.2" />
-    <PackageReference Include="Our.Umbraco.Community.Contentment" Version="4.4.1" />
-    <PackageReference Include="Umbraco.Cms" Version="11.1.0" />
-    <PackageReference Include="uSync" Version="11.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="7.0.3" />
+    <PackageReference Include="Our.Umbraco.Community.Contentment" Version="4.4.2" />
+    <PackageReference Include="Umbraco.Cms" Version="11.2.0" />
+    <PackageReference Include="uSync" Version="11.0.2" />
   </ItemGroup>
 
   <!-- Force Windows to use ICU. Otherwise Windows 10 2019H1+ will do it, but older Windows 10 and most, if not all, Windows Server editions will run NLS -->
