@@ -25,8 +25,9 @@
 
             <div class="nk-image-slider-content">
 
-                <h3 class="h4">@Html.Truncate(item.Value("title").ToString(), 20, true)</h3>
-                <p class="text-white">@Html.Truncate(item.Value("subtitle").ToString(), 260, true)</p>
+                <h3 class="h4">
+                    <a href="@item.Url()" style="color: #f7f7f7;">@item.Title</a>
+                </h3>
                 <a href="@item.Url()" class="nk-btn nk-btn-rounded nk-btn-color-white nk-btn-hover-color-main-1">Читати далі</a>
 
             </div>

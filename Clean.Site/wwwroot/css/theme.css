@@ -6873,3 +6873,9 @@ div.nk-blog-grid > div.row > div.col-md-6 > div.nk-blog-post > .nk-post-text {
 .nk-news-box .nk-news-box-each-info .nano .description {
     margin: 15px;
 }
+
+.nk-image-slider-content.nk-image-slider-content-visible .nano .nano-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}

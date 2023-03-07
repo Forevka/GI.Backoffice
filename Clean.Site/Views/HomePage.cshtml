@@ -42,7 +42,11 @@
     {
         <div class="nk-gap-2"></div>
         <h3 class="nk-decorated-h-2">
-            <span><span class="text-main-1">Останні</span> новини</span>
+            <span>
+                <a href="/articles/news" style="color: #f7f7f7;">
+                    Новини
+                </a>
+            </span>
         </h3>
         <div class="nk-gap"></div>
         @await Html.PartialAsync("~/Views/Partials/articleLent.cshtml", news)
@@ -50,7 +54,11 @@
 
         <div class="nk-gap-2"></div>
         <h3 class="nk-decorated-h-2">
-            <span><span class="text-main-1">Останні</span> гайди</span>
+            <span>
+                <a href="/articles/guides" style="color: #f7f7f7;">
+                    Гайди
+                </a>
+            </span>
         </h3>
         <div class="nk-gap"></div>
         @await Html.PartialAsync("~/Views/Partials/articleLent.cshtml", guides)
@@ -58,7 +66,11 @@
 
         <div class="nk-gap-2"></div>
         <h3 class="nk-decorated-h-2">
-            <span><span class="text-main-1">Останні</span> лорні статті</span>
+            <span>
+                <a href="/articles/guides" style="color: #f7f7f7;">
+                    Лорні статті
+                </a>
+            </span>
         </h3>
         <div class="nk-gap"></div>
         @await Html.PartialAsync("~/Views/Partials/articleLent.cshtml", lor)
