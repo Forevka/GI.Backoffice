@@ -138,7 +138,18 @@
 
         $('table').stacktable();
     });
+    
+    window.addEventListener('DOMContentLoaded', () => {
+        const options = { year: 'numeric', month: 'short', hour: 'numeric', minute: 'numeric' };
 
+        document.querySelectorAll('.datetime-to-format').forEach((element) => {
+            if (!element.dataset.hasOwnProperty('originalDate')) return;
+            let dateToFormat = new Date(Date.parse(element.dataset.originalDate)).toLocaleDateString('uk', options);
+            
+            console.log(dateToFormat)
+            element.innerHTML = dateToFormat;
+        })
+    })
 </script>
 
 </body>

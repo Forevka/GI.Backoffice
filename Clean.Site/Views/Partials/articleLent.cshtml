@@ -30,7 +30,7 @@
 
                     <div class="nk-post-date float-right">
                         <span class="fa fa-calendar"></span>
-                        @item.CreateDate.ToShortDateString() @item.CreateDate.ToShortTimeString()
+                        <span class="datetime-to-format" data-original-date="@item.CreateDate.ToString("O")"></span>
                     </div>
                 </div>
                 <!-- END: Post -->

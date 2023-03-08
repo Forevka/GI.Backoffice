@@ -5375,7 +5375,7 @@ div.nk-error {
     margin-right: 6px;
 }
 
-.nk-post-date span ~ span, .nk-post-date span ~ svg, .nk-post-date svg ~ span, .nk-post-date svg ~ svg { margin-left: 10px }
+.nk-post-date span ~ span, .nk-post-date span ~ svg, .nk-post-date svg ~ svg { margin-left: 10px }
 
 .nk-post-date a {
     color: inherit;
@@ -6807,12 +6807,15 @@ div.nk-blog-grid > div.row > div.col-md-6 > div.nk-blog-post > .nk-post-text {
     justify-content: flex-start;
 }
 
+.nk-blog-post-single > .post-author-info-meta {
+    font-size: 1.5em;
+}
+
 .nk-post-by .post-author-info .post-author-info-meta {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
-    font-size: 1.5em;
 }
 
 .nk-post-by .post-published-time {

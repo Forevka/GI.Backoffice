@@ -31,8 +31,7 @@
                         <a href="/author/@user.Id">
                             @user?.Name
                         </a>
-                        @article.CreateDate.ToShortDateString() @article.CreateDate.ToShortTimeString()
-
+                        <span class="datetime-to-format" data-original-date="@article.CreateDate.ToString("O")"></span>
                     </div>
                 </div>
                 <div class="nk-post-categories">

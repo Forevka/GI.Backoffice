@@ -97,7 +97,7 @@
                             </div>
                         </div>
                         <div class="post-published-time">
-                            @Model.CreateDate.ToShortDateString() @Model.CreateDate.ToShortTimeString()
+                            <span class="datetime-to-format" data-original-date="@Model.CreateDate.ToString("O")"></span>
                         </div>
                         <!--<div class="nk-post-categories">
                             @foreach (var tag in Model.Value<IEnumerable<string>>("tags")?.Take(3))

@@ -66,6 +66,8 @@ namespace GI.BackOffice
         {
             return ((double)number * percent) / 100;
         }
+
+        //public static string FormatDate(this )
     }
 
 }
