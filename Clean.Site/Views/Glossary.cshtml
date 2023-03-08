@@ -44,104 +44,24 @@
                 </a>
             </span>
         </h3>
-        @foreach (var artifact in artifacts)
-        {
-            if (artifact == null) continue;
 
-            <div class="nk-gap-1"></div>
-
-            <div class="nk-match">
-                <div class="nk-match-team-left">
-                    <a href="@artifact.Url()">
-                        <span class="nk-match-team-logo">
-                            <img src="@artifact.MainImage.GetUrlWebp()" alt="@artifact.SetName" style="width: 128px;">
-                        </span>
-                        <span class="nk-match-team-name">@artifact.SetName</span>
-                    </a>
-                </div>
-                <div class="nk-match-status">
-                    <span class="nk-product-rating">
-                        <span class="nk-product-rating-front">
-                            <i class="fa fa-star" style="@(artifact.Rarity!.All(x => x != "1") ? "visibility: hidden;" : "")"></i>
-                            <i class="fa fa-star" style="@(artifact.Rarity!.All(x => x != "2") ? "visibility: hidden;" : "")"></i>
-                            <i class="fa fa-star" style="@(artifact.Rarity!.All(x => x != "3") ? "visibility: hidden;" : "")"></i>
-                            <i class="fa fa-star" style="@(artifact.Rarity!.All(x => x != "4") ? "visibility: hidden;" : "")"></i>
-                            <i class="fa fa-star" style="@(artifact.Rarity!.All(x => x != "5") ? "visibility: hidden;" : "")"></i>
-                        </span>
-                        <span class="nk-product-rating-back">
-                            <i class="far fa-star"></i>
-                            <i class="far fa-star"></i>
-                            <i class="far fa-star"></i>
-                            <i class="far fa-star"></i>
-                            <i class="far fa-star"></i>
-                        </span>
-                    </span>
-                    <div class="artifact-set-bonus-description">
-                        <div class="artifact-set-bonus-description-x2">
-                            2 шматки: @artifact.SetBonusTwoPieces
-                        </div>
-                        <div class="artifact-set-bonus-description-x4">
-                            4 шматки: @artifact.SetBonusFourPieces
-                        </div>
-                    </div>
-                </div>
-                <div class="nk-match-team-right">
-                    <a href="@artifact.Url()">
-                        @if (@artifact.FlowerImage != null)
-                        {
-                            <span class="nk-match-team-logo">
-                                <img src="@artifact.FlowerImage.GetUrlWebp()" alt="@artifact.SetName Flower" style="width: 64px;">
-                            </span>
-                        }
-
-                        @if (@artifact.PlumeImage != null)
-                        {
-                            <span class="nk-match-team-logo">
-                                <img src="@artifact.PlumeImage.GetUrlWebp()" alt="@artifact.SetName Plume" style="width: 64px;">
-                            </span>
-                        }
-
-                        @if (@artifact.SandsImage != null)
-                        {
-                            <span class="nk-match-team-logo">
-                                <img src="@artifact.SandsImage.GetUrlWebp()" alt="@artifact.SetName Sands" style="width: 64px;">
-                            </span>
-                        }
-
-                        @if (@artifact.GobletImage != null)
-                        {
-                            <span class="nk-match-team-logo">
-                                <img src="@artifact.GobletImage.GetUrlWebp()" alt="@artifact.SetName Goblet" style="width: 64px;">
-                            </span>
-                        }
-
-                        @if (@artifact.CircletImage != null)
-                        {
-                            <span class="nk-match-team-logo">
-                                <img src="@artifact.CircletImage.GetUrlWebp()" alt="@artifact.SetName Circlet" style="width: 64px;">
-                            </span>
-                        }
-                    </a>
-                </div>
-            </div>
-
-            <!--<div class="col-lg-4 col-md-6">
+        <!--<div class="col-lg-4 col-md-6">
             <div class="nk-product-cat">
-                    <a class="nk-product-image" href="@artifact.Url()">
-                    <img src="@artifact.MainImage.GetUrlWebp()" alt="@artifact.SetName">
+                <a class="nk-product-image" href="artifact.Url()">
+                    <img src="artifact.MainImage.GetUrlWebp()" alt="artifact.SetName">
                 </a>
                 <div class="nk-product-cont">
                     <h3 class="nk-product-title h5">
-                        <a href="@artifact.Url()">@artifact.SetName</a>
+                        <a href="artifact.Url()">artifact.SetName</a>
                     </h3>
                     <div class="nk-gap-1"></div>
                     <span class="nk-product-rating">
                         <span class="nk-product-rating-front">
-                            <i class="fa fa-star" style="@(artifact.Rarity!.All(x => x != "1") ? "visibility: hidden;" : "")"></i>
-                            <i class="fa fa-star" style="@(artifact.Rarity!.All(x => x != "2") ? "visibility: hidden;" : "")"></i>
-                            <i class="fa fa-star" style="@(artifact.Rarity!.All(x => x != "3") ? "visibility: hidden;" : "")"></i>
-                            <i class="fa fa-star" style="@(artifact.Rarity!.All(x => x != "4") ? "visibility: hidden;" : "")"></i>
-                            <i class="fa fa-star" style="@(artifact.Rarity!.All(x => x != "5") ? "visibility: hidden;" : "")"></i>
+                            <i class="fa fa-star" style="(artifact.Rarity!.All(x => x != "1") ? "visibility: hidden;" : "")"></i>
+                            <i class="fa fa-star" style="(artifact.Rarity!.All(x => x != "2") ? "visibility: hidden;" : "")"></i>
+                            <i class="fa fa-star" style="(artifact.Rarity!.All(x => x != "3") ? "visibility: hidden;" : "")"></i>
+                            <i class="fa fa-star" style="(artifact.Rarity!.All(x => x != "4") ? "visibility: hidden;" : "")"></i>
+                            <i class="fa fa-star" style="(artifact.Rarity!.All(x => x != "5") ? "visibility: hidden;" : "")"></i>
                         </span>
                         <span class="nk-product-rating-back">
                             <i class="far fa-star"></i>
@@ -152,11 +72,10 @@
                         </span>
                     </span>
                     <div class="nk-gap-1"></div>
-                    <a href="@artifact.Url()" class="nk-btn nk-btn-rounded nk-btn-color-dark-3 nk-btn-hover-color-main-1">Деталі</a>
+                    <a href="artifact.Url()" class="nk-btn nk-btn-rounded nk-btn-color-dark-3 nk-btn-hover-color-main-1">Деталі</a>
                 </div>
             </div>
-            </div>-->
-        }
+        </div>-->
     </div>
 
 </div>

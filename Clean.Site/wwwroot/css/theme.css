@@ -6063,7 +6063,7 @@ div.nk-error {
     align-items: center;
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: space-evenly;
 }
 
 .nk-match .nk-match-status {
@@ -6092,10 +6092,6 @@ div.nk-error {
     font-weight: 600;
     text-transform: uppercase
 }
-
-.nk-match .nk-match-team-left .nk-match-team-name { padding-left: 20px }
-
-.nk-match .nk-match-team-right .nk-match-team-name { padding-right: 20px }
 
 @media (max-width: 991px) {
     .nk-match { display: block }
@@ -6882,4 +6878,24 @@ div.nk-blog-grid > div.row > div.col-md-6 > div.nk-blog-post > .nk-post-text {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+}
+
+.artifact-set-list {
+    margin-block-start: 0px;
+    margin-block-end: 0px;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    padding-inline-start: 0px;
+}
+
+.artifact-set-list > li {
+    display: block;
+    list-style-type: none;
+}
+
+.nk-info-box.text-danger {
+    visibility: hidden;
+}
+.nk-info-box.text-danger.show {
+    visibility: visible;
 }

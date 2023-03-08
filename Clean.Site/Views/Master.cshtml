@@ -37,6 +37,9 @@
 
     <!-- Photoswipe -->
     <link rel="stylesheet" type="text/css" href="~/vendor/photoswipe/dist/photoswipe.css">
+    
+
+    <link rel="stylesheet" type="text/css" href="~/vendor/virtual-select/virtual-select.min.css">
     <!--<link rel="stylesheet" type="text/css" href="~/vendor/photoswipe/dist/default-skin/default-skin.css">-->
 
     <!-- Seiyria Bootstrap Slider 
@@ -72,6 +75,8 @@
 <!-- START: Scripts -->
 <!-- Object Fit Polyfill -->
 <script defer src="~/vendor/object-fit-images/dist/ofi.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js" integrity="sha512-93wYgwrIFL+b+P3RvYxi/WUFRXXUDSLCT2JQk9zhVGXuS2mHl2axj6d+R6pP+gcU5isMHRj1u0oYE/mWyt/RjA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 <!-- GSAP -->
 <script defer src="~/vendor/gsap/src/minified/TweenMax.min.js"></script>
@@ -120,6 +125,8 @@
 <!-- Seiyria Bootstrap Slider -->
 <script defer src="~/vendor/bootstrap-slider/dist/bootstrap-slider.min.js"></script>
 
+    <script defer src="~/vendor/virtual-select/virtual-select.min.js"></script>
+
 <!-- Summernote
     <script defer src="~/vendor/summernote/dist/summernote-bs4.min.js"></script>-->
 
@@ -140,7 +147,7 @@
     });
     
     window.addEventListener('DOMContentLoaded', () => {
-        const options = { year: 'numeric', month: 'short', hour: 'numeric', minute: 'numeric' };
+        const options = { year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric' };
 
         document.querySelectorAll('.datetime-to-format').forEach((element) => {
             if (!element.dataset.hasOwnProperty('originalDate')) return;

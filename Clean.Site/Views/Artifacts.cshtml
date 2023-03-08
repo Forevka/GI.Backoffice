@@ -1,6 +1,219 @@
-﻿@using Umbraco.Cms.Web.Common.PublishedModels;
-@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.Artifacts>
+﻿@inherits UmbracoViewPage<Artifacts>
 @using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@using GI.BackOffice
+@using Umbraco.Cms.Core.Models
+@using Clean.Site.Models.ViewData
+
 @{
-	Layout = null;
+    Layout = "Master.cshtml";
 }
+
+@{
+    var pageSize = 6;
+    var currentPage = 1;
+    if (Context.Request.Query.TryGetValue("page", out var rawPageValue))
+    {
+        int.TryParse(rawPageValue, out currentPage);
+    }
+
+    var artifacts = Model.Children.Select(x => x as ArtifactContentPage);
+
+    var homePage = Model.Ancestor<HomePage>();
+
+    var topImage = homePage?.Value<MediaWithCrops<Image>>("topImage");
+    var bottomImage = homePage?.Value<MediaWithCrops<Image>>("bottomImage");
+
+    <img class="nk-page-background-top" src="@topImage?.GetUrlWebp()" alt="">
+    <img class="nk-page-background-bottom" src="@bottomImage?.GetUrlWebp()" alt="">
+}
+
+<!-- Main Content-->
+<div class="nk-gap-1"></div>
+
+<div class="container">
+    @await Html.PartialAsync("~/Views/Partials/breadcrumb.cshtml", BreadcrumbViewData.FormHistory(Model))
+
+    <div class="row">
+
+        <div class="col-md-4">
+            <div id="region-select"></div>
+        </div>
+
+        <div class="col-md-4">
+            <div id="rarity-select"></div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Ім'я сету" id="artifact-set-list-search">
+                <button class="nk-btn nk-btn-color-main-1">
+                    <span class="fa fa-search"></span>
+                </button>
+            </div>
+        </div>
+
+    </div>
+    
+    <div class="nk-gap-1"></div>
+
+    <div id="artifacts">
+
+        <ul class="artifact-set-list">
+            @foreach (var artifact in artifacts)
+            {
+                if (artifact == null) continue;
+
+                <li data-id="@artifact.Id">
+                    <div class="nk-match">
+                        <div class="nk-match-team-left">
+                            <a href="@artifact.Url()">
+                                <span class="nk-match-team-logo">
+                                    <img src="@artifact.MainImage.GetUrlWebp()" alt="@artifact.SetName" style="width: 128px;">
+                                </span>
+                                <div>
+                                    <div class="nk-match-team-name">@artifact.SetName</div>
+                                    <div class="nk-product-rating">
+                                        <span class="nk-product-rating-front">
+                                            <i class="fa fa-star" style="@(artifact.Rarity!.All(x => x != "1") ? "visibility: hidden;" : "")"></i>
+                                            <i class="fa fa-star" style="@(artifact.Rarity!.All(x => x != "2") ? "visibility: hidden;" : "")"></i>
+                                            <i class="fa fa-star" style="@(artifact.Rarity!.All(x => x != "3") ? "visibility: hidden;" : "")"></i>
+                                            <i class="fa fa-star" style="@(artifact.Rarity!.All(x => x != "4") ? "visibility: hidden;" : "")"></i>
+                                            <i class="fa fa-star" style="@(artifact.Rarity!.All(x => x != "5") ? "visibility: hidden;" : "")"></i>
+                                        </span>
+                                        <span class="nk-product-rating-back">
+                                            <i class="far fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="nk-match-status">
+                            <div class="artifact-set-bonus-description">
+                                <div class="artifact-set-bonus-description-x2">
+                                    2 шматки: @artifact.SetBonusTwoPieces
+                                </div>
+                                <div class="artifact-set-bonus-description-x4">
+                                    4 шматки: @artifact.SetBonusFourPieces
+                                </div>
+                            </div>
+                        </div>
+                        <div class="nk-match-team-right">
+                            <a href="@artifact.Url()">
+                                @if (artifact.FlowerImage != null)
+                                {
+                                    <span class="nk-match-team-logo">
+                                        <img src="@artifact.FlowerImage.GetUrlWebp()" alt="@artifact.SetName Flower" style="width: 64px;">
+                                    </span>
+                                }
+
+                                @if (artifact.PlumeImage != null)
+                                {
+                                    <span class="nk-match-team-logo">
+                                        <img src="@artifact.PlumeImage.GetUrlWebp()" alt="@artifact.SetName Plume" style="width: 64px;">
+                                    </span>
+                                }
+
+                                @if (artifact.SandsImage != null)
+                                {
+                                    <span class="nk-match-team-logo">
+                                        <img src="@artifact.SandsImage.GetUrlWebp()" alt="@artifact.SetName Sands" style="width: 64px;">
+                                    </span>
+                                }
+
+                                @if (artifact.GobletImage != null)
+                                {
+                                    <span class="nk-match-team-logo">
+                                        <img src="@artifact.GobletImage.GetUrlWebp()" alt="@artifact.SetName Goblet" style="width: 64px;">
+                                    </span>
+                                }
+
+                                @if (artifact.CircletImage != null)
+                                {
+                                    <span class="nk-match-team-logo">
+                                        <img src="@artifact.CircletImage.GetUrlWebp()" alt="@artifact.SetName Circlet" style="width: 64px;">
+                                    </span>
+                                }
+                            </a>
+                        </div>
+                    </div>
+
+                </li>
+            }
+        </ul>
+        <div class="nk-info-box text-danger" id="artifact-set-list-nothing-found">
+            <div class="nk-info-box-icon">
+                <i class="ion-close-round"></i>
+            </div>
+            <h3>Уточни запит!</h3>
+            <em>Нажаль нічого не знайдено</em> 😔
+        </div>
+</div>
+</div>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        var options = {
+            valueNames: [
+                'nk-match-team-name',
+                { data: ['id'] },
+            ],
+            listClass: 'artifact-set-list',
+        };
+
+        var userList = new List('artifacts', options);
+        
+        var nothingFoundElement = document.getElementById('artifact-set-list-nothing-found')
+
+        userList.on('updated', function (list) {
+            console.log(list)
+            if (list.matchingItems.length > 0) {
+                console.log(nothingFoundElement)
+                nothingFoundElement.classList.remove('show')
+            } else {
+                console.log(nothingFoundElement)
+                nothingFoundElement.classList.add('show')
+            }
+        })
+        
+        console.log(userList);
+
+        document.getElementById('artifact-set-list-search').addEventListener("input", (event) => {
+            var searchString = event.target.value;
+
+            userList.search(searchString, ['nk-match-team-name']);
+        });
+        
+        VirtualSelect.init({
+            ele: '#region-select',
+            multiple: true,
+            placeholder: 'Вибери регіон',
+            allOptionsSelectedText: 'Всі регіони',
+            selectedValue: [1, 2, 3, 4],
+            options: [
+                { label: 'Мондшадт', value: '1' },
+                { label: 'Ліюе', value: '2' },
+                { label: 'Інадзума', value: '3' },
+                { label: 'Сумеру', value: '4' },
+            ],
+        });
+
+        VirtualSelect.init({
+            ele: '#rarity-select',
+            multiple: true,
+            placeholder: 'Вибери якість',
+            allOptionsSelectedText: 'Будь яка якість',
+            selectedValue: [1, 2, 3, 4],
+            options: [
+                { label: '1*', value: '1' },
+                { label: '2*', value: '2' },
+                { label: '3*', value: '3' },
+                { label: '4*', value: '4' },
+                { label: '5*', value: '4' },
+            ],
+        });
+    })
+</script>
