@@ -6063,6 +6063,7 @@ div.nk-error {
     align-items: center;
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
 }
 
 .nk-match .nk-match-status {
@@ -6807,7 +6808,7 @@ div.nk-blog-grid > div.row > div.col-md-6 > div.nk-blog-post > .nk-post-text {
     justify-content: flex-start;
 }
 
-.nk-blog-post-single > .post-author-info-meta {
+.nk-blog-post-single .post-author-info-meta {
     font-size: 1.5em;
 }
 

@@ -1,6 +1,32 @@
-﻿@using Umbraco.Cms.Web.Common.PublishedModels;
-@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.ArtifactContentPage>
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.ArtifactContentPage>
 @using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@using Clean.Site.UmbracoHelpers
+@using GI.BackOffice
+@using GI.BackOffice.Models.ViewModelsData
+@using Umbraco.Cms.Core.Models
+@using Clean.Site.Models.ViewData
+
 @{
-	Layout = null;
+    Layout = "Master.cshtml";
 }
+
+@{
+    var homePage = Model.Ancestor<HomePage>();
+
+    var topImage = homePage?.Value<MediaWithCrops<Image>>("topImage");
+    var bottomImage = homePage?.Value<MediaWithCrops<Image>>("bottomImage");
+
+    <img class="nk-page-background-top" src="@topImage?.GetUrlWebp()" alt="">
+    <img class="nk-page-background-bottom" src="@bottomImage?.GetUrlWebp()" alt="">
+}
+
+<!-- Main Content-->
+<div class="nk-gap-1"></div>
+
+<div class="container">
+    @await Html.PartialAsync("~/Views/Partials/breadcrumb.cshtml", BreadcrumbViewData.FormHistory(Model))
+    <div class="row vertical-gap">
+        @Model.SetName
+    </div>
+
+</div>

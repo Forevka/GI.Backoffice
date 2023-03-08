@@ -115,6 +115,9 @@ namespace Clean.Site.Controllers
 
         private async Task<string> GetMarkupForBlock(BlockItemData blockData, BlockItemData? settingsData)
         {
+            if (blockData == null && settingsData == null)
+                return "";
+
             // convert the json data to a IPublishedElement (using the built-in conversion)
             var element = _blockEditorConverter.ConvertToElement(blockData, PropertyCacheLevel.None, true);
             var settings = settingsData != null ? _blockEditorConverter.ConvertToElement(settingsData, PropertyCacheLevel.None, true) : null;
