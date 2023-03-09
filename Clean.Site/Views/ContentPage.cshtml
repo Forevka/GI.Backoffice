@@ -112,7 +112,7 @@
                         @{
                             var postImage = Model.Value<MediaWithCrops<Image>>("mainImage");
 
-                            <img src="@postImage?.GetUrlWebp()" alt="@Model.Value("title")">
+                            <img src="@postImage?.GetCropUrlWebp(ImageCropName.MainImage)" alt="@Model.Value("title")">
                         }
                     </div>
                     <div class="nk-gap-1"></div>

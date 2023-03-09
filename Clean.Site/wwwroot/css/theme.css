@@ -7,6 +7,7 @@
 @import "scrollToTop.css";
 @import "embed.css";
 @import "table.css";
+@import "multiselect.css";
 
 body {
     background-color: #181c23;
@@ -6898,4 +6899,7 @@ div.nk-blog-grid > div.row > div.col-md-6 > div.nk-blog-post > .nk-post-text {
 }
 .nk-info-box.text-danger.show {
     visibility: visible;
+}
+.fullscreen:has(.nk-info-box.text-danger.show) {
+    height: 40vh;
 }

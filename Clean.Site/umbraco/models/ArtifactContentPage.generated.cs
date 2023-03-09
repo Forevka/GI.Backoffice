@@ -55,7 +55,7 @@ namespace Umbraco.Cms.Web.Common.PublishedModels
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "11.2.0+cf1cd51")]
 		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
 		[ImplementPropertyType("circletDescription")]
-		public virtual global::Umbraco.Cms.Core.Strings.IHtmlEncodedString CircletDescription => this.Value<global::Umbraco.Cms.Core.Strings.IHtmlEncodedString>(_publishedValueFallback, "circletDescription");
+		public virtual global::Umbraco.Cms.Core.Models.Blocks.BlockListModel CircletDescription => this.Value<global::Umbraco.Cms.Core.Models.Blocks.BlockListModel>(_publishedValueFallback, "circletDescription");
 
 		///<summary>
 		/// Circlet Image
@@ -71,7 +71,7 @@ namespace Umbraco.Cms.Web.Common.PublishedModels
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "11.2.0+cf1cd51")]
 		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
 		[ImplementPropertyType("flowerDescription")]
-		public virtual global::Umbraco.Cms.Core.Strings.IHtmlEncodedString FlowerDescription => this.Value<global::Umbraco.Cms.Core.Strings.IHtmlEncodedString>(_publishedValueFallback, "flowerDescription");
+		public virtual global::Umbraco.Cms.Core.Models.Blocks.BlockListModel FlowerDescription => this.Value<global::Umbraco.Cms.Core.Models.Blocks.BlockListModel>(_publishedValueFallback, "flowerDescription");
 
 		///<summary>
 		/// Flower Image
@@ -87,7 +87,7 @@ namespace Umbraco.Cms.Web.Common.PublishedModels
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "11.2.0+cf1cd51")]
 		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
 		[ImplementPropertyType("gobletDescription")]
-		public virtual global::Umbraco.Cms.Core.Strings.IHtmlEncodedString GobletDescription => this.Value<global::Umbraco.Cms.Core.Strings.IHtmlEncodedString>(_publishedValueFallback, "gobletDescription");
+		public virtual global::Umbraco.Cms.Core.Models.Blocks.BlockListModel GobletDescription => this.Value<global::Umbraco.Cms.Core.Models.Blocks.BlockListModel>(_publishedValueFallback, "gobletDescription");
 
 		///<summary>
 		/// Goblet Image
@@ -103,7 +103,7 @@ namespace Umbraco.Cms.Web.Common.PublishedModels
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "11.2.0+cf1cd51")]
 		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
 		[ImplementPropertyType("plumeDescription")]
-		public virtual global::Umbraco.Cms.Core.Strings.IHtmlEncodedString PlumeDescription => this.Value<global::Umbraco.Cms.Core.Strings.IHtmlEncodedString>(_publishedValueFallback, "plumeDescription");
+		public virtual global::Umbraco.Cms.Core.Models.Blocks.BlockListModel PlumeDescription => this.Value<global::Umbraco.Cms.Core.Models.Blocks.BlockListModel>(_publishedValueFallback, "plumeDescription");
 
 		///<summary>
 		/// Plume Image
@@ -122,12 +122,20 @@ namespace Umbraco.Cms.Web.Common.PublishedModels
 		public virtual global::System.Collections.Generic.IEnumerable<string> Rarity => this.Value<global::System.Collections.Generic.IEnumerable<string>>(_publishedValueFallback, "rarity");
 
 		///<summary>
+		/// Region: Region to which artifact set belongs to
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "11.2.0+cf1cd51")]
+		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		[ImplementPropertyType("region")]
+		public virtual string Region => this.Value<string>(_publishedValueFallback, "region");
+
+		///<summary>
 		/// Sands Description
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "11.2.0+cf1cd51")]
 		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
 		[ImplementPropertyType("sandsDescription")]
-		public virtual global::Umbraco.Cms.Core.Strings.IHtmlEncodedString SandsDescription => this.Value<global::Umbraco.Cms.Core.Strings.IHtmlEncodedString>(_publishedValueFallback, "sandsDescription");
+		public virtual global::Umbraco.Cms.Core.Models.Blocks.BlockListModel SandsDescription => this.Value<global::Umbraco.Cms.Core.Models.Blocks.BlockListModel>(_publishedValueFallback, "sandsDescription");
 
 		///<summary>
 		/// Sands Image

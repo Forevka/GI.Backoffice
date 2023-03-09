@@ -1,0 +1,31 @@
+.select-center {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+@media (max-width: 991px) {
+    .select-center { margin-bottom: 10px; }
+}
+
+.multi-select .vscomp-toggle-button {
+    background-color: transparent;
+    border: 1px solid #313947;
+    border-radius: 4px;
+    color: #fff;
+    font-size: 1em;
+    font-weight: 400;
+    padding: 6.5px 10px;
+    transition: .15s border-color;
+}
+
+
+.multi-select .vscomp-toggle-button .vscomp-arrow {
+    background-color: #dd163b;
+    border-color: #a5102c;
+}
+
+.multi-select .vscomp-toggle-button .vscomp-arrow:hover {
+    background-color: #eb3154;
+    border-color: #ee526f;
+}

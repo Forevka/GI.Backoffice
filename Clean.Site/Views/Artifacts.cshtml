@@ -35,12 +35,12 @@
 
     <div class="row">
 
-        <div class="col-md-4">
-            <div id="region-select"></div>
+        <div class="col-md-4 select-center">
+            Регіон <div class="multi-select" id="region-select"></div>
         </div>
 
-        <div class="col-md-4">
-            <div id="rarity-select"></div>
+        <div class="col-md-4 select-center">
+            Якість <div class="multi-select" id="rarity-select"></div>
         </div>
 
         <div class="col-md-4">
@@ -63,7 +63,7 @@
             {
                 if (artifact == null) continue;
 
-                <li data-id="@artifact.Id">
+                <li data-id="@artifact.Id" data-rarity="@("[" + string.Join(", ", artifact.Rarity) + "]")" data-region="@artifact.Region">
                     <div class="nk-match">
                         <div class="nk-match-team-left">
                             <a href="@artifact.Url()">
@@ -144,12 +144,14 @@
                 </li>
             }
         </ul>
-        <div class="nk-info-box text-danger" id="artifact-set-list-nothing-found">
-            <div class="nk-info-box-icon">
-                <i class="ion-close-round"></i>
+        <div class="fullscreen">
+            <div class="nk-info-box text-danger" id="artifact-set-list-nothing-found">
+                <div class="nk-info-box-icon">
+                    <i class="ion-close-round"></i>
+                </div>
+                <h3>Уточни запит!</h3>
+                <em>Нажаль нічого не знайдено</em> 😔
             </div>
-            <h3>Уточни запит!</h3>
-            <em>Нажаль нічого не знайдено</em> 😔
         </div>
 </div>
 </div>
@@ -159,27 +161,49 @@
         var options = {
             valueNames: [
                 'nk-match-team-name',
-                { data: ['id'] },
+                { data: ['id', 'rarity', 'region'] },
             ],
             listClass: 'artifact-set-list',
         };
+        
+        var selectedRegion = [];
+        var selectedRarity = [];
 
         var userList = new List('artifacts', options);
         
         var nothingFoundElement = document.getElementById('artifact-set-list-nothing-found')
 
         userList.on('updated', function (list) {
-            console.log(list)
             if (list.matchingItems.length > 0) {
-                console.log(nothingFoundElement)
                 nothingFoundElement.classList.remove('show')
             } else {
-                console.log(nothingFoundElement)
                 nothingFoundElement.classList.add('show')
             }
         })
         
-        console.log(userList);
+        var filterArtifactList = () => {
+            userList.filter(function (item) {
+                var itemRarity = JSON.parse(item.values().rarity);
+                var itemRegion = item.values().region;
+
+                console.log('item rarity', itemRarity, 'selected rarity', selectedRarity, 'check', itemRarity.some(r => selectedRarity.indexOf(r) >= 0))
+                
+                console.log('item region', itemRegion, 'selected region', selectedRegion)
+                if (selectedRegion.indexOf(itemRegion) >= 0) {
+
+                    if (itemRarity.some(r => selectedRarity.indexOf(r) >= 0)) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+
+                } else {
+
+                    return false;
+
+                }
+            });
+        }
 
         document.getElementById('artifact-set-list-search').addEventListener("input", (event) => {
             var searchString = event.target.value;
@@ -191,29 +215,45 @@
             ele: '#region-select',
             multiple: true,
             placeholder: 'Вибери регіон',
+            searchPlaceholderText: 'Пошук',
             allOptionsSelectedText: 'Всі регіони',
-            selectedValue: [1, 2, 3, 4],
+            selectedValue: ['Мондштадт', 'Ліюе', 'Інадзума', 'Сумеру'],
             options: [
-                { label: 'Мондшадт', value: '1' },
-                { label: 'Ліюе', value: '2' },
-                { label: 'Інадзума', value: '3' },
-                { label: 'Сумеру', value: '4' },
+                { label: 'Мондштадт', value: 'Мондштадт' },
+                { label: 'Ліюе', value: 'Ліюе' },
+                { label: 'Інадзума', value: 'Інадзума' },
+                { label: 'Сумеру', value: 'Сумеру' },
             ],
         });
+
+        document.querySelector('#region-select').addEventListener('change', function () {
+            selectedRegion = this.value;
+
+            filterArtifactList()
+        });
+        
 
         VirtualSelect.init({
             ele: '#rarity-select',
             multiple: true,
             placeholder: 'Вибери якість',
+            searchPlaceholderText: 'Пошук',
             allOptionsSelectedText: 'Будь яка якість',
-            selectedValue: [1, 2, 3, 4],
+            selectedValue: [1, 2, 3, 4, 5],
             options: [
                 { label: '1*', value: '1' },
                 { label: '2*', value: '2' },
                 { label: '3*', value: '3' },
                 { label: '4*', value: '4' },
-                { label: '5*', value: '4' },
+                { label: '5*', value: '5' },
             ],
         });
+
+        document.querySelector('#rarity-select').addEventListener('change', function () {
+            selectedRarity = JSON.parse(JSON.stringify(this.value)).map(x => parseInt(x));
+
+            filterArtifactList()
+        });
     })
+
 </script>

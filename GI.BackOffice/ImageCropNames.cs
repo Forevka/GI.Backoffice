@@ -6,6 +6,7 @@ public static class ImageCropNamesConstants
     public static string Quadratic = "quadratic";
     public static string Preview = "preview";
     public static string FeaturedPreview = "featuredPreview";
+    public static string MainImage = "mainImage";
 
     public static string FromEnum(ImageCropName cropName)
     {
@@ -19,6 +20,8 @@ public static class ImageCropNamesConstants
                 return Thumb;
             case ImageCropName.FeaturedPreview:
                 return FeaturedPreview;
+            case ImageCropName.MainImage:
+                return MainImage;
         }
 
         return "";
@@ -28,8 +31,9 @@ public static class ImageCropNamesConstants
 public enum ImageCropName
 {
     Default,
-    Preview, // 500x300
-    Thumb, //120x120
-    Quadratic, //250x250
-    FeaturedPreview, //500x220
+    Preview, 
+    Thumb, 
+    Quadratic,
+    FeaturedPreview,
+    MainImage,
 }
