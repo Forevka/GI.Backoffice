@@ -6903,3 +6903,34 @@ div.nk-blog-grid > div.row > div.col-md-6 > div.nk-blog-post > .nk-post-text {
 .fullscreen:has(.nk-info-box.text-danger.show) {
     height: 40vh;
 }
+
+.artifact-set-card {
+    align-items: center;
+    background-color: #292e38;
+    border-radius: 4px;
+    padding: 10px;
+}
+
+.artifact-part-description {
+    display: flex;
+}
+
+.artifact-part-description-image {
+    display: flex;
+    justify-content: center;
+}
+.artifact-part-description-content {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+}
+
+@media (max-width: 991px) {
+    .artifact-set-card .nk-product-info-row.row.vertical-gap {
+         flex-direction: column;
+    }
+
+    .artifact-set-card .artifact-part-description {
+        flex-direction: column;
+    }
+}

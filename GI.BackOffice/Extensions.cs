@@ -6,7 +6,7 @@ namespace GI.BackOffice
 {
     public static class Extensions
     {
-        public static string CloudFrontUrl = "https://d3w0rb8zugh4tl.cloudfront.net/";
+        public static string CloudFrontUrl = "https://d3w0rb8zugh4tl.cloudfront.net";
         //fit-in/filters:quality(80)/filters:format(webp)/media/0zsbssxl/bg-top-4.png
 
         public static IOrderedEnumerable<IPublishedContent> Randomize(this IEnumerable<IPublishedContent> source)
@@ -59,7 +59,7 @@ namespace GI.BackOffice
 
         public static string? GetUrlWebp(this MediaWithCrops mediaWithCrops, int quality = 80)
         {
-            return CloudFrontUrl + $"fit-in/filters:quality({quality})/filters:format(webp)/" + mediaWithCrops.Url().Trim("/");
+            return CloudFrontUrl + $"/fit-in/filters:quality({quality})/filters:format(webp)/" + mediaWithCrops.Url().Trim("/");
         }
 
         public static double Percent(this double number, int percent)

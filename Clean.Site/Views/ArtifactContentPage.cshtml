@@ -5,12 +5,15 @@
 @using GI.BackOffice.Models.ViewModelsData
 @using Umbraco.Cms.Core.Models
 @using Clean.Site.Models.ViewData
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using System.Collections.Generic
 
 @{
     Layout = "Master.cshtml";
 }
 
 @{
+    var tabbedId = "tabbed-" + Model.Key;
     var homePage = Model.Ancestor<HomePage>();
 
     var topImage = homePage?.Value<MediaWithCrops<Image>>("topImage");
@@ -18,15 +21,209 @@
 
     <img class="nk-page-background-top" src="@topImage?.GetUrlWebp()" alt="">
     <img class="nk-page-background-bottom" src="@bottomImage?.GetUrlWebp()" alt="">
+
+
+    async Task RenderSetPartDescription(ArtifactSetPartData part, int indexTabBody)
+    {
+        <div role="tabpanel" class="tab-pane fade @(indexTabBody == 0 ? "show active" : "")" id="@(tabbedId + "-tab-" + indexTabBody)">
+            <div class="artifact-part-description">
+                <div class="artifact-part-description-image">
+                    <img src="@part.Image.GetUrlWebp()" alt="@part.PartName">
+                </div>
+                <div class="artifact-part-description-content">
+                    <div class="nk-gap"></div>
+
+                    @foreach (var block in part.Description)
+                    {
+                        if (block?.ContentUdi == null)
+                        {
+                            continue;
+                        }
+                        var data = block.Content;
+
+                        @await Html.PartialAsync("blocklist/Components/" + data.ContentType.Alias, block)
+
+                        <div class="nk-gap"></div>
+                        if (data.ContentType.Alias == "carouselRow")
+                        {
+                            // additional gap for carousel
+                            <div class="nk-gap"></div>
+                        }
+                    }
+
+                    <div class="nk-gap"></div>
+                </div>
+            </div>
+        </div>
+    }
+
+    List<ArtifactSetPartData> artifactSet = new List<ArtifactSetPartData>();
+
+    if (Model.FlowerImage != null)
+    {
+        artifactSet.Add(new ArtifactSetPartData
+        {
+            Description = Model.FlowerDescription,
+            Image = Model.FlowerImage,
+            PartName = "Flower",
+        });
+    }
+
+    if (Model.PlumeImage != null)
+    {
+        artifactSet.Add(new ArtifactSetPartData
+        {
+            Description = Model.PlumeDescription,
+            Image = Model.PlumeImage,
+            PartName = "Plume",
+        });
+    }
+
+    if (Model.GobletImage != null)
+    {
+        artifactSet.Add(new ArtifactSetPartData
+        {
+            Description = Model.GobletDescription,
+            Image = Model.GobletImage,
+            PartName = "Goblet",
+        });
+    }
+
+    if (Model.SandsImage != null)
+    {
+        artifactSet.Add(new ArtifactSetPartData
+        {
+            Description = Model.SandsDescription,
+            Image = Model.SandsImage,
+            PartName = "Sands",
+        });
+    }
+
+    if (Model.CircletImage != null)
+    {
+        artifactSet.Add(new ArtifactSetPartData
+        {
+            Description = Model.CircletDescription,
+            Image = Model.CircletImage,
+            PartName = "Circlet",
+        });
+    }
+
 }
 
 <!-- Main Content-->
-<div class="nk-gap-1"></div>
-
 <div class="container">
+    <div class="nk-gap-1"></div>
+
     @await Html.PartialAsync("~/Views/Partials/breadcrumb.cshtml", BreadcrumbViewData.FormHistory(Model))
-    <div class="row vertical-gap">
-        @Model.SetName
+    <div class="row vertical-gap" style="margin-right: 0;
+                                         margin-left: 0;">
+        <div class="nk-gap-1"></div>
+        <!-- START: Tabs  -->
+        <div class="artifact-set-card">
+            <div class="nk-tabs" id="@tabbedId">
+
+                <ul class="nav nav-tabs nav-tabs-fill" role="tablist">
+                    @{
+                        var indexTabHead = 0;
+
+                        if (Model.FlowerImage != null)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link @(indexTabHead == 0 ? "active" : "")" href="#@(tabbedId + "-tab-" + indexTabHead)" role="tab" data-toggle="tab">Квітка</a>
+                            </li>
+                            indexTabHead++;
+                        }
+
+                        if (Model.PlumeImage != null)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link @(indexTabHead == 0 ? "active" : "")" href="#@(tabbedId + "-tab-" + indexTabHead)" role="tab" data-toggle="tab">Перо</a>
+                            </li>
+                            indexTabHead++;
+                        }
+
+                        if (Model.SandsImage != null)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link @(indexTabHead == 0 ? "active" : "")" href="#@(tabbedId + "-tab-" + indexTabHead)" role="tab" data-toggle="tab">Годинник</a>
+                            </li>
+                            indexTabHead++;
+                        }
+
+                        if (Model.GobletImage != null)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link @(indexTabHead == 0 ? "active" : "")" href="#@(tabbedId + "-tab-" + indexTabHead)" role="tab" data-toggle="tab">Кубок</a>
+                            </li>
+                            indexTabHead++;
+                        }
+
+                        if (Model.CircletImage != null)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link @(indexTabHead == 0 ? "active" : "")" href="#@(tabbedId + "-tab-" + indexTabHead)" role="tab" data-toggle="tab">Корона</a>
+                            </li>
+                            indexTabHead++;
+                        }
+                    }
+                </ul>
+                <!--
+                Additional Classes:
+                .nav-tabs-fill
+                -->
+                <div class="tab-content">
+                    @{
+                        var indexTabBody = 0;
+
+                        foreach (var part in artifactSet)
+                        {
+                            await RenderSetPartDescription(part, indexTabBody);
+                            indexTabBody++;
+                        }
+
+                    }
+                </div>
+            </div>
+            <!-- END: Tabs -->
+            <div class="nk-product-info-row row vertical-gap" style="margin-right: 0;
+                                                                     margin-left: 0;">
+                <div class="col-md" style="display: flex;
+                                             align-items: center;
+                                             justify-content: center;
+                                             flex-direction: column;">
+                    Якість
+                    <div class="nk-product-rating">
+                        <span class="nk-product-rating-front">
+                            <i class="fa fa-star" style="@(Model.Rarity!.All(x => x != "1") ? "visibility: hidden;" : "")"></i>
+                            <i class="fa fa-star" style="@(Model.Rarity!.All(x => x != "2") ? "visibility: hidden;" : "")"></i>
+                            <i class="fa fa-star" style="@(Model.Rarity!.All(x => x != "3") ? "visibility: hidden;" : "")"></i>
+                            <i class="fa fa-star" style="@(Model.Rarity!.All(x => x != "4") ? "visibility: hidden;" : "")"></i>
+                            <i class="fa fa-star" style="@(Model.Rarity!.All(x => x != "5") ? "visibility: hidden;" : "")"></i>
+                        </span>
+                        <span class="nk-product-rating-back">
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-md" style="">
+                    <div class="nk-gap"></div>
+                    <b>
+                        Бонус 2х шматків:
+                    </b> @Model.SetBonusTwoPieces
+                    <div class="nk-gap"></div>
+                    <b>
+                        Бонус 4х шматків:
+                    </b> @Model.SetBonusFourPieces
+                    <div class="nk-gap"></div>
+                </div>
+            </div>
+        </div>
+        <div class="nk-gap-1"></div>
     </div>
 
 </div>

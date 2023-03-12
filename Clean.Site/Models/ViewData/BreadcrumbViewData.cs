@@ -27,11 +27,22 @@ public class BreadcrumbViewData
         }
         else
         {
-            parentHistory.Add(new()
+            if (model is ArtifactContentPage artifact)
             {
-                Title = (model as IPageProperties).PageName,
-                Url = model.Url(),
-            });
+                parentHistory.Add(new()
+                {
+                    Title = artifact.SetName,
+                    Url = model.Url(),
+                });
+            }
+            else
+            {
+                parentHistory.Add(new()
+                {
+                    Title = (model as IPageProperties).PageName,
+                    Url = model.Url(),
+                });
+            }
         }
 
         var parent = model.Parent;
